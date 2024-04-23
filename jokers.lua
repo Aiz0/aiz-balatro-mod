@@ -150,7 +150,42 @@ function SMODS.INIT.JAIZ()
 				}
 			end
 		end
+		local joker_shark = SMODS.Joker:new("Aiz Blåhaj", "aiz_blåhaj", { extra = { j_slots = 1 } },
+			nil,
+			{
+				name = "Blåhaj",
+				text = {
+					"A soft toy shark",
+					"{C:dark_edition}+#1#{} Joker slots"
+				}
+			}, 1, 4)
+
+		joker_shark:register()
 	end
+	SMODS.Jokers.j_aiz_blåhaj.loc_def = function(card)
+		return { card.ability.extra.j_slots }
+	end
+end
+
+-- Handle card addition/removing
+local add_to_deckref = Card.add_to_deck
+function Card:add_to_deck(from_debuff)
+	if not self.added_to_deck then
+		if self.ability.name == "Aiz Blåhaj" then
+			G.jokers.config.card_limit = G.jokers.config.card_limit + self.ability.extra.j_slots
+		end
+	end
+	add_to_deckref(self, from_debuff)
+end
+
+local remove_from_deckref = Card.remove_from_deck
+function Card:remove_from_deck(from_debuff)
+	if self.added_to_deck then
+		if self.ability.name == "Aiz Blåhaj" then
+			G.jokers.config.card_limit = G.jokers.config.card_limit - self.ability.extra.j_slots
+		end
+	end
+	remove_from_deckref(self, from_debuff)
 end
 
 ----------------------------------------------
