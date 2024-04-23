@@ -79,6 +79,36 @@ function SMODS.INIT.JAIZ()
 				}
 			end
 		end
+		local joker_loud = SMODS.Joker:new("Loud Joker", "loud", {},
+			nil,
+			{
+				name = "Loud joker",
+				text = {
+					"Gives {,C:chips}Chips{} equal to volume ",
+					"{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)",
+				}
+			}, 1, 4)
+		joker_loud:register()
+		local function joker_loud_chips()
+			return math.floor((G.SETTINGS.SOUND.music_volume + G.SETTINGS.SOUND.game_sounds_volume) *
+				G.SETTINGS.SOUND.volume / 100)
+		end
+
+		SMODS.Jokers.j_loud.loc_def = function(card)
+			return { joker_loud_chips() }
+		end
+
+
+		SMODS.Jokers.j_loud.calculate = function(card, context)
+			if SMODS.end_calculate_context(context) then
+				return {
+					chips_mod = joker_loud_chips(),
+					card = card,
+					colour = G.C.chips,
+					message = localize { type = 'variable', key = 'a_chips', vars = { joker_loud_chips() } }
+				}
+			end
+		end
 	end
 end
 
