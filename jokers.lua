@@ -102,9 +102,8 @@ function SMODS.INIT.JAIZ()
 		SMODS.Jokers.j_loud.calculate = function(card, context)
 			if SMODS.end_calculate_context(context) then
 				return {
-					chips_mod = joker_loud_chips(),
+					chip_mod = joker_loud_chips(),
 					card = card,
-					colour = G.C.chips,
 					message = localize { type = 'variable', key = 'a_chips', vars = { joker_loud_chips() } }
 				}
 			end
@@ -123,8 +122,10 @@ function SMODS.INIT.JAIZ()
 				}
 			}, 1, 4)
 		joker_easy_mode:register()
+
 		local function joker_easy_mode_mult()
 			local mult = 0
+			-- Add mult for every white sticker on a joker
 			for _, v in pairs(G.P_CENTERS) do
 				if v.set == 'Joker' then
 					if get_joker_win_sticker(v, false) == "White" then
@@ -143,9 +144,8 @@ function SMODS.INIT.JAIZ()
 		SMODS.Jokers.j_easy_mode.calculate = function(card, context)
 			if SMODS.end_calculate_context(context) then
 				return {
-					chips_mod = joker_easy_mode_mult(),
+					mult_mod = joker_easy_mode_mult(),
 					card = card,
-					colour = G.C.mult,
 					message = localize { type = 'variable', key = 'a_mult', vars = { joker_easy_mode_mult() } }
 				}
 			end
