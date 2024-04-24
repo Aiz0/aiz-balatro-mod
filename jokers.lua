@@ -110,6 +110,112 @@ function Jokers()
 			end
 		end
 	end
+
+	if config.loudspeaker then
+		-- Loudspeaker
+		-- Gives Chips based on Audio volume
+
+		-- Create Joker
+		local loudspeaker = {
+			loc = {
+				name = "Loudspeaker",
+				text = {
+					"Gives {C:chips}Chips{} based ",
+					"on {C:attention}Audio volume{}",
+					"{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)",
+				}
+			},
+			ability_name = "AIZ Loudspeaker",
+			slug = "aiz_loudspeaker",
+			ability = {
+				extra = {
+
+				}
+			},
+			rarity = 1,
+			cost = 4,
+			unlocked = true,
+			discovered = true,
+			blueprint_compat = true,
+			eternal_compat = true,
+		}
+		-- Initialize Joker
+		init_joker(loudspeaker, true)
+
+		-- custom function
+		local function get_loudspeaker_chips()
+			return math.floor((G.SETTINGS.SOUND.music_volume + G.SETTINGS.SOUND.game_sounds_volume) *
+				G.SETTINGS.SOUND.volume / 100)
+		end
+
+		-- Set local variables
+		SMODS.Jokers.j_aiz_loudspeaker.loc_def = function(card)
+			return { get_loudspeaker_chips() }
+		end
+
+		-- Calculate
+		SMODS.Jokers.j_aiz_loudspeaker.calculate = function(card, context)
+			if SMODS.end_calculate_context(context) then
+				return {
+					message = localize {
+						type = 'variable',
+						key = 'a_chips',
+						vars = { get_loudspeaker_chips() }
+					},
+					chip_mod = get_loudspeaker_chips(),
+				}
+			end
+		end
+	end
+
+	-- if config. then
+	-- 	--
+	-- 	--
+
+	-- 	-- Create Joker
+	-- 	local temp = {
+	-- 		loc = {
+	-- 			name = "",
+	-- 			text = {
+	-- 				"",
+	-- 			}
+	-- 		},
+	-- 		ability_name = "AIZ ",
+	-- 		slug = "aiz_",
+	-- 		ability = {
+	-- 			extra = {
+
+	-- 			}
+	-- 		},
+	-- 		rarity = 1,
+	-- 		cost = 4,
+	-- 		unlocked = true,
+	-- 		discovered = true,
+	-- 		blueprint_compat = true,
+	-- 		eternal_compat = true,
+	-- 	}
+	-- 	-- Initialize Joker
+	-- 	init_joker(temp, true)
+
+	-- 	-- Set local variables
+	-- 	SMODS.Jokers.j_aiz_.loc_def = function(card)
+	-- 		return { card.ability.extra }
+	-- 	end
+
+	-- 	-- Calculate
+	-- 	SMODS.Jokers.j_aiz_.calculate = function(card, context)
+	-- 		if SMODS.end_calculate_context(context) then
+	-- 			return {
+	-- 				message = localize {
+	-- 					type = 'variable',
+	-- 					key = 'a_xmult',
+	-- 					vars = {  }
+	-- 				},
+	-- 				Xmult_mod = ,
+	-- 			}
+	-- 		end
+	-- 	end
+	-- end
 end
 
 function SMODS.INIT.JAIZ()
@@ -160,39 +266,6 @@ function SMODS.INIT.JAIZ()
 				}
 			end
 		end
-
-
-
-		local joker_loud = SMODS.Joker:new("Loud Joker", "loud", {},
-			nil,
-			{
-				name = "Loud joker",
-				text = {
-					"Gives {C:chips}Chips{} equal to volume ",
-					"{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)",
-				}
-			}, 1, 4)
-		joker_loud:register()
-		local function joker_loud_chips()
-			return math.floor((G.SETTINGS.SOUND.music_volume + G.SETTINGS.SOUND.game_sounds_volume) *
-				G.SETTINGS.SOUND.volume / 100)
-		end
-
-		SMODS.Jokers.j_loud.loc_def = function(card)
-			return { joker_loud_chips() }
-		end
-
-
-		SMODS.Jokers.j_loud.calculate = function(card, context)
-			if SMODS.end_calculate_context(context) then
-				return {
-					chip_mod = joker_loud_chips(),
-					card = card,
-					message = localize { type = 'variable', key = 'a_chips', vars = { joker_loud_chips() } }
-				}
-			end
-		end
-
 
 		local joker_easy_mode = SMODS.Joker:new("Easy mode", "easy_mode", {},
 			nil,
