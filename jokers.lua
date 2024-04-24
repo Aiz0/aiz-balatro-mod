@@ -272,6 +272,45 @@ function Jokers()
 			return { card.ability.extra.j_slots }
 		end
 	end
+
+	if config.antiBubzia then
+		-- AntiBubzia
+		-- Sets chips and mult to 0
+		-- if negative, squares chips and mult
+
+		-- Create Joker
+		local antibubzia = {
+			loc = {
+				name = "AntiBubzia",
+				text = {
+					"Plays the exact",
+					"same hand backwards",
+					"to cancel out",
+					"your score every time",
+				}
+			},
+			ability_name = "AIZ AntiBubzia",
+			slug = "aiz_antibubzia",
+			ability = {
+				extra = {
+
+				}
+			},
+			rarity = 3,
+			cost = 10,
+			unlocked = true,
+			discovered = true,
+			blueprint_compat = false,
+			eternal_compat = true,
+		}
+		-- Initialize Joker
+		init_joker(antibubzia, true)
+
+		-- Set local variables
+		SMODS.Jokers.j_aiz_antibubzia.loc_def = function(card)
+			return {}
+		end
+	end
 	-- if config. then
 	-- 	--
 	-- 	--
@@ -370,19 +409,6 @@ function SMODS.INIT.JAIZ()
 				}
 			end
 		end
-
-		local joker_antibubzia = SMODS.Joker:new("Aiz AntiBubzia", "aiz_antibubzia", { extra = { Xmult = 4 } },
-			{ x = 0, y = 0 },
-			{
-				name = "AntiBubzia",
-				text = {
-					"Plays the exact",
-					"same hand backwards",
-					"to cancel out",
-					"your score every time",
-				}
-			}, 1, 4)
-		joker_antibubzia:register()
 	end
 end
 
@@ -407,6 +433,8 @@ function Card:remove_from_deck(from_debuff)
 	remove_from_deckref(self, from_debuff)
 end
 
+-- Handle Deck trigger effect
+-- Used for final scoring step with some jokers
 local back_trigger_effectref = Back.trigger_effect
 function Back:trigger_effect(args)
 	back_trigger_effectref(self, args)
@@ -416,11 +444,13 @@ function Back:trigger_effect(args)
 			if card.ability.name == "Aiz AntiBubzia" then
 				if card.edition and card.edition.negative then
 					args.mult = args.mult * args.mult
+					args.chips = args.chips * args.chips
 				else
 					args.mult = 0
 					args.chips = 0
 				end
 				update_hand_text({ delay = 0 }, { mult = args.mult, chips = args.chips })
+				--TODO ADD COOL EFFECT HERE
 				delay(0.5)
 			end
 		end
