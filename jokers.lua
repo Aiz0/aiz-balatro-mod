@@ -168,6 +168,74 @@ function Jokers()
 		end
 	end
 
+	if config.easyMode then
+		-- Get +mult for each joker with a specific stake sticker
+		-- sticker has to be that specific type.
+
+		-- Create Joker
+		local easyMode = {
+			loc = {
+				name = "Easy Mode",
+				text = {
+					"Gives {C:mult}+1 mult{} for",
+					"every 2 jokers with ",
+					"{C:attention}White stickers{} in your collection",
+					"{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
+				}
+			},
+			ability_name = "AIZ Easy Mode",
+			slug = "aiz_",
+			ability = {
+				extra = {
+					mult_mod = 0.5,
+					sticker = "White"
+				}
+			},
+			rarity = 1,
+			cost = 4,
+			unlocked = true,
+			discovered = true,
+			blueprint_compat = true,
+			eternal_compat = true,
+		}
+		-- Initialize Joker
+		init_joker(easyMode, true)
+
+		local function get_easy_mode_mult(card)
+			local mult = 0
+			-- Add mult for every white sticker on a joker
+			for _, v in pairs(G.P_CENTERS) do
+				if v.set == 'Joker' then
+					if get_joker_win_sticker(v, false) == card.ability.extra.sticker then
+						mult = mult + card.ability.extra.mult_mod
+					end
+				end
+			end
+			return math.floor(mult)
+		end
+
+
+		-- Set local variables
+		SMODS.Jokers.j_aiz_easy_mode.loc_def = function(card)
+			return { get_easy_mode_mult(card) }
+		end
+
+		-- Calculate
+		SMODS.Jokers.j_aiz_easy_mode.calculate = function(card, context)
+			if SMODS.end_calculate_context(context) then
+				local mult_mod = get_easy_mode_mult(card)
+				return {
+					message = localize {
+						type = 'variable',
+						key = 'a_mult',
+						vars = { mult_mod }
+					},
+					mult_mod = mult_mod,
+				}
+			end
+		end
+	end
+
 	-- if config. then
 	-- 	--
 	-- 	--
@@ -263,47 +331,6 @@ function SMODS.INIT.JAIZ()
 					card = card,
 					colour = G.C.mult,
 					message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.Xmult } }
-				}
-			end
-		end
-
-		local joker_easy_mode = SMODS.Joker:new("Easy mode", "easy_mode", {},
-			nil,
-			{
-				name = "Easy mode",
-				text = {
-					"Gives {C:mult}+1 mult{} for",
-					"every 2 jokers with ",
-					"{C:attention}White stickers{} in your collection",
-					"{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
-				}
-			}, 1, 4)
-		joker_easy_mode:register()
-
-		local function joker_easy_mode_mult()
-			local mult = 0
-			-- Add mult for every white sticker on a joker
-			for _, v in pairs(G.P_CENTERS) do
-				if v.set == 'Joker' then
-					if get_joker_win_sticker(v, false) == "White" then
-						mult = mult + 0.5
-					end
-				end
-			end
-			return math.floor(mult)
-		end
-
-		SMODS.Jokers.j_easy_mode.loc_def = function(card)
-			return { joker_easy_mode_mult() }
-		end
-
-
-		SMODS.Jokers.j_easy_mode.calculate = function(card, context)
-			if SMODS.end_calculate_context(context) then
-				return {
-					mult_mod = joker_easy_mode_mult(),
-					card = card,
-					message = localize { type = 'variable', key = 'a_mult', vars = { joker_easy_mode_mult() } }
 				}
 			end
 		end
