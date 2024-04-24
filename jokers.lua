@@ -150,6 +150,20 @@ function SMODS.INIT.JAIZ()
 				}
 			end
 		end
+
+		local joker_antibubzia = SMODS.Joker:new("Aiz AntiBubzia", "aiz_antibubzia", { extra = { Xmult = 4 } },
+			{ x = 0, y = 0 },
+			{
+				name = "AntiBubzia",
+				text = {
+					"Plays the exact",
+					"same hand backwards",
+					"to cancel out",
+					"your score every time",
+				}
+			}, 1, 4)
+		joker_antibubzia:register()
+
 		local joker_shark = SMODS.Joker:new("Aiz Blåhaj", "aiz_blåhaj", { extra = { j_slots = 1 } },
 			nil,
 			{
@@ -186,6 +200,27 @@ function Card:remove_from_deck(from_debuff)
 		end
 	end
 	remove_from_deckref(self, from_debuff)
+end
+
+local back_trigger_effectref = Back.trigger_effect
+function Back:trigger_effect(args)
+	back_trigger_effectref(self, args)
+	if args.context == 'final_scoring_step' then
+		for i = 1, #G.jokers.cards do
+			local card = G.jokers.cards[i]
+			if card.ability.name == "Aiz AntiBubzia" then
+				if card.edition and card.edition.negative then
+					args.mult = args.mult * args.mult
+				else
+					args.mult = 0
+					args.chips = 0
+				end
+				update_hand_text({ delay = 0 }, { mult = args.mult, chips = args.chips })
+				delay(0.5)
+			end
+		end
+	end
+	return args.chips, args.mult
 end
 
 ----------------------------------------------
