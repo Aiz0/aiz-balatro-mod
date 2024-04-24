@@ -277,6 +277,7 @@ function Jokers()
 		-- AntiBubzia
 		-- Sets chips and mult to 0
 		-- if negative, squares chips and mult
+		-- Has code in Back:trigger_effect
 
 		-- Create Joker
 		local antibubzia = {
