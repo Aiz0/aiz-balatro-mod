@@ -7,8 +7,117 @@
 ----------------------------------------------
 ------------MOD CODE -------------------------
 
+-- Config: DISABLE UNWANTED MODS HERE
+local config = {
+	-- Categories
+	allEnabled = true,
+	jokersEnabled = true,
+	-- Jokers
+	backwardsLongJump = true,
+	chillJoker = true,
+	loudspeaker = true,
+	easyMode = true,
+	antiBubzia = true,
+	blåhaj = true,
+}
+
+-- Helper functions
+-- Copied from Mikas Mod Collection
+-- https://github.com/MikaSchoenmakers/MikasBalatro/tree/main
+
+local function init_joker(joker, no_sprite)
+	no_sprite = no_sprite or false
+
+	local new_joker = SMODS.Joker:new(
+		joker.ability_name,
+		joker.slug,
+		joker.ability,
+		{ x = 0, y = 0 },
+		joker.loc,
+		joker.rarity,
+		joker.cost,
+		joker.unlocked,
+		joker.discovered,
+		joker.blueprint_compat,
+		joker.eternal_compat,
+		joker.effect,
+		joker.atlas,
+		joker.soul_pos
+	)
+	new_joker:register()
+
+	if not no_sprite then
+		local sprite = SMODS.Sprite:new(
+			new_joker.slug,
+			SMODS.findModByID("MikasMods").path,
+			new_joker.slug .. ".png",
+			71,
+			95,
+			"asset_atli"
+		)
+		sprite:register()
+	end
+end
+
+
+function Jokers()
+	if config.chillJoker then
+		-- Chill Joker
+		-- Gives Xmult based on gamespeed
+
+		-- Create Joker
+		local chill_joker = {
+			loc = {
+				name = "Chill Joker",
+				text = {
+					"{X:mult,C:white}X#1#{} divided by game speed",
+					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
+				}
+			},
+			ability_name = "AIZ Chill Joker",
+			slug = "aiz_chill",
+			ability = {
+				extra = {
+					Xmult = 4
+				}
+			},
+			rarity = 1,
+			cost = 4,
+			unlocked = true,
+			discovered = true,
+			blueprint_compat = true,
+			eternal_compat = true,
+		}
+		-- Initialize Joker
+		init_joker(chill_joker, true)
+
+		-- Set local variables
+		SMODS.Jokers.j_aiz_chill.loc_def = function(card)
+			return { card.ability.extra.Xmult, card.ability.extra.Xmult / G.SETTINGS.GAMESPEED }
+		end
+
+		-- Calculate
+		SMODS.Jokers.j_aiz_chill.calculate = function(card, context)
+			if SMODS.end_calculate_context(context) then
+				-- Get current gamespeed and give Xmult based on that
+				local Xmult = card.ability.extra.Xmult / G.SETTINGS.GAMESPEED
+				return {
+					message = localize {
+						type = 'variable', key = 'a_xmult', vars = { Xmult }
+					},
+					Xmult_mod = Xmult,
+				}
+			end
+		end
+	end
+end
 
 function SMODS.INIT.JAIZ()
+	if config.allEnabled then
+		if config.jokersEnabled then Jokers() end
+	end
+
+
 	local enabled = true
 	if enabled then
 		-- SMODS.Joker:new(name, slug, config, spritePos, loc_txt, rarity, cost, unlocked, discovered, blueprint_compat, eternal_compat)
@@ -53,32 +162,7 @@ function SMODS.INIT.JAIZ()
 		end
 
 
-		local joker_chill = SMODS.Joker:new("Chill Joker", "chill", { extra = { Xmult = 4 } },
-			{ x = 0, y = 0 },
-			{
-				name = "Chill joker",
-				text = {
-					"{X:mult,C:white}X#1#{} divided by game speed",
-					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
-				}
-			}, 1, 4)
-		SMODS.Sprite:new("j_chill", SMODS.findModByID("JAIZ").path, "j_aha.png", 71, 95, "asset_atli"):register();
-		joker_chill:register()
 
-		SMODS.Jokers.j_chill.loc_def = function(card)
-			return { card.ability.extra.Xmult, card.ability.extra.Xmult / G.SETTINGS.GAMESPEED }
-		end
-		SMODS.Jokers.j_chill.calculate = function(card, context)
-			if SMODS.end_calculate_context(context) then
-				local Xmult = card.ability.extra.Xmult / G.SETTINGS.GAMESPEED
-				return {
-					Xmult_mod = Xmult,
-					card = card,
-					colour = G.C.mult,
-					message = localize { type = 'variable', key = 'a_xmult', vars = { Xmult } }
-				}
-			end
-		end
 		local joker_loud = SMODS.Joker:new("Loud Joker", "loud", {},
 			nil,
 			{
