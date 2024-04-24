@@ -236,6 +236,42 @@ function Jokers()
 		end
 	end
 
+	if config.blåhaj then
+		-- Blåhaj
+		-- Does nothing by itself since it just gives +1 joker slot
+		-- Has code in Card:add_to_deck & Card:remove_from_deck
+
+		-- Create Joker
+		local blåhaj = {
+			loc = {
+				name = "Blåhaj",
+				text = {
+					"A soft toy shark",
+					"{C:dark_edition}+#1#{} Joker slots"
+				}
+			},
+			ability_name = "AIZ Blåhaj",
+			slug = "aiz_blåhaj",
+			ability = {
+				extra = {
+					j_slots = 1
+				}
+			},
+			rarity = 1,
+			cost = 1,
+			unlocked = true,
+			discovered = true,
+			blueprint_compat = false,
+			eternal_compat = true,
+		}
+		-- Initialize Joker
+		init_joker(blåhaj, true)
+
+		-- Set local variables
+		SMODS.Jokers.j_aiz_blåhaj.loc_def = function(card)
+			return { card.ability.extra.j_slots }
+		end
+	end
 	-- if config. then
 	-- 	--
 	-- 	--
@@ -347,21 +383,6 @@ function SMODS.INIT.JAIZ()
 				}
 			}, 1, 4)
 		joker_antibubzia:register()
-
-		local joker_shark = SMODS.Joker:new("Aiz Blåhaj", "aiz_blåhaj", { extra = { j_slots = 1 } },
-			nil,
-			{
-				name = "Blåhaj",
-				text = {
-					"A soft toy shark",
-					"{C:dark_edition}+#1#{} Joker slots"
-				}
-			}, 1, 4)
-
-		joker_shark:register()
-	end
-	SMODS.Jokers.j_aiz_blåhaj.loc_def = function(card)
-		return { card.ability.extra.j_slots }
 	end
 end
 
