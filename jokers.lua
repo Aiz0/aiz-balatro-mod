@@ -74,7 +74,7 @@ function Jokers()
 					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
 				}
 			},
-			ability_name = "AIZ Chill Joker",
+			ability_name = "Aiz Chill Joker",
 			slug = "aiz_chill",
 			ability = {
 				extra = {
@@ -125,7 +125,7 @@ function Jokers()
 					"{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)",
 				}
 			},
-			ability_name = "AIZ Loudspeaker",
+			ability_name = "Aiz Loudspeaker",
 			slug = "aiz_loudspeaker",
 			ability = {
 				extra = {
@@ -183,7 +183,7 @@ function Jokers()
 					"{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
 				}
 			},
-			ability_name = "AIZ Easy Mode",
+			ability_name = "Aiz Easy Mode",
 			slug = "aiz_easy_mode",
 			ability = {
 				extra = {
@@ -250,7 +250,7 @@ function Jokers()
 					"{C:dark_edition}+#1#{} Joker slots"
 				}
 			},
-			ability_name = "AIZ Blåhaj",
+			ability_name = "Aiz Blåhaj",
 			slug = "aiz_blåhaj",
 			ability = {
 				extra = {
@@ -290,7 +290,7 @@ function Jokers()
 					"your score every time",
 				}
 			},
-			ability_name = "AIZ AntiBubzia",
+			ability_name = "Aiz AntiBubzia",
 			slug = "aiz_antibubzia",
 			ability = {
 				extra = {
@@ -327,7 +327,7 @@ function Jokers()
 					"{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)",
 				}
 			},
-			ability_name = "AIZ Backwards Long Jump",
+			ability_name = "Aiz Backwards Long Jump",
 			slug = "aiz_blj",
 			ability = {
 				extra = {
@@ -379,7 +379,7 @@ function Jokers()
 					"{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)",
 				}
 			},
-			ability_name = "AIZ Backwards Long Jump",
+			ability_name = "Aiz Backwards Long Jump",
 			slug = "aiz_blj",
 			ability = {
 				extra = {
