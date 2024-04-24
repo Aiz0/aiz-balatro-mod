@@ -184,7 +184,7 @@ function Jokers()
 				}
 			},
 			ability_name = "AIZ Easy Mode",
-			slug = "aiz_",
+			slug = "aiz_easy_mode",
 			ability = {
 				extra = {
 					mult_mod = 0.5,
@@ -364,55 +364,58 @@ function Jokers()
 			end
 		end
 	end
+	if config.backwardsLongJump then
+		-- Backwards Long Jump (BLJ)
+		-- Gain mult on trigger reset after scored
+		-- TODO implement the code for this. seems kinda hard
 
-	-- if config. then
-	-- 	--
-	-- 	--
+		-- Create Joker
+		local blj = {
+			loc = {
+				name = "BLJ",
+				text = {
+					"This Joker gains {X:mult,C:white}X#2#{} Mult if",
+					"a card is triggered during scoring",
+					"{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)",
+				}
+			},
+			ability_name = "AIZ Backwards Long Jump",
+			slug = "aiz_blj",
+			ability = {
+				extra = {
+					Xmult = 1,
+					Xmult_mod = 0.1,
+				}
+			},
+			rarity = 4,
+			cost = 15,
+			unlocked = true,
+			discovered = true,
+			blueprint_compat = false,
+			eternal_compat = true,
+		}
+		-- Initialize Joker
+		init_joker(blj, true)
 
-	-- 	-- Create Joker
-	-- 	local temp = {
-	-- 		loc = {
-	-- 			name = "",
-	-- 			text = {
-	-- 				"",
-	-- 			}
-	-- 		},
-	-- 		ability_name = "AIZ ",
-	-- 		slug = "aiz_",
-	-- 		ability = {
-	-- 			extra = {
+		-- Set local variables
+		SMODS.Jokers.j_aiz_blj.loc_def = function(card)
+			return { card.ability.extra.Xmult_mod, card.ability.extra.Xmult }
+		end
 
-	-- 			}
-	-- 		},
-	-- 		rarity = 1,
-	-- 		cost = 4,
-	-- 		unlocked = true,
-	-- 		discovered = true,
-	-- 		blueprint_compat = true,
-	-- 		eternal_compat = true,
-	-- 	}
-	-- 	-- Initialize Joker
-	-- 	init_joker(temp, true)
-
-	-- 	-- Set local variables
-	-- 	SMODS.Jokers.j_aiz_.loc_def = function(card)
-	-- 		return { card.ability.extra }
-	-- 	end
-
-	-- 	-- Calculate
-	-- 	SMODS.Jokers.j_aiz_.calculate = function(card, context)
-	-- 		if SMODS.end_calculate_context(context) then
-	-- 			return {
-	-- 				message = localize {
-	-- 					type = 'variable',
-	-- 					key = 'a_xmult',
-	-- 					vars = {  }
-	-- 				},
-	-- 				Xmult_mod = ,
-	-- 			}
-	-- 		end
-	-- 	end
-	-- end
+		-- Calculate
+		SMODS.Jokers.j_aiz_blj.calculate = function(card, context)
+			if SMODS.end_calculate_context(context) and card.ability.extra > 1 then
+				return {
+					message = localize {
+						type = 'variable',
+						key = 'a_xmult',
+						vars = { card.ability.extra.Xmult }
+					},
+					Xmult_mod = card.ability.extra.Xmult,
+				}
+			end
+		end
+	end
 end
 
 function SMODS.INIT.JAIZ()
