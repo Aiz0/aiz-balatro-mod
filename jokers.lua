@@ -19,6 +19,7 @@ local config = {
 	easyMode = true,
 	antiBubzia = true,
 	blåhaj = true,
+	chess_pawn = true,
 }
 
 -- Helper functions
@@ -364,9 +365,102 @@ function Jokers()
 			end
 		end
 	end
+	if config.chess_pawn then
+		-- Chess pawn
+		-- After a few rounds it promotes to a different chess joker
+
+		-- Create Joker
+		local pawn = {
+			loc = {
+				name = "Pawn",
+				text = {
+					"Advances at end of round",
+					"Adds current rank to mult",
+					"{C:inactive}(Currently on rank {C:attention}#1#{C:inactive})"
+				}
+			},
+			ability_name = "Aiz Pawn",
+			slug = "aiz_pawn",
+			ability = {
+				extra = {
+					rank = 2,
+					promotion_rank = 8,
+				}
+			},
+			rarity = 1,
+			cost = 5,
+			unlocked = true,
+			discovered = true,
+			blueprint_compat = true,
+			eternal_compat = true,
+		}
+		-- Initialize Joker
+		init_joker(pawn, true)
+
+		-- Set local variables
+		SMODS.Jokers.j_aiz_pawn.loc_def = function(card)
+			return { card.ability.extra.rank, }
+		end
+
+		-- Calculate
+		SMODS.Jokers.j_aiz_pawn.calculate = function(card, context)
+			if SMODS.end_calculate_context(context) then
+				return {
+					message = localize {
+						type = 'variable',
+						key = 'a_mult',
+						vars = { card.ability.extra.rank }
+					},
+					mult_mod = card.ability.extra.rank,
+				}
+			end
+			-- should increment rank and show appropate message
+			if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+				-- This should simulate advancing 2 ranks on first move
+				local advances = (card.ability.extra.rank == 2) and 2 or 1
+				card.ability.extra.rank = card.ability.extra.rank + advances
+				if card.ability.extra.rank == card.ability.extra.promotion_rank then
+					-- shows that card is active by shaking it
+					card_eval_status_text(card, 'extra', nil, nil, nil, {
+						message = localize("k_aiz_promoted")
+					})
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							play_sound('tarot1')
+							card.T.r = -0.2
+							card:juice_up(0.3, 0.4)
+							card.states.drag.is = true
+							card.children.center.pinch.x = true
+							G.E_MANAGER:add_event(Event({
+								trigger = 'after',
+								delay = 0.3,
+								blockable = false,
+								func = function()
+									G.jokers:remove_card(card)
+									card:remove()
+									card = nil
+									return true;
+								end
+							}))
+							return true
+						end
+					}))
+				else
+					card_eval_status_text(card, 'extra', nil, nil, nil, {
+						message = localize("k_aiz_advance")
+					})
+				end
+			end
+		end
+	end
 end
 
 function SMODS.INIT.JAIZ()
+	-- Localization
+	G.localization.misc.dictionary.k_aiz_advance = "Advance!"
+	G.localization.misc.dictionary.k_aiz_promoted = "Promoted!"
+
+
 	if config.allEnabled then
 		if config.jokersEnabled then Jokers() end
 	end
