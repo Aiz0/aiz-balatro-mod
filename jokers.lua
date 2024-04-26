@@ -50,7 +50,7 @@ local function init_joker(joker, no_sprite)
 	if not no_sprite then
 		local sprite = SMODS.Sprite:new(
 			new_joker.slug,
-			SMODS.findModByID("MikasMods").path,
+			SMODS.findModByID("JAIZ").path,
 			new_joker.slug .. ".png",
 			71,
 			95,
@@ -395,7 +395,7 @@ function Jokers()
 			eternal_compat = true,
 		}
 		-- Initialize Joker
-		init_joker(pawn, true)
+		init_joker(pawn)
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_pawn.loc_def = function(card)
