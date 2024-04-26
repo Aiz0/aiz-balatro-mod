@@ -21,6 +21,10 @@ local config = {
 	blåhaj = true,
 	chess_pawn = true,
 	chess_knight = true,
+	chess_bishop = true,
+	chess_rook = true,
+	chess_queen = true,
+	chess_king = true,
 }
 
 -- Helper functions
@@ -385,7 +389,7 @@ function Jokers()
 			ability = {
 				extra = {
 					rank = 2,
-					promotion_rank = 8,
+					promotion_rank = 4,
 				}
 			},
 			rarity = 1,
@@ -425,6 +429,9 @@ function Jokers()
 					card_eval_status_text(card, 'extra', nil, nil, nil, {
 						message = localize("k_aiz_promoted")
 					})
+					local new_card = create_card('Joker', G.jokers, nil, nil, nil, nil, 'j_aiz_knight', nil)
+					new_card:add_to_deck()
+					G.jokers:emplace(new_card)
 					G.E_MANAGER:add_event(Event({
 						func = function()
 							play_sound('tarot1')
@@ -475,10 +482,10 @@ function Jokers()
 					mult = 20,
 				}
 			},
-			rarity = 1,
-			cost = 5,
+			rarity = 2,
+			cost = 6,
 			unlocked = true,
-			discovered = true,
+			discovered = false,
 			blueprint_compat = true,
 			eternal_compat = true,
 		}
@@ -492,6 +499,206 @@ function Jokers()
 
 		-- Calculate
 		SMODS.Jokers.j_aiz_knight.calculate = function(card, context)
+			if SMODS.end_calculate_context(context) then
+				return {
+					message = localize {
+						type = 'variable',
+						key = 'a_mult',
+						vars = { card.ability.extra.mult }
+					},
+					mult_mod = card.ability.extra.mult,
+				}
+			end
+		end
+	end
+	if config.chess_bishop then
+		-- Chess bishop
+		-- don't know effect yet
+
+		-- Create Joker
+		local bishop = {
+			loc = {
+				name = "Bishop",
+				text = {
+					"{C:mult}+#1#{} Mult",
+
+				}
+			},
+			ability_name = "Aiz Bishop",
+			slug = "aiz_bishop",
+			ability = {
+				extra = {
+					mult = 20,
+				}
+			},
+			rarity = 2,
+			cost = 6,
+			unlocked = true,
+			discovered = false,
+			blueprint_compat = true,
+			eternal_compat = true,
+		}
+		-- Initialize Joker
+		init_joker(bishop, true)
+
+		-- Set local variables
+		SMODS.Jokers.j_aiz_bishop.loc_def = function(card)
+			return { card.ability.extra.mult, }
+		end
+
+		-- Calculate
+		SMODS.Jokers.j_aiz_bishop.calculate = function(card, context)
+			if SMODS.end_calculate_context(context) then
+				return {
+					message = localize {
+						type = 'variable',
+						key = 'a_mult',
+						vars = { card.ability.extra.mult }
+					},
+					mult_mod = card.ability.extra.mult,
+				}
+			end
+		end
+	end
+	if config.chess_rook then
+		-- Chess rook
+		-- don't know effect yet
+		-- maybe something with straights
+
+		-- Create Joker
+		local rook = {
+			loc = {
+				name = "Rook",
+				text = {
+					"{C:mult}+#1#{} Mult",
+
+				}
+			},
+			ability_name = "Aiz Rook",
+			slug = "aiz_rook",
+			ability = {
+				extra = {
+					mult = 20,
+				}
+			},
+			rarity = 3,
+			cost = 8,
+			unlocked = true,
+			discovered = false,
+			blueprint_compat = true,
+			eternal_compat = true,
+		}
+		-- Initialize Joker
+		init_joker(rook, true)
+
+		-- Set local variables
+		SMODS.Jokers.j_aiz_rook.loc_def = function(card)
+			return { card.ability.extra.mult, }
+		end
+
+		-- Calculate
+		SMODS.Jokers.j_aiz_rook.calculate = function(card, context)
+			if SMODS.end_calculate_context(context) then
+				return {
+					message = localize {
+						type = 'variable',
+						key = 'a_mult',
+						vars = { card.ability.extra.mult }
+					},
+					mult_mod = card.ability.extra.mult,
+				}
+			end
+		end
+	end
+	if config.chess_queen then
+		-- Chess queen
+		-- don't know effect yet
+		-- probably something with queens or face cards.
+
+		-- Create Joker
+		local queen = {
+			loc = {
+				name = "Queen",
+				text = {
+					"{C:mult}+#1#{} Mult",
+
+				}
+			},
+			ability_name = "Aiz Queen",
+			slug = "aiz_queen",
+			ability = {
+				extra = {
+					mult = 20,
+				}
+			},
+			rarity = 3,
+			cost = 15,
+			unlocked = true,
+			discovered = false,
+			blueprint_compat = true,
+			eternal_compat = true,
+		}
+		-- Initialize Joker
+		init_joker(queen, true)
+
+		-- Set local variables
+		SMODS.Jokers.j_aiz_queen.loc_def = function(card)
+			return { card.ability.extra.mult, }
+		end
+
+		-- Calculate
+		SMODS.Jokers.j_aiz_queen.calculate = function(card, context)
+			if SMODS.end_calculate_context(context) then
+				return {
+					message = localize {
+						type = 'variable',
+						key = 'a_mult',
+						vars = { card.ability.extra.mult }
+					},
+					mult_mod = card.ability.extra.mult,
+				}
+			end
+		end
+	end
+	if config.chess_king then
+		-- Chess king
+		-- don't know effect yet
+		-- will make you lose if destroyed,
+		-- bonus based on amount of chess jokers.
+
+		-- Create Joker
+		local king = {
+			loc = {
+				name = "King",
+				text = {
+					"{C:mult}+#1#{} Mult",
+
+				}
+			},
+			ability_name = "Aiz King",
+			slug = "aiz_king",
+			ability = {
+				extra = {
+					mult = 20,
+				}
+			},
+			rarity = 4,
+			cost = 15,
+			unlocked = true,
+			discovered = false,
+			blueprint_compat = true,
+			eternal_compat = true,
+		}
+		-- Initialize Joker
+		init_joker(king, true)
+
+		-- Set local variables
+		SMODS.Jokers.j_aiz_king.loc_def = function(card)
+			return { card.ability.extra.mult, }
+		end
+
+		-- Calculate
+		SMODS.Jokers.j_aiz_king.calculate = function(card, context)
 			if SMODS.end_calculate_context(context) then
 				return {
 					message = localize {
