@@ -20,6 +20,7 @@ local config = {
 	antiBubzia = true,
 	blåhaj = true,
 	chess_pawn = true,
+	chess_knight = true,
 }
 
 -- Helper functions
@@ -450,6 +451,56 @@ function Jokers()
 						message = localize("k_aiz_advance")
 					})
 				end
+			end
+		end
+	end
+	if config.chess_knight then
+		-- Chess knight
+		-- should gives some kind of bonus based on dark/light suits.
+		-- switches dark/light every round
+
+		-- Create Joker
+		local knight = {
+			loc = {
+				name = "Knight",
+				text = {
+					"{C:mult}+#1#{} Mult",
+
+				}
+			},
+			ability_name = "Aiz Knight",
+			slug = "aiz_knight",
+			ability = {
+				extra = {
+					mult = 20,
+				}
+			},
+			rarity = 1,
+			cost = 5,
+			unlocked = true,
+			discovered = true,
+			blueprint_compat = true,
+			eternal_compat = true,
+		}
+		-- Initialize Joker
+		init_joker(knight, true)
+
+		-- Set local variables
+		SMODS.Jokers.j_aiz_knight.loc_def = function(card)
+			return { card.ability.extra.mult, }
+		end
+
+		-- Calculate
+		SMODS.Jokers.j_aiz_knight.calculate = function(card, context)
+			if SMODS.end_calculate_context(context) then
+				return {
+					message = localize {
+						type = 'variable',
+						key = 'a_mult',
+						vars = { card.ability.extra.mult }
+					},
+					mult_mod = card.ability.extra.mult,
+				}
 			end
 		end
 	end
