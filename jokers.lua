@@ -510,7 +510,7 @@ function Jokers()
 			eternal_compat = true,
 		}
 		-- Initialize Joker
-		init_joker(knight, true)
+		init_joker(knight)
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_knight.loc_def = function(card)
@@ -559,7 +559,7 @@ function Jokers()
 			eternal_compat = true,
 		}
 		-- Initialize Joker
-		init_joker(bishop, true)
+		init_joker(bishop)
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_bishop.loc_def = function(card)
@@ -609,7 +609,7 @@ function Jokers()
 			eternal_compat = true,
 		}
 		-- Initialize Joker
-		init_joker(rook, true)
+		init_joker(rook)
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_rook.loc_def = function(card)
@@ -659,7 +659,7 @@ function Jokers()
 			eternal_compat = true,
 		}
 		-- Initialize Joker
-		init_joker(queen, true)
+		init_joker(queen)
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_queen.loc_def = function(card)
@@ -708,9 +708,10 @@ function Jokers()
 			discovered = false,
 			blueprint_compat = true,
 			eternal_compat = true,
+			soul_pos = { x = 1, y = 0 }
 		}
 		-- Initialize Joker
-		init_joker(king, true)
+		init_joker(king)
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_king.loc_def = function(card)
