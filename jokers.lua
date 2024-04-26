@@ -407,6 +407,25 @@ function Jokers()
 			return { card.ability.extra.rank, }
 		end
 
+
+		local function get_random_chess_joker()
+			local jokers = {
+				j_aiz_knight = { probability = 30 / 100 },
+				j_aiz_bishop = { probability = 25 / 100 },
+				j_aiz_rook = { probability = 20 / 100 },
+				j_aiz_queen = { probability = 15 / 100 },
+				j_aiz_king = { probability = 10 / 100 },
+			}
+			local p = pseudorandom("chess_joker")
+			local cumulativeProbability = 0
+			for slug, joker in pairs(jokers) do
+				cumulativeProbability = cumulativeProbability + joker.probability
+				if p <= cumulativeProbability then
+					return slug
+				end
+			end
+		end
+
 		-- Calculate
 		SMODS.Jokers.j_aiz_pawn.calculate = function(card, context)
 			if SMODS.end_calculate_context(context) then
@@ -429,7 +448,8 @@ function Jokers()
 					card_eval_status_text(card, 'extra', nil, nil, nil, {
 						message = localize("k_aiz_promoted")
 					})
-					local new_card = create_card('Joker', G.jokers, nil, nil, nil, nil, 'j_aiz_knight', nil)
+					local joker_slug = get_random_chess_joker()
+					local new_card = create_card('Joker', G.jokers, nil, nil, nil, nil, joker_slug, nil)
 					new_card:add_to_deck()
 					G.jokers:emplace(new_card)
 					G.E_MANAGER:add_event(Event({
