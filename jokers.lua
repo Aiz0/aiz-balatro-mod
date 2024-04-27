@@ -558,7 +558,10 @@ function Jokers()
 			loc = {
 				name = "Bishop",
 				text = {
-					"{C:mult}+#1#{} Mult",
+					"Scored Numbered cards",
+					"earn {C:money}$#1#{}",
+					"Scored Face cards",
+					"{C:attention}lose{} {C:money}$#1#{}",
 
 				}
 			},
@@ -566,7 +569,7 @@ function Jokers()
 			slug = "aiz_bishop",
 			ability = {
 				extra = {
-					mult = 20,
+					money = 1,
 				}
 			},
 			rarity = 2,
@@ -581,20 +584,35 @@ function Jokers()
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_bishop.loc_def = function(card)
-			return { card.ability.extra.mult, }
+			return { card.ability.extra.money, }
 		end
 
 		-- Calculate
 		SMODS.Jokers.j_aiz_bishop.calculate = function(card, context)
-			if SMODS.end_calculate_context(context) then
-				return {
-					message = localize {
-						type = 'variable',
-						key = 'a_mult',
-						vars = { card.ability.extra.mult }
-					},
-					mult_mod = card.ability.extra.mult,
-				}
+			if context.individual and context.cardarea == G.play then
+				if context.other_card:is_face() then
+					G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) - card.ability.extra.money
+					G.E_MANAGER:add_event(Event({
+						func = (function()
+							G.GAME.dollar_buffer = 0; return true
+						end)
+					}))
+					return {
+						dollars = card.ability.extra.money * -1,
+						card = card
+					}
+				elseif context.other_card:get_id() >= 2 then
+					G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
+					G.E_MANAGER:add_event(Event({
+						func = (function()
+							G.GAME.dollar_buffer = 0; return true
+						end)
+					}))
+					return {
+						dollars = card.ability.extra.money,
+						card = card
+					}
+				end
 			end
 		end
 	end
