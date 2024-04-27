@@ -27,6 +27,24 @@ local config = {
 	chess_king = true,
 }
 
+local function is_chess_joker(ability_name)
+	local chess_jokers = {
+		"Aiz Pawn",
+		"Aiz Knight",
+		"Aiz Bishop",
+		"Aiz Rook",
+		"Aiz Queen",
+		"Aiz King",
+	}
+
+	for index, chess_ability in ipairs(chess_jokers) do
+		if chess_ability == ability_name then
+			return true
+		end
+	end
+	return false
+end
+
 -- Helper functions
 -- Copied from Mikas Mod Collection
 -- https://github.com/MikaSchoenmakers/MikasBalatro/tree/main
@@ -691,7 +709,8 @@ function Jokers()
 			loc = {
 				name = "King",
 				text = {
-					"{C:mult}+#1#{} Mult",
+					"Other {C:attention}Chess Jokers",
+					"Give {X:mult,C:white}X#1#{} Mult",
 
 				}
 			},
@@ -699,8 +718,9 @@ function Jokers()
 			slug = "aiz_king",
 			ability = {
 				extra = {
-					mult = 20,
-				}
+					Xmult = 5,
+				},
+
 			},
 			rarity = 4,
 			cost = 15,
@@ -715,20 +735,22 @@ function Jokers()
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_king.loc_def = function(card)
-			return { card.ability.extra.mult, }
+			return { card.ability.extra.Xmult, }
 		end
 
 		-- Calculate
 		SMODS.Jokers.j_aiz_king.calculate = function(card, context)
-			if SMODS.end_calculate_context(context) then
-				return {
-					message = localize {
-						type = 'variable',
-						key = 'a_mult',
-						vars = { card.ability.extra.mult }
-					},
-					mult_mod = card.ability.extra.mult,
-				}
+			if context.other_joker and context.other_joker.ability.set == 'Joker' and context.other_joker ~= card then
+				if is_chess_joker(context.other_joker.ability.name) then
+					return {
+						message = localize {
+							type = 'variable',
+							key = 'a_xmult',
+							vars = { card.ability.extra.Xmult }
+						},
+						Xmult_mod = card.ability.extra.Xmult,
+					}
+				end
 			end
 		end
 	end
