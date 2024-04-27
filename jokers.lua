@@ -530,6 +530,9 @@ function Jokers()
 		-- Initialize Joker
 		init_joker(knight)
 
+		-- remove from pool
+		SMODS.Jokers.j_aiz_knight.yes_pool_flag = 'this_flag_will_never_be_set'
+
 		-- Set local variables
 		SMODS.Jokers.j_aiz_knight.loc_def = function(card)
 			return { card.ability.extra.mult, }
@@ -586,6 +589,9 @@ function Jokers()
 		SMODS.Jokers.j_aiz_bishop.loc_def = function(card)
 			return { card.ability.extra.money, }
 		end
+
+		-- remove from pool
+		SMODS.Jokers.j_aiz_bishop.yes_pool_flag = 'this_flag_will_never_be_set'
 
 		-- Calculate
 		SMODS.Jokers.j_aiz_bishop.calculate = function(card, context)
@@ -652,6 +658,9 @@ function Jokers()
 			return { card.ability.extra.mult, }
 		end
 
+		-- remove from pool
+		SMODS.Jokers.j_aiz_rook.yes_pool_flag = 'this_flag_will_never_be_set'
+
 		-- Calculate
 		SMODS.Jokers.j_aiz_rook.calculate = function(card, context)
 			if SMODS.end_calculate_context(context) then
@@ -702,6 +711,9 @@ function Jokers()
 			return { card.ability.extra.mult, }
 		end
 
+		-- remove from pool
+		SMODS.Jokers.j_aiz_queen.yes_pool_flag = 'this_flag_will_never_be_set'
+
 		-- Calculate
 		SMODS.Jokers.j_aiz_queen.calculate = function(card, context)
 			if SMODS.end_calculate_context(context) then
@@ -750,6 +762,9 @@ function Jokers()
 		}
 		-- Initialize Joker
 		init_joker(king)
+
+		-- remove from pool
+		SMODS.Jokers.j_aiz_king.yes_pool_flag = 'this_flag_will_never_be_set'
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_king.loc_def = function(card)
