@@ -27,26 +27,8 @@ local config = {
 	chess_king = true,
 }
 
-local function is_chess_joker(ability_name)
-	local chess_jokers = {
-		"Aiz Pawn",
-		"Aiz Knight",
-		"Aiz Bishop",
-		"Aiz Rook",
-		"Aiz Queen",
-		"Aiz King",
-	}
-
-	for index, chess_ability in ipairs(chess_jokers) do
-		if chess_ability == ability_name then
-			return true
-		end
-	end
-	return false
-end
-
 -- Helper functions
--- Copied from Mikas Mod Collection
+-- Some are Copied from Mikas Mod Collection
 -- https://github.com/MikaSchoenmakers/MikasBalatro/tree/main
 
 local function init_joker(joker, no_sprite)
@@ -81,6 +63,53 @@ local function init_joker(joker, no_sprite)
 		)
 		sprite:register()
 	end
+end
+
+
+local suits = {
+	light = {
+		"Hearts",
+		"Diamonds"
+	},
+	dark = {
+		"Spades",
+		"Clubs",
+	}
+}
+local function get_suit_type(card)
+	for i, suit in ipairs(suits.dark) do
+		if card.base.suit == suit then
+			return "Dark"
+		end
+	end
+	for i, suit in ipairs(suits.light) do
+		if card.base.suit == suit then
+			return "Light"
+		end
+	end
+	return "Unknown"
+end
+
+local function get_random_suit_of_type(light_suit)
+	return pseudorandom_element(((light_suit) and suits.light or suits.dark), pseudoseed("random_suit"))
+end
+
+local function is_chess_joker(ability_name)
+	local chess_jokers = {
+		"Aiz Pawn",
+		"Aiz Knight",
+		"Aiz Bishop",
+		"Aiz Rook",
+		"Aiz Queen",
+		"Aiz King",
+	}
+
+	for index, chess_ability in ipairs(chess_jokers) do
+		if chess_ability == ability_name then
+			return true
+		end
+	end
+	return false
 end
 
 
@@ -517,7 +546,8 @@ function Jokers()
 			slug = "aiz_knight",
 			ability = {
 				extra = {
-					mult = 20,
+					mult = 10,
+					change_to_light_suit = true,
 				}
 			},
 			rarity = 2,
@@ -540,15 +570,46 @@ function Jokers()
 
 		-- Calculate
 		SMODS.Jokers.j_aiz_knight.calculate = function(card, context)
-			if SMODS.end_calculate_context(context) then
-				return {
-					message = localize {
-						type = 'variable',
-						key = 'a_mult',
-						vars = { card.ability.extra.mult }
-					},
-					mult_mod = card.ability.extra.mult,
-				}
+			if context.individual and context.cardarea == G.play then
+				if get_suit_type(context.other_card) == ((card.ability.extra.change_to_light_suit) and "Dark" or "Light") then
+					local suit = get_random_suit_of_type(card.ability.extra.change_to_light_suit)
+					G.E_MANAGER:add_event(Event({
+						trigger = 'after',
+						delay = 0.5,
+						func = (function()
+							context.other_card:flip()
+							play_sound('card1')
+							context.other_card:juice_up(0.3, 0.3)
+							return true
+						end)
+					}))
+					G.E_MANAGER:add_event(Event({
+						trigger = 'after',
+						delay = 0.5,
+						func = function()
+							context.other_card:change_suit(suit)
+							return true
+						end
+					}))
+					G.E_MANAGER:add_event(Event({
+						trigger = 'after',
+						delay = 0.5,
+						func = (function()
+							context.other_card:flip()
+							play_sound('card1')
+							context.other_card:juice_up(0.3, 0.3)
+							return true
+						end)
+					}))
+					return {
+						card = card,
+						mult = card.ability.extra.mult,
+					}
+				end
+			end
+			-- flip suit to chaneg at end of round
+			if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+				card.ability.extra.change_to_light_suit = not card.ability.extra.change_to_light_suit
 			end
 		end
 	end
