@@ -530,7 +530,7 @@ function Jokers()
 	end
 	if config.chess_knight then
 		-- Chess knight
-		-- should gives some kind of bonus based on dark/light suits.
+		-- converts light suit to random dark suit. converted cards give +10 mult
 		-- switches dark/light every round
 
 		-- Create Joker
@@ -538,8 +538,10 @@ function Jokers()
 			loc = {
 				name = "Knight",
 				text = {
-					"{C:mult}+#1#{} Mult",
-
+					"Converts scored {C:attention}#2# suits",
+					"To random {C:attention}#3# suits",
+					"Converted cards give {C:mult}+#1#{} Mult",
+					"{s:0.8}Flips conversion at end of round{}",
 				}
 			},
 			ability_name = "Aiz Knight",
@@ -565,7 +567,10 @@ function Jokers()
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_knight.loc_def = function(card)
-			return { card.ability.extra.mult, }
+			return { card.ability.extra.mult,
+				(card.ability.extra.change_to_light_suit) and "Dark" or "Light",
+				(card.ability.extra.change_to_light_suit) and "Light" or "Dark"
+			}
 		end
 
 		-- Calculate
