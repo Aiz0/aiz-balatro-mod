@@ -174,7 +174,7 @@ function Jokers()
 			if SMODS.end_calculate_context(context) then
 				-- Get current gamespeed and give Xmult based on that
 				local Xmult = card.ability.extra.Xmult / G.SETTINGS.GAMESPEED
-				if not Xmult == 1 then
+				if Xmult ~= 1 then
 					return {
 						message = localize {
 							type = 'variable', key = 'a_xmult', vars = { Xmult }
@@ -726,15 +726,18 @@ function Jokers()
 	end
 	if config.chess_rook then
 		-- Chess rook
-		-- don't know effect yet
-		-- maybe something with straights
+		-- Turn cards into stone.
+		-- Discarded cards are turned
+		-- -1 discard because of this.
 
 		-- Create Joker
 		local rook = {
 			loc = {
 				name = "Rook",
 				text = {
-					"{C:mult}+#1#{} Mult",
+					"Discarded cards are",
+					"turned to stone",
+					"{C:attention}-#1#{} discards",
 
 				}
 			},
@@ -742,7 +745,7 @@ function Jokers()
 			slug = "aiz_rook",
 			ability = {
 				extra = {
-					mult = 20,
+					discard_size = 1,
 				}
 			},
 			rarity = 3,
@@ -757,7 +760,7 @@ function Jokers()
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_rook.loc_def = function(card)
-			return { card.ability.extra.mult, }
+			return { card.ability.extra.discard_size, }
 		end
 
 		-- remove from pool
@@ -765,15 +768,23 @@ function Jokers()
 
 		-- Calculate
 		SMODS.Jokers.j_aiz_rook.calculate = function(card, context)
-			if SMODS.end_calculate_context(context) then
-				return {
-					message = localize {
-						type = 'variable',
-						key = 'a_mult',
-						vars = { card.ability.extra.mult }
-					},
-					mult_mod = card.ability.extra.mult,
-				}
+			if context.pre_discard then
+				for i = 1, #G.hand.highlighted do
+					flip_card_event(G.hand.highlighted[i])
+				end
+				for i = 1, #G.hand.highlighted do
+					G.E_MANAGER:add_event(Event({
+						trigger = 'after',
+						delay = 0.1,
+						func = function()
+							G.hand.highlighted[i]:set_ability(G.P_CENTERS["m_stone"])
+							return true
+						end
+					}))
+				end
+				for i = 1, #G.hand.highlighted do
+					flip_card_event(G.hand.highlighted[i])
+				end
 			end
 		end
 	end
@@ -937,6 +948,10 @@ function Card:add_to_deck(from_debuff)
 		if self.ability.name == "Aiz Blåhaj" then
 			G.jokers.config.card_limit = G.jokers.config.card_limit + self.ability.extra.j_slots
 		end
+		if self.ability.name == "Aiz Rook" then
+			G.GAME.round_resets.discards = G.GAME.round_resets.discards - self.ability.extra.discard_size
+			ease_discard(-self.ability.extra.discard_size)
+		end
 	end
 	add_to_deckref(self, from_debuff)
 end
@@ -946,6 +961,10 @@ function Card:remove_from_deck(from_debuff)
 	if self.added_to_deck then
 		if self.ability.name == "Aiz Blåhaj" then
 			G.jokers.config.card_limit = G.jokers.config.card_limit - self.ability.extra.j_slots
+		end
+		if self.ability.name == "Aiz Rook" then
+			G.GAME.round_resets.discards = G.GAME.round_resets.discards + self.ability.extra.discard_size
+			ease_discard(self.ability.extra.discard_size)
 		end
 	end
 	remove_from_deckref(self, from_debuff)
