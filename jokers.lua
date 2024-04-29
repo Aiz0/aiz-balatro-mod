@@ -779,15 +779,20 @@ function Jokers()
 	end
 	if config.chess_queen then
 		-- Chess queen
-		-- don't know effect yet
-		-- probably something with queens or face cards.
+		-- destroy cards and gain Xmult
 
 		-- Create Joker
 		local queen = {
 			loc = {
 				name = "Queen",
 				text = {
-					"{C:mult}+#1#{} Mult",
+					"When round begins,",
+					"destroy all cards",
+					"of {C:attention}lowest{} rank",
+					"in your full deck.",
+					"This Joker gains {X:mult,C:white}X{} Mult",
+					"for each card destroyed",
+					"{C:inactive}Currently {X:mult,C:white}X#1#{} Mult",
 
 				}
 			},
@@ -795,14 +800,15 @@ function Jokers()
 			slug = "aiz_queen",
 			ability = {
 				extra = {
-					mult = 20,
+					Xmult = 1,
+					Xmult_mod = 0.05
 				}
 			},
 			rarity = 3,
 			cost = 15,
 			unlocked = true,
 			discovered = false,
-			blueprint_compat = true,
+			blueprint_compat = false,
 			eternal_compat = true,
 		}
 		-- Initialize Joker
@@ -810,7 +816,7 @@ function Jokers()
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_queen.loc_def = function(card)
-			return { card.ability.extra.mult, }
+			return { card.ability.extra.Xmult }
 		end
 
 		-- remove from pool
@@ -818,14 +824,36 @@ function Jokers()
 
 		-- Calculate
 		SMODS.Jokers.j_aiz_queen.calculate = function(card, context)
-			if SMODS.end_calculate_context(context) then
+			if context.first_hand_drawn and not context.blueprint then
+				local min = math.huge
+				for _, playing_card in ipairs(G.playing_cards) do
+					min = min < playing_card:get_id() and min or playing_card:get_id()
+				end
+				-- stone cards don't have set id
+				-- but it's always less than 1
+				if min < 1 then min = 1 end
+				for _, playing_card in ipairs(G.playing_cards) do
+					if playing_card:get_id() <= min then
+						-- Add to Xmult
+						local mult_mod = card.ability.extra.Xmult_mod * min
+						card.ability.extra.Xmult = card.ability.extra.Xmult + mult_mod
+						-- Destroy card
+						if playing_card.ability.name == 'Glass Card' then
+							playing_card:shatter()
+						else
+							playing_card:start_dissolve()
+						end
+					end
+				end
+			end
+			if SMODS.end_calculate_context(context) and card.ability.extra.Xmult > 1 then
 				return {
 					message = localize {
 						type = 'variable',
-						key = 'a_mult',
-						vars = { card.ability.extra.mult }
+						key = 'a_xmult',
+						vars = { card.ability.extra.Xmult }
 					},
-					mult_mod = card.ability.extra.mult,
+					Xmult_mod = card.ability.extra.Xmult,
 				}
 			end
 		end
