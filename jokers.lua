@@ -66,6 +66,20 @@ local function init_joker(joker, no_sprite)
 end
 
 
+local function flip_card_event(card)
+	G.E_MANAGER:add_event(Event({
+		delay = 0.5,
+		trigger = 'after',
+		func = (function()
+			card:flip()
+			play_sound('card1')
+			card:juice_up(0.3, 0.3)
+			return true
+		end)
+	}))
+end
+
+
 local suits = {
 	light = {
 		"Hearts",
@@ -588,31 +602,19 @@ function Jokers()
 			card.ability.extra.change.to = (change_to_light and "Light" or "Dark")
 		end
 
+		local function card_can_be_converted(card, other_card)
+			return (((other_card.aiz_knight_suit == other_card.base.suit) or not (other_card.aiz_knight_suit)) and get_suit_type(other_card.base.suit) == card.ability.extra.change.from) or
+				(other_card.aiz_knight_suit ~= other_card.base.suit and get_suit_type(other_card.aiz_knight_suit) == card.ability.extra.change.from)
+		end
+
 		-- Calculate
 		SMODS.Jokers.j_aiz_knight.calculate = function(card, context)
 			if context.individual and context.cardarea == G.play then
-				sendDebugMessage("--------------")
-				sendDebugMessage("Knight:")
-				sendDebugMessage("nominal: " .. context.other_card.base.nominal)
-				sendDebugMessage("suit: " .. context.other_card.base.suit)
-				if context.other_card.aiz_knight_suit then
-					sendDebugMessage("knight_suit: " .. context.other_card.aiz_knight_suit)
-				end
-				if (((context.other_card.aiz_knight_suit == context.other_card.base.suit) or not (context.other_card.aiz_knight_suit)) and get_suit_type(context.other_card.base.suit) == card.ability.extra.change.from) or
-					(context.other_card.aiz_knight_suit ~= context.other_card.base.suit and get_suit_type(context.other_card.aiz_knight_suit) == card.ability.extra.change.from) then
+				if card_can_be_converted(card, context.other_card) then
 					local new_suit = get_random_suit_of_type(card.ability.extra.change.to)
-					sendDebugMessage("changing_to: " .. new_suit)
 					context.other_card.aiz_knight_suit = new_suit
-					G.E_MANAGER:add_event(Event({
-						delay = 0.5,
-						trigger = 'after',
-						func = (function()
-							context.other_card:flip()
-							play_sound('card1')
-							context.other_card:juice_up(0.3, 0.3)
-							return true
-						end)
-					}))
+
+					flip_card_event(context.other_card)
 					G.E_MANAGER:add_event(Event({
 						delay = 0.15,
 						trigger = 'after',
@@ -622,22 +624,13 @@ function Jokers()
 							return true
 						end)
 					}))
-					G.E_MANAGER:add_event(Event({
-						delay = 0.5,
-						trigger = 'after',
-						func = (function()
-							context.other_card:flip()
-							play_sound('card1')
-							context.other_card:juice_up(0.3, 0.3)
-							return true
-						end)
-					}))
+					flip_card_event(context.other_card)
+
 					return {
 						mult = card.ability.extra.mult,
 						card = card
 					}
 				end
-				sendDebugMessage("--------------")
 			end
 			-- flip suit to change at end of round
 			if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
