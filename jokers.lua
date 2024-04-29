@@ -76,14 +76,14 @@ local suits = {
 		"Clubs",
 	}
 }
-local function get_suit_type(card)
+local function get_suit_type(card_suit)
 	for i, suit in ipairs(suits.dark) do
-		if card.base.suit == suit then
+		if card_suit == suit then
 			return "Dark"
 		end
 	end
 	for i, suit in ipairs(suits.light) do
-		if card.base.suit == suit then
+		if card_suit == suit then
 			return "Light"
 		end
 	end
@@ -573,14 +573,28 @@ function Jokers()
 			}
 		end
 
+		SMODS.Jokers.j_aiz_knight.set_ability = function(card)
+			card.ability.extra.change_to_light_suit = (0.5 > pseudorandom("knight_suits"))
+		end
+
 		-- Calculate
 		SMODS.Jokers.j_aiz_knight.calculate = function(card, context)
 			if context.individual and context.cardarea == G.play then
-				if get_suit_type(context.other_card) == ((card.ability.extra.change_to_light_suit) and "Dark" or "Light") then
-					local suit = get_random_suit_of_type(card.ability.extra.change_to_light_suit)
+				sendDebugMessage("--------------")
+				sendDebugMessage("Knight:")
+				sendDebugMessage("nominal: " .. context.other_card.base.nominal)
+				sendDebugMessage("suit: " .. context.other_card.base.suit)
+				if context.other_card.aiz_knight_suit then
+					sendDebugMessage("knight_suit: " .. context.other_card.aiz_knight_suit)
+				end
+				if (((context.other_card.aiz_knight_suit == context.other_card.base.suit) or not (context.other_card.aiz_knight_suit)) and get_suit_type(context.other_card.base.suit) == ((card.ability.extra.change_to_light_suit) and "Dark" or "Light")) or
+					(context.other_card.aiz_knight_suit ~= context.other_card.base.suit and get_suit_type(context.other_card.aiz_knight_suit) == ((card.ability.extra.change_to_light_suit) and "Dark" or "Light")) then
+					local new_suit = get_random_suit_of_type(card.ability.extra.change_to_light_suit)
+					sendDebugMessage("changing_to: " .. new_suit)
+					context.other_card.aiz_knight_suit = new_suit
 					G.E_MANAGER:add_event(Event({
-						trigger = 'after',
 						delay = 0.5,
+						trigger = 'after',
 						func = (function()
 							context.other_card:flip()
 							play_sound('card1')
@@ -589,16 +603,17 @@ function Jokers()
 						end)
 					}))
 					G.E_MANAGER:add_event(Event({
+						delay = 0.15,
 						trigger = 'after',
-						delay = 0.5,
-						func = function()
-							context.other_card:change_suit(suit)
+						func = (function()
+							context.other_card:change_suit(new_suit)
+							context.other_card.aiz_knight_suit = nil
 							return true
-						end
+						end)
 					}))
 					G.E_MANAGER:add_event(Event({
-						trigger = 'after',
 						delay = 0.5,
+						trigger = 'after',
 						func = (function()
 							context.other_card:flip()
 							play_sound('card1')
@@ -607,12 +622,13 @@ function Jokers()
 						end)
 					}))
 					return {
-						card = card,
 						mult = card.ability.extra.mult,
+						card = card
 					}
 				end
+				sendDebugMessage("--------------")
 			end
-			-- flip suit to chaneg at end of round
+			-- flip suit to change at end of round
 			if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
 				card.ability.extra.change_to_light_suit = not card.ability.extra.change_to_light_suit
 			end
