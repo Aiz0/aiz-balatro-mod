@@ -1,6 +1,5 @@
 {
-    "Lua.diagnostics.disable": [
-        "undefined-global"
-    ],
-    "Lua.runtime.unicodeName": true
+  "Lua.diagnostics.disable": ["undefined-global"],
+  "Lua.runtime.unicodeName": true,
+  "asciidoc.antora.enableAntoraSupport": false
 }
