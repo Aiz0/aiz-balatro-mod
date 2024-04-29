@@ -90,8 +90,14 @@ local function get_suit_type(card_suit)
 	return "Unknown"
 end
 
-local function get_random_suit_of_type(light_suit)
-	return pseudorandom_element(((light_suit) and suits.light or suits.dark), pseudoseed("random_suit"))
+local function get_random_suit_of_type(suit_type)
+	local choosen_type
+	if suit_type == "Light" then
+		choosen_type = suits.light
+	else
+		choosen_type = suits.dark
+	end
+	return pseudorandom_element(choosen_type, pseudoseed("random_suit"))
 end
 
 local function is_chess_joker(ability_name)
@@ -549,7 +555,10 @@ function Jokers()
 			ability = {
 				extra = {
 					mult = 10,
-					change_to_light_suit = true,
+					change = {
+						from = "Dark",
+						to = "Light"
+					}
 				}
 			},
 			rarity = 2,
@@ -568,13 +577,15 @@ function Jokers()
 		-- Set local variables
 		SMODS.Jokers.j_aiz_knight.loc_def = function(card)
 			return { card.ability.extra.mult,
-				(card.ability.extra.change_to_light_suit) and "Dark" or "Light",
-				(card.ability.extra.change_to_light_suit) and "Light" or "Dark"
+				card.ability.extra.change.from,
+				card.ability.extra.change.to,
 			}
 		end
 
 		SMODS.Jokers.j_aiz_knight.set_ability = function(card)
-			card.ability.extra.change_to_light_suit = (0.5 > pseudorandom("knight_suits"))
+			local change_to_light = (0.5 > pseudorandom("knight_suits"))
+			card.ability.extra.change.from = (change_to_light and "Dark" or "Light")
+			card.ability.extra.change.to = (change_to_light and "Light" or "Dark")
 		end
 
 		-- Calculate
@@ -587,9 +598,9 @@ function Jokers()
 				if context.other_card.aiz_knight_suit then
 					sendDebugMessage("knight_suit: " .. context.other_card.aiz_knight_suit)
 				end
-				if (((context.other_card.aiz_knight_suit == context.other_card.base.suit) or not (context.other_card.aiz_knight_suit)) and get_suit_type(context.other_card.base.suit) == ((card.ability.extra.change_to_light_suit) and "Dark" or "Light")) or
-					(context.other_card.aiz_knight_suit ~= context.other_card.base.suit and get_suit_type(context.other_card.aiz_knight_suit) == ((card.ability.extra.change_to_light_suit) and "Dark" or "Light")) then
-					local new_suit = get_random_suit_of_type(card.ability.extra.change_to_light_suit)
+				if (((context.other_card.aiz_knight_suit == context.other_card.base.suit) or not (context.other_card.aiz_knight_suit)) and get_suit_type(context.other_card.base.suit) == card.ability.extra.change.from) or
+					(context.other_card.aiz_knight_suit ~= context.other_card.base.suit and get_suit_type(context.other_card.aiz_knight_suit) == card.ability.extra.change.from) then
+					local new_suit = get_random_suit_of_type(card.ability.extra.change.to)
 					sendDebugMessage("changing_to: " .. new_suit)
 					context.other_card.aiz_knight_suit = new_suit
 					G.E_MANAGER:add_event(Event({
@@ -630,7 +641,9 @@ function Jokers()
 			end
 			-- flip suit to change at end of round
 			if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-				card.ability.extra.change_to_light_suit = not card.ability.extra.change_to_light_suit
+				local temp = card.ability.extra.change.from
+				card.ability.extra.change.from = card.ability.extra.change.to
+				card.ability.extra.change.to = temp
 			end
 		end
 	end
