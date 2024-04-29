@@ -515,10 +515,7 @@ function Jokers()
 					card_eval_status_text(card, 'extra', nil, nil, nil, {
 						message = localize("k_aiz_promoted")
 					})
-					local joker_slug = get_random_chess_joker()
-					local new_card = create_card('Joker', G.jokers, nil, nil, nil, nil, joker_slug, nil)
-					new_card:add_to_deck()
-					G.jokers:emplace(new_card)
+
 					G.E_MANAGER:add_event(Event({
 						func = function()
 							play_sound('tarot1')
@@ -534,6 +531,10 @@ function Jokers()
 									G.jokers:remove_card(card)
 									card:remove()
 									card = nil
+									local joker_slug = get_random_chess_joker()
+									local new_card = create_card('Joker', G.jokers, nil, nil, nil, nil, joker_slug, nil)
+									new_card:add_to_deck()
+									G.jokers:emplace(new_card)
 									return true;
 								end
 							}))
