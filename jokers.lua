@@ -462,7 +462,7 @@ function Jokers()
 			ability = {
 				extra = {
 					rank = 2,
-					promotion_rank = 4,
+					promotion_rank = 8,
 				}
 			},
 			rarity = 1,
