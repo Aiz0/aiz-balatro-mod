@@ -25,6 +25,7 @@ local config = {
 	chess_rook = true,
 	chess_queen = true,
 	chess_king = true,
+	oops_all_ones = true,
 }
 
 -- Helper functions
@@ -442,6 +443,31 @@ function Jokers()
 				}
 			end
 		end
+	end
+	if config.oops_all_ones then
+		-- Create Joker
+		local all_ones = {
+			loc = {
+				name = "Oops! All 1s",
+				text = {
+					"Halves all {C:attention}listed",
+					"{C:green,E:1,S:1.1}probabilities",
+					"{C:inactive}(ex: {C:green}1 in 3{C:inactive} -> {C:green}0.5 in 3{C:inactive})"
+				}
+			},
+			ability_name = "Aiz Oops! All 1s",
+			slug = "aiz_oops_all_ones",
+			ability = {
+			},
+			rarity = 4,
+			cost = 15,
+			unlocked = true,
+			discovered = true,
+			blueprint_compat = false,
+			eternal_compat = true,
+		}
+		-- Initialize Joker
+		init_joker(all_ones, true)
 	end
 	if config.chess_pawn then
 		-- Chess pawn
@@ -952,6 +978,11 @@ function Card:add_to_deck(from_debuff)
 			G.GAME.round_resets.discards = G.GAME.round_resets.discards - self.ability.extra.discard_size
 			ease_discard(-self.ability.extra.discard_size)
 		end
+		if self.ability.name == 'Aiz Oops! All 1s' then
+			for k, v in pairs(G.GAME.probabilities) do
+				G.GAME.probabilities[k] = v / 2
+			end
+		end
 	end
 	add_to_deckref(self, from_debuff)
 end
@@ -965,6 +996,11 @@ function Card:remove_from_deck(from_debuff)
 		if self.ability.name == "Aiz Rook" then
 			G.GAME.round_resets.discards = G.GAME.round_resets.discards + self.ability.extra.discard_size
 			ease_discard(self.ability.extra.discard_size)
+		end
+		if self.ability.name == 'Aiz Oops! All 1s' then
+			for k, v in pairs(G.GAME.probabilities) do
+				G.GAME.probabilities[k] = v * 2
+			end
 		end
 	end
 	remove_from_deckref(self, from_debuff)
