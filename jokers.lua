@@ -550,7 +550,7 @@ function Jokers()
 	end
 	if config.chess_knight then
 		-- Chess knight
-		-- converts light suit to random dark suit. converted cards give +10 mult
+		-- converts light suit to random dark suit. converted cards give + mult
 		-- switches dark/light every round
 
 		-- Create Joker
@@ -558,8 +558,8 @@ function Jokers()
 			loc = {
 				name = "Knight",
 				text = {
-					"Converts scored {C:attention}#2# suits",
-					"To random {C:attention}#3# suits",
+					"Converts scored {C:attention}#2#{} suits",
+					"To random {C:attention}#3#{} suits",
 					"Converted cards give {C:mult}+#1#{} Mult",
 					"{s:0.8}Flips conversion at end of round{}",
 				}
@@ -597,12 +597,15 @@ function Jokers()
 		end
 
 		SMODS.Jokers.j_aiz_knight.set_ability = function(card)
+			-- Randomize starting suits.
+			-- Partially just to make it easier to have multiple knights be useful together.
 			local change_to_light = (0.5 > pseudorandom("knight_suits"))
 			card.ability.extra.change.from = (change_to_light and "Dark" or "Light")
 			card.ability.extra.change.to = (change_to_light and "Light" or "Dark")
 		end
 
 		local function card_can_be_converted(card, other_card)
+			-- just checks if current suit is the type that should be converted
 			return (((other_card.aiz_knight_suit == other_card.base.suit) or not (other_card.aiz_knight_suit)) and get_suit_type(other_card.base.suit) == card.ability.extra.change.from) or
 				(other_card.aiz_knight_suit ~= other_card.base.suit and get_suit_type(other_card.aiz_knight_suit) == card.ability.extra.change.from)
 		end
@@ -611,6 +614,7 @@ function Jokers()
 		SMODS.Jokers.j_aiz_knight.calculate = function(card, context)
 			if context.individual and context.cardarea == G.play then
 				if card_can_be_converted(card, context.other_card) then
+					-- Get new suit and add it to a new property so that multiple knights can work together
 					local new_suit = get_random_suit_of_type(card.ability.extra.change.to)
 					context.other_card.aiz_knight_suit = new_suit
 
@@ -619,13 +623,16 @@ function Jokers()
 						delay = 0.15,
 						trigger = 'after',
 						func = (function()
+							-- after setting suit we also need to reset knight suit
 							context.other_card:change_suit(new_suit)
 							context.other_card.aiz_knight_suit = nil
 							return true
 						end)
 					}))
 					flip_card_event(context.other_card)
-
+					-- I want to make this mult trigger after card has been flipped.
+					-- currently it triggers after other cards.
+					-- Alternatively the flip events should trigger after other jokers cards...
 					return {
 						mult = card.ability.extra.mult,
 						card = card
