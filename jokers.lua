@@ -174,12 +174,14 @@ function Jokers()
 			if SMODS.end_calculate_context(context) then
 				-- Get current gamespeed and give Xmult based on that
 				local Xmult = card.ability.extra.Xmult / G.SETTINGS.GAMESPEED
-				return {
-					message = localize {
-						type = 'variable', key = 'a_xmult', vars = { Xmult }
-					},
-					Xmult_mod = Xmult,
-				}
+				if not Xmult == 1 then
+					return {
+						message = localize {
+							type = 'variable', key = 'a_xmult', vars = { Xmult }
+						},
+						Xmult_mod = Xmult,
+					}
+				end
 			end
 		end
 	end
