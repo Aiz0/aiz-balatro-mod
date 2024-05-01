@@ -67,30 +67,28 @@ local function init_joker(joker, no_sprite)
 	end
 end
 
-
 local function flip_card_event(card)
 	G.E_MANAGER:add_event(Event({
 		delay = 0.5,
-		trigger = 'after',
-		func = (function()
+		trigger = "after",
+		func = function()
 			card:flip()
-			play_sound('card1')
+			play_sound("card1")
 			card:juice_up(0.3, 0.3)
 			return true
-		end)
+		end,
 	}))
 end
-
 
 local suits = {
 	light = {
 		"Hearts",
-		"Diamonds"
+		"Diamonds",
 	},
 	dark = {
 		"Spades",
 		"Clubs",
-	}
+	},
 }
 local function get_suit_type(card_suit)
 	for i, suit in ipairs(suits.dark) do
@@ -134,7 +132,6 @@ local function is_chess_joker(ability_name)
 	return false
 end
 
-
 function Jokers()
 	if config.chillJoker then
 		-- Chill Joker
@@ -147,14 +144,14 @@ function Jokers()
 				text = {
 					"{X:mult,C:white}X#1#{} divided by game speed",
 					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
-				}
+				},
 			},
 			ability_name = "Aiz Chill Joker",
 			slug = "aiz_chill",
 			ability = {
 				extra = {
-					Xmult = 4
-				}
+					Xmult = 4,
+				},
 			},
 			rarity = 1,
 			cost = 4,
@@ -178,9 +175,11 @@ function Jokers()
 				local Xmult = card.ability.extra.Xmult / G.SETTINGS.GAMESPEED
 				if Xmult ~= 1 then
 					return {
-						message = localize {
-							type = 'variable', key = 'a_xmult', vars = { Xmult }
-						},
+						message = localize({
+							type = "variable",
+							key = "a_xmult",
+							vars = { Xmult },
+						}),
 						Xmult_mod = Xmult,
 					}
 				end
@@ -200,14 +199,12 @@ function Jokers()
 					"Gives {C:chips}Chips{} based ",
 					"on {C:attention}Audio volume{}",
 					"{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)",
-				}
+				},
 			},
 			ability_name = "Aiz Loudspeaker",
 			slug = "aiz_loudspeaker",
 			ability = {
-				extra = {
-
-				}
+				extra = {},
 			},
 			rarity = 1,
 			cost = 4,
@@ -221,8 +218,9 @@ function Jokers()
 
 		-- custom function
 		local function get_loudspeaker_chips()
-			return math.floor((G.SETTINGS.SOUND.music_volume + G.SETTINGS.SOUND.game_sounds_volume) *
-				G.SETTINGS.SOUND.volume / 100)
+			return math.floor(
+				(G.SETTINGS.SOUND.music_volume + G.SETTINGS.SOUND.game_sounds_volume) * G.SETTINGS.SOUND.volume / 100
+			)
 		end
 
 		-- Set local variables
@@ -234,11 +232,11 @@ function Jokers()
 		SMODS.Jokers.j_aiz_loudspeaker.calculate = function(card, context)
 			if SMODS.end_calculate_context(context) then
 				return {
-					message = localize {
-						type = 'variable',
-						key = 'a_chips',
-						vars = { get_loudspeaker_chips() }
-					},
+					message = localize({
+						type = "variable",
+						key = "a_chips",
+						vars = { get_loudspeaker_chips() },
+					}),
 					chip_mod = get_loudspeaker_chips(),
 				}
 			end
@@ -258,15 +256,15 @@ function Jokers()
 					"every 2 jokers with ",
 					"{C:attention}White stickers{} in your collection",
 					"{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
-				}
+				},
 			},
 			ability_name = "Aiz Easy Mode",
 			slug = "aiz_easy_mode",
 			ability = {
 				extra = {
 					mult_mod = 0.5,
-					sticker = "White"
-				}
+					sticker = "White",
+				},
 			},
 			rarity = 1,
 			cost = 4,
@@ -282,7 +280,7 @@ function Jokers()
 			local mult = 0
 			-- Add mult for every white sticker on a joker
 			for _, v in pairs(G.P_CENTERS) do
-				if v.set == 'Joker' then
+				if v.set == "Joker" then
 					if get_joker_win_sticker(v, false) == card.ability.extra.sticker then
 						mult = mult + card.ability.extra.mult_mod
 					end
@@ -290,7 +288,6 @@ function Jokers()
 			end
 			return math.floor(mult)
 		end
-
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_easy_mode.loc_def = function(card)
@@ -302,11 +299,11 @@ function Jokers()
 			if SMODS.end_calculate_context(context) then
 				local mult_mod = get_easy_mode_mult(card)
 				return {
-					message = localize {
-						type = 'variable',
-						key = 'a_mult',
-						vars = { mult_mod }
-					},
+					message = localize({
+						type = "variable",
+						key = "a_mult",
+						vars = { mult_mod },
+					}),
 					mult_mod = mult_mod,
 				}
 			end
@@ -324,15 +321,15 @@ function Jokers()
 				name = "Blåhaj",
 				text = {
 					"A soft toy shark",
-					"{C:dark_edition}+#1#{} Joker slots"
-				}
+					"{C:dark_edition}+#1#{} Joker slots",
+				},
 			},
 			ability_name = "Aiz Blåhaj",
 			slug = "aiz_blåhaj",
 			ability = {
 				extra = {
-					j_slots = 1
-				}
+					j_slots = 1,
+				},
 			},
 			rarity = 1,
 			cost = 1,
@@ -343,7 +340,7 @@ function Jokers()
 			soul_pos = {
 				x = 1,
 				y = 0,
-			}
+			},
 		}
 		-- Initialize Joker
 		init_joker(blåhaj)
@@ -369,14 +366,12 @@ function Jokers()
 					"same hand backwards",
 					"to cancel out",
 					"your score every time",
-				}
+				},
 			},
 			ability_name = "Aiz AntiBubzia",
 			slug = "aiz_antibubzia",
 			ability = {
-				extra = {
-
-				}
+				extra = {},
 			},
 			rarity = 3,
 			cost = 10,
@@ -406,7 +401,7 @@ function Jokers()
 					"This Joker gains {X:mult,C:white}X#2#{} Mult if",
 					"a card is triggered during scoring",
 					"{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)",
-				}
+				},
 			},
 			ability_name = "Aiz Backwards Long Jump",
 			slug = "aiz_blj",
@@ -414,7 +409,7 @@ function Jokers()
 				extra = {
 					Xmult = 1,
 					Xmult_mod = 0.1,
-				}
+				},
 			},
 			rarity = 4,
 			cost = 15,
@@ -435,11 +430,11 @@ function Jokers()
 		SMODS.Jokers.j_aiz_blj.calculate = function(card, context)
 			if SMODS.end_calculate_context(context) and card.ability.extra > 1 then
 				return {
-					message = localize {
-						type = 'variable',
-						key = 'a_xmult',
-						vars = { card.ability.extra.Xmult }
-					},
+					message = localize({
+						type = "variable",
+						key = "a_xmult",
+						vars = { card.ability.extra.Xmult },
+					}),
 					Xmult_mod = card.ability.extra.Xmult,
 				}
 			end
@@ -453,13 +448,12 @@ function Jokers()
 				text = {
 					"Halves all {C:attention}listed",
 					"{C:green,E:1,S:1.1}probabilities",
-					"{C:inactive}(ex: {C:green}1 in 3{C:inactive} -> {C:green}0.5 in 3{C:inactive})"
-				}
+					"{C:inactive}(ex: {C:green}1 in 3{C:inactive} -> {C:green}0.5 in 3{C:inactive})",
+				},
 			},
 			ability_name = "Aiz Oops! All 1s",
 			slug = "aiz_oops_all_ones",
-			ability = {
-			},
+			ability = {},
 			rarity = 4,
 			cost = 15,
 			unlocked = true,
@@ -480,7 +474,7 @@ function Jokers()
 					"set a random hand size",
 					"between {C:attention}#1#{} and {C:attention}#2#{}",
 					"{C:inactive}(Currently {C:attention}#3##4#{C:inactive} hand size)",
-				}
+				},
 			},
 			ability_name = "Aiz Hand Size",
 			slug = "aiz_hands",
@@ -491,8 +485,8 @@ function Jokers()
 						min = 4,
 						current = 8,
 						difference = 0,
-					}
-				}
+					},
+				},
 			},
 			rarity = 3,
 			cost = 8,
@@ -505,11 +499,13 @@ function Jokers()
 		init_joker(hands, true)
 
 		local function set_random_hand_size(card)
-			card.ability.extra.hand_size.current = pseudorandom(pseudoseed("aiz_hand_size"),
+			card.ability.extra.hand_size.current = pseudorandom(
+				pseudoseed("aiz_hand_size"),
 				card.ability.extra.hand_size.min,
-				card.ability.extra.hand_size.max)
-			card.ability.extra.hand_size.difference = card.ability.extra.hand_size.current - (G.hand and G.hand.config
-				.card_limit or 8)
+				card.ability.extra.hand_size.max
+			)
+			card.ability.extra.hand_size.difference = card.ability.extra.hand_size.current
+				- (G.hand and G.hand.config.card_limit or 8)
 		end
 
 		SMODS.Jokers.j_aiz_hands.set_ability = function(card)
@@ -519,12 +515,14 @@ function Jokers()
 		-- Set local variables
 		SMODS.Jokers.j_aiz_hands.loc_def = function(card)
 			local sign = ""
-			if card.ability.extra.hand_size.difference >= 0 then sign = "+" end
+			if card.ability.extra.hand_size.difference >= 0 then
+				sign = "+"
+			end
 			return {
 				card.ability.extra.hand_size.min,
 				card.ability.extra.hand_size.max,
 				sign,
-				card.ability.extra.hand_size.difference
+				card.ability.extra.hand_size.difference,
 			}
 		end
 
@@ -536,7 +534,7 @@ function Jokers()
 						set_random_hand_size(card)
 						G.hand:change_size(card.ability.extra.hand_size.difference)
 						return true
-					end
+					end,
 				}))
 			end
 		end
@@ -552,8 +550,8 @@ function Jokers()
 				text = {
 					"Advances at end of round",
 					"Adds current rank to mult",
-					"{C:inactive}(Currently on rank {C:attention}#1#{C:inactive})"
-				}
+					"{C:inactive}(Currently on rank {C:attention}#1#{C:inactive})",
+				},
 			},
 			ability_name = "Aiz Pawn",
 			slug = "aiz_pawn",
@@ -561,7 +559,7 @@ function Jokers()
 				extra = {
 					rank = 2,
 					promotion_rank = 8,
-				}
+				},
 			},
 			rarity = 1,
 			cost = 5,
@@ -575,9 +573,8 @@ function Jokers()
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_pawn.loc_def = function(card)
-			return { card.ability.extra.rank, }
+			return { card.ability.extra.rank }
 		end
-
 
 		local function get_random_chess_joker()
 			local jokers = {
@@ -601,11 +598,11 @@ function Jokers()
 		SMODS.Jokers.j_aiz_pawn.calculate = function(card, context)
 			if SMODS.end_calculate_context(context) then
 				return {
-					message = localize {
-						type = 'variable',
-						key = 'a_mult',
-						vars = { card.ability.extra.rank }
-					},
+					message = localize({
+						type = "variable",
+						key = "a_mult",
+						vars = { card.ability.extra.rank },
+					}),
 					mult_mod = card.ability.extra.rank,
 				}
 			end
@@ -616,19 +613,19 @@ function Jokers()
 				card.ability.extra.rank = card.ability.extra.rank + advances
 				if card.ability.extra.rank == card.ability.extra.promotion_rank then
 					-- shows that card is active by shaking it
-					card_eval_status_text(card, 'extra', nil, nil, nil, {
-						message = localize("k_aiz_promoted")
+					card_eval_status_text(card, "extra", nil, nil, nil, {
+						message = localize("k_aiz_promoted"),
 					})
 
 					G.E_MANAGER:add_event(Event({
 						func = function()
-							play_sound('tarot1')
+							play_sound("tarot1")
 							card.T.r = -0.2
 							card:juice_up(0.3, 0.4)
 							card.states.drag.is = true
 							card.children.center.pinch.x = true
 							G.E_MANAGER:add_event(Event({
-								trigger = 'after',
+								trigger = "after",
 								delay = 0.3,
 								blockable = false,
 								func = function()
@@ -636,18 +633,18 @@ function Jokers()
 									card:remove()
 									card = nil
 									local joker_slug = get_random_chess_joker()
-									local new_card = create_card('Joker', G.jokers, nil, nil, nil, nil, joker_slug, nil)
+									local new_card = create_card("Joker", G.jokers, nil, nil, nil, nil, joker_slug, nil)
 									new_card:add_to_deck()
 									G.jokers:emplace(new_card)
-									return true;
-								end
+									return true
+								end,
 							}))
 							return true
-						end
+						end,
 					}))
 				else
-					card_eval_status_text(card, 'extra', nil, nil, nil, {
-						message = localize("k_aiz_advance")
+					card_eval_status_text(card, "extra", nil, nil, nil, {
+						message = localize("k_aiz_advance"),
 					})
 				end
 			end
@@ -667,7 +664,7 @@ function Jokers()
 					"To random {C:attention}#3#{} suits",
 					"Converted cards give {C:mult}+#1#{} Mult",
 					"{s:0.8}Flips conversion at end of round{}",
-				}
+				},
 			},
 			ability_name = "Aiz Knight",
 			slug = "aiz_knight",
@@ -676,9 +673,9 @@ function Jokers()
 					mult = 10,
 					change = {
 						from = "Dark",
-						to = "Light"
-					}
-				}
+						to = "Light",
+					},
+				},
 			},
 			rarity = 2,
 			cost = 6,
@@ -691,14 +688,11 @@ function Jokers()
 		init_joker(knight)
 
 		-- remove from pool
-		SMODS.Jokers.j_aiz_knight.yes_pool_flag = 'this_flag_will_never_be_set'
+		SMODS.Jokers.j_aiz_knight.yes_pool_flag = "this_flag_will_never_be_set"
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_knight.loc_def = function(card)
-			return { card.ability.extra.mult,
-				card.ability.extra.change.from,
-				card.ability.extra.change.to,
-			}
+			return { card.ability.extra.mult, card.ability.extra.change.from, card.ability.extra.change.to }
 		end
 
 		SMODS.Jokers.j_aiz_knight.set_ability = function(card)
@@ -711,8 +705,14 @@ function Jokers()
 
 		local function card_can_be_converted(card, other_card)
 			-- just checks if current suit is the type that should be converted
-			return (((other_card.aiz_knight_suit == other_card.base.suit) or not (other_card.aiz_knight_suit)) and get_suit_type(other_card.base.suit) == card.ability.extra.change.from) or
-				(other_card.aiz_knight_suit ~= other_card.base.suit and get_suit_type(other_card.aiz_knight_suit) == card.ability.extra.change.from)
+			return (
+				((other_card.aiz_knight_suit == other_card.base.suit) or not other_card.aiz_knight_suit)
+				and get_suit_type(other_card.base.suit) == card.ability.extra.change.from
+			)
+				or (
+					other_card.aiz_knight_suit ~= other_card.base.suit
+					and get_suit_type(other_card.aiz_knight_suit) == card.ability.extra.change.from
+				)
 		end
 
 		-- Calculate
@@ -726,13 +726,13 @@ function Jokers()
 					flip_card_event(context.other_card)
 					G.E_MANAGER:add_event(Event({
 						delay = 0.15,
-						trigger = 'after',
-						func = (function()
+						trigger = "after",
+						func = function()
 							-- after setting suit we also need to reset knight suit
 							context.other_card:change_suit(new_suit)
 							context.other_card.aiz_knight_suit = nil
 							return true
-						end)
+						end,
 					}))
 					flip_card_event(context.other_card)
 					-- I want to make this mult trigger after card has been flipped.
@@ -740,7 +740,7 @@ function Jokers()
 					-- Alternatively the flip events should trigger after other jokers cards...
 					return {
 						mult = card.ability.extra.mult,
-						card = card
+						card = card,
 					}
 				end
 			end
@@ -765,15 +765,14 @@ function Jokers()
 					"earn {C:money}$#1#{}",
 					"Scored Face cards",
 					"{C:attention}lose{} {C:money}$#1#{}",
-
-				}
+				},
 			},
 			ability_name = "Aiz Bishop",
 			slug = "aiz_bishop",
 			ability = {
 				extra = {
 					money = 1,
-				}
+				},
 			},
 			rarity = 2,
 			cost = 6,
@@ -787,11 +786,11 @@ function Jokers()
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_bishop.loc_def = function(card)
-			return { card.ability.extra.money, }
+			return { card.ability.extra.money }
 		end
 
 		-- remove from pool
-		SMODS.Jokers.j_aiz_bishop.yes_pool_flag = 'this_flag_will_never_be_set'
+		SMODS.Jokers.j_aiz_bishop.yes_pool_flag = "this_flag_will_never_be_set"
 
 		-- Calculate
 		SMODS.Jokers.j_aiz_bishop.calculate = function(card, context)
@@ -799,24 +798,26 @@ function Jokers()
 				if context.other_card:is_face() then
 					G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) - card.ability.extra.money
 					G.E_MANAGER:add_event(Event({
-						func = (function()
-							G.GAME.dollar_buffer = 0; return true
-						end)
+						func = function()
+							G.GAME.dollar_buffer = 0
+							return true
+						end,
 					}))
 					return {
 						dollars = card.ability.extra.money * -1,
-						card = card
+						card = card,
 					}
 				elseif context.other_card:get_id() >= 2 then
 					G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0) + card.ability.extra.money
 					G.E_MANAGER:add_event(Event({
-						func = (function()
-							G.GAME.dollar_buffer = 0; return true
-						end)
+						func = function()
+							G.GAME.dollar_buffer = 0
+							return true
+						end,
 					}))
 					return {
 						dollars = card.ability.extra.money,
-						card = card
+						card = card,
 					}
 				end
 			end
@@ -836,15 +837,14 @@ function Jokers()
 					"Discarded cards are",
 					"turned to stone",
 					"{C:attention}-#1#{} discards",
-
-				}
+				},
 			},
 			ability_name = "Aiz Rook",
 			slug = "aiz_rook",
 			ability = {
 				extra = {
 					discard_size = 1,
-				}
+				},
 			},
 			rarity = 3,
 			cost = 8,
@@ -858,11 +858,11 @@ function Jokers()
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_rook.loc_def = function(card)
-			return { card.ability.extra.discard_size, }
+			return { card.ability.extra.discard_size }
 		end
 
 		-- remove from pool
-		SMODS.Jokers.j_aiz_rook.yes_pool_flag = 'this_flag_will_never_be_set'
+		SMODS.Jokers.j_aiz_rook.yes_pool_flag = "this_flag_will_never_be_set"
 
 		-- Calculate
 		SMODS.Jokers.j_aiz_rook.calculate = function(card, context)
@@ -872,12 +872,12 @@ function Jokers()
 				end
 				for i = 1, #G.hand.highlighted do
 					G.E_MANAGER:add_event(Event({
-						trigger = 'after',
+						trigger = "after",
 						delay = 0.1,
 						func = function()
 							G.hand.highlighted[i]:set_ability(G.P_CENTERS["m_stone"])
 							return true
-						end
+						end,
 					}))
 				end
 				for i = 1, #G.hand.highlighted do
@@ -902,16 +902,15 @@ function Jokers()
 					"This Joker gains {X:mult,C:white}X{} Mult",
 					"for each card destroyed",
 					"{C:inactive}Currently {X:mult,C:white}X#1#{} Mult",
-
-				}
+				},
 			},
 			ability_name = "Aiz Queen",
 			slug = "aiz_queen",
 			ability = {
 				extra = {
 					Xmult = 1,
-					Xmult_mod = 0.05
-				}
+					Xmult_mod = 0.05,
+				},
 			},
 			rarity = 3,
 			cost = 15,
@@ -929,7 +928,7 @@ function Jokers()
 		end
 
 		-- remove from pool
-		SMODS.Jokers.j_aiz_queen.yes_pool_flag = 'this_flag_will_never_be_set'
+		SMODS.Jokers.j_aiz_queen.yes_pool_flag = "this_flag_will_never_be_set"
 
 		-- Calculate
 		SMODS.Jokers.j_aiz_queen.calculate = function(card, context)
@@ -940,14 +939,16 @@ function Jokers()
 				end
 				-- stone cards don't have set id
 				-- but it's always less than 1
-				if min < 1 then min = 1 end
+				if min < 1 then
+					min = 1
+				end
 				for _, playing_card in ipairs(G.playing_cards) do
 					if playing_card:get_id() <= min then
 						-- Add to Xmult
 						local mult_mod = card.ability.extra.Xmult_mod * min
 						card.ability.extra.Xmult = card.ability.extra.Xmult + mult_mod
 						-- Destroy card
-						if playing_card.ability.name == 'Glass Card' then
+						if playing_card.ability.name == "Glass Card" then
 							playing_card:shatter()
 						else
 							playing_card:start_dissolve()
@@ -957,11 +958,11 @@ function Jokers()
 			end
 			if SMODS.end_calculate_context(context) and card.ability.extra.Xmult > 1 then
 				return {
-					message = localize {
-						type = 'variable',
-						key = 'a_xmult',
-						vars = { card.ability.extra.Xmult }
-					},
+					message = localize({
+						type = "variable",
+						key = "a_xmult",
+						vars = { card.ability.extra.Xmult },
+					}),
 					Xmult_mod = card.ability.extra.Xmult,
 				}
 			end
@@ -980,8 +981,7 @@ function Jokers()
 				text = {
 					"Other {C:attention}Chess Jokers",
 					"Give {X:mult,C:white}X#1#{} Mult",
-
-				}
+				},
 			},
 			ability_name = "Aiz King",
 			slug = "aiz_king",
@@ -989,7 +989,6 @@ function Jokers()
 				extra = {
 					Xmult = 5,
 				},
-
 			},
 			rarity = 4,
 			cost = 15,
@@ -997,29 +996,29 @@ function Jokers()
 			discovered = false,
 			blueprint_compat = true,
 			eternal_compat = true,
-			soul_pos = { x = 1, y = 0 }
+			soul_pos = { x = 1, y = 0 },
 		}
 		-- Initialize Joker
 		init_joker(king)
 
 		-- remove from pool
-		SMODS.Jokers.j_aiz_king.yes_pool_flag = 'this_flag_will_never_be_set'
+		SMODS.Jokers.j_aiz_king.yes_pool_flag = "this_flag_will_never_be_set"
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_king.loc_def = function(card)
-			return { card.ability.extra.Xmult, }
+			return { card.ability.extra.Xmult }
 		end
 
 		-- Calculate
 		SMODS.Jokers.j_aiz_king.calculate = function(card, context)
-			if context.other_joker and context.other_joker.ability.set == 'Joker' and context.other_joker ~= card then
+			if context.other_joker and context.other_joker.ability.set == "Joker" and context.other_joker ~= card then
 				if is_chess_joker(context.other_joker.ability.name) then
 					return {
-						message = localize {
-							type = 'variable',
-							key = 'a_xmult',
-							vars = { card.ability.extra.Xmult }
-						},
+						message = localize({
+							type = "variable",
+							key = "a_xmult",
+							vars = { card.ability.extra.Xmult },
+						}),
 						Xmult_mod = card.ability.extra.Xmult,
 					}
 				end
@@ -1033,9 +1032,10 @@ function SMODS.INIT.JAIZ()
 	G.localization.misc.dictionary.k_aiz_advance = "Advance!"
 	G.localization.misc.dictionary.k_aiz_promoted = "Promoted!"
 
-
 	if config.allEnabled then
-		if config.jokersEnabled then Jokers() end
+		if config.jokersEnabled then
+			Jokers()
+		end
 	end
 end
 
@@ -1050,7 +1050,7 @@ function Card:add_to_deck(from_debuff)
 			G.GAME.round_resets.discards = G.GAME.round_resets.discards - self.ability.extra.discard_size
 			ease_discard(-self.ability.extra.discard_size)
 		end
-		if self.ability.name == 'Aiz Oops! All 1s' then
+		if self.ability.name == "Aiz Oops! All 1s" then
 			for k, v in pairs(G.GAME.probabilities) do
 				G.GAME.probabilities[k] = v / 2
 			end
@@ -1072,7 +1072,7 @@ function Card:remove_from_deck(from_debuff)
 			G.GAME.round_resets.discards = G.GAME.round_resets.discards + self.ability.extra.discard_size
 			ease_discard(self.ability.extra.discard_size)
 		end
-		if self.ability.name == 'Aiz Oops! All 1s' then
+		if self.ability.name == "Aiz Oops! All 1s" then
 			for k, v in pairs(G.GAME.probabilities) do
 				G.GAME.probabilities[k] = v * 2
 			end
@@ -1089,7 +1089,7 @@ end
 local back_trigger_effectref = Back.trigger_effect
 function Back:trigger_effect(args)
 	back_trigger_effectref(self, args)
-	if args.context == 'final_scoring_step' then
+	if args.context == "final_scoring_step" then
 		for i = 1, #G.jokers.cards do
 			local card = G.jokers.cards[i]
 			if card.ability.name == "Aiz AntiBubzia" then
