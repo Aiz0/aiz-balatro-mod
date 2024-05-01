@@ -26,6 +26,7 @@ local config = {
 	chess_queen = true,
 	chess_king = true,
 	oops_all_ones = true,
+	hand_size = true,
 }
 
 -- Helper functions
@@ -468,6 +469,77 @@ function Jokers()
 		}
 		-- Initialize Joker
 		init_joker(all_ones, true)
+	end
+	if config.hand_size then
+		-- Create Joker
+		local hands = {
+			loc = {
+				name = "Hand size Joker",
+				text = {
+					"At end of round",
+					"set a random hand size",
+					"between {C:attention}#1#{} and {C:attention}#2#{}",
+					"{C:inactive}(Currently {C:attention}#3##4#{C:inactive} hand size)",
+				}
+			},
+			ability_name = "Aiz Hand Size",
+			slug = "aiz_hands",
+			ability = {
+				extra = {
+					hand_size = {
+						max = 15,
+						min = 4,
+						current = 8,
+						difference = 0,
+					}
+				}
+			},
+			rarity = 3,
+			cost = 8,
+			unlocked = true,
+			discovered = false,
+			blueprint_compat = false,
+			eternal_compat = true,
+		}
+		-- Initialize Joker
+		init_joker(hands, true)
+
+		local function set_random_hand_size(card)
+			card.ability.extra.hand_size.current = pseudorandom(pseudoseed("aiz_hand_size"),
+				card.ability.extra.hand_size.min,
+				card.ability.extra.hand_size.max)
+			card.ability.extra.hand_size.difference = card.ability.extra.hand_size.current - (G.hand and G.hand.config
+				.card_limit or 8)
+		end
+
+		SMODS.Jokers.j_aiz_hands.set_ability = function(card)
+			set_random_hand_size(card)
+		end
+
+		-- Set local variables
+		SMODS.Jokers.j_aiz_hands.loc_def = function(card)
+			local sign = ""
+			if card.ability.extra.hand_size.difference >= 0 then sign = "+" end
+			return {
+				card.ability.extra.hand_size.min,
+				card.ability.extra.hand_size.max,
+				sign,
+				card.ability.extra.hand_size.difference
+			}
+		end
+
+		SMODS.Jokers.j_aiz_hands.calculate = function(card, context)
+			if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+				G.hand:change_size(-card.ability.extra.hand_size.difference)
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						set_random_hand_size(card)
+						G.hand:change_size(card.ability.extra.hand_size.difference)
+						return true
+					end
+				}))
+			end
+		end
 	end
 	if config.chess_pawn then
 		-- Chess pawn
@@ -983,6 +1055,9 @@ function Card:add_to_deck(from_debuff)
 				G.GAME.probabilities[k] = v / 2
 			end
 		end
+		if self.ability.name == "Aiz Hand Size" then
+			G.hand:change_size(self.ability.extra.hand_size.difference)
+		end
 	end
 	add_to_deckref(self, from_debuff)
 end
@@ -1001,6 +1076,9 @@ function Card:remove_from_deck(from_debuff)
 			for k, v in pairs(G.GAME.probabilities) do
 				G.GAME.probabilities[k] = v * 2
 			end
+		end
+		if self.ability.name == "Aiz Hand Size" then
+			G.hand:change_size(-self.ability.extra.hand_size.difference)
 		end
 	end
 	remove_from_deckref(self, from_debuff)
