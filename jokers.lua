@@ -28,6 +28,7 @@ local config = {
 	oops_all_ones = true,
 	hand_size = true,
 	poker_hand_xmult = true,
+	penny = true,
 }
 
 -- Helper functions
@@ -610,6 +611,76 @@ function Jokers()
 					}),
 					Xmult_mod = card.ability.extra.Xmult,
 				}
+			end
+		end
+	end
+	if config.penny then
+		-- Create Joker
+		local penny = {
+			loc = {
+				name = "Penny",
+				text = {
+					"At end of round,",
+					"duplicate {C:attention}All{} cards",
+					"in your deck.",
+					"{s:0.5}Please sell when you have 1000 cards or more!",
+				},
+			},
+			ability_name = "Aiz Penny",
+			slug = "aiz_penny",
+			ability = {
+				extra = {
+					Xmult = 1,
+					Xmult_mod = 0.5,
+					played_hands = {},
+				},
+			},
+			rarity = 3,
+			cost = 8,
+			unlocked = true,
+			discovered = false,
+			blueprint_compat = true,
+			eternal_compat = true,
+		}
+		-- Initialize Joker
+		init_joker(penny, true)
+
+		SMODS.Jokers.j_aiz_penny.calculate = function(card, context)
+			if context.end_of_round and not context.individual and not context.repetition then
+				local new_cards = {}
+				for _, playing_card in ipairs(G.playing_cards) do
+					local _card = copy_card(playing_card, nil, nil, G.playing_card)
+					new_cards[#new_cards + 1] = _card
+				end
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						for _, playing_card in ipairs(new_cards) do
+							playing_card:add_to_deck()
+							playing_card:start_materialize()
+							G.deck:emplace(playing_card)
+							table.insert(G.playing_cards, playing_card)
+						end
+						playing_card_joker_effects(new_cards)
+						return true
+					end,
+				}))
+				card_eval_status_text(
+					context.blueprint_card or card,
+					"extra",
+					nil,
+					nil,
+					nil,
+					{ message = localize("k_duplicated_ex") }
+				)
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						G.deck.config.card_limit = G.deck.config.card_limit + #new_cards
+						return true
+					end,
+				}))
+
+				draw_card(G.play, G.deck, 90, "up", nil)
+				playing_card_joker_effects(new_cards)
 			end
 		end
 	end
