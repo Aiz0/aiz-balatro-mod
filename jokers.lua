@@ -27,6 +27,7 @@ local config = {
 	chess_king = true,
 	oops_all_ones = true,
 	hand_size = true,
+	poker_hand_xmult = true,
 }
 
 -- Helper functions
@@ -536,6 +537,79 @@ function Jokers()
 						return true
 					end,
 				}))
+			end
+		end
+	end
+	if config.poker_hand_xmult then
+		-- Create Joker
+		local poker_hand_xmult = {
+			loc = {
+				name = "poker hand xmult WIP",
+				text = {
+					"This Joker Gains {X:mult,C:white}X#1#{} Mult",
+					"per {C:attention}consecutive{} unique",
+					"hand played, reset on non",
+					"unique hand played.",
+					"{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)",
+				},
+			},
+			ability_name = "Aiz poker hand xmult",
+			slug = "aiz_poker_hand_xmult",
+			ability = {
+				extra = {
+					Xmult = 1,
+					Xmult_mod = 0.5,
+					played_hands = {},
+				},
+			},
+			rarity = 3,
+			cost = 8,
+			unlocked = true,
+			discovered = false,
+			blueprint_compat = true,
+			eternal_compat = true,
+		}
+		-- Initialize Joker
+		init_joker(poker_hand_xmult, true)
+
+		-- Set local variables
+		SMODS.Jokers.j_aiz_poker_hand_xmult.loc_def = function(card)
+			return {
+				card.ability.extra.Xmult_mod,
+				card.ability.extra.Xmult,
+			}
+		end
+
+		SMODS.Jokers.j_aiz_poker_hand_xmult.calculate = function(card, context)
+			if context.cardarea == G.jokers and context.before and not context.blueprint then
+				local reset = false
+				for _, hand in pairs(card.ability.extra.played_hands) do
+					if hand == context.scoring_name then
+						reset = true
+					end
+				end
+
+				if reset then
+					card.ability.extra.played_hands = {}
+					card.ability.extra.Xmult = 1
+					return {
+						card = card,
+						message = localize("k_reset"),
+					}
+				else
+					table.insert(card.ability.extra.played_hands, context.scoring_name)
+					card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
+				end
+			end
+			if SMODS.end_calculate_context(context) then
+				return {
+					message = localize({
+						type = "variable",
+						key = "a_xmult",
+						vars = { card.ability.extra.Xmult },
+					}),
+					Xmult_mod = card.ability.extra.Xmult,
+				}
 			end
 		end
 	end
