@@ -29,6 +29,7 @@ local config = {
 	hand_size = true,
 	poker_hand_xmult = true,
 	penny = true,
+	trollker = true,
 }
 
 -- Helper functions
@@ -684,6 +685,116 @@ function Jokers()
 			end
 		end
 	end
+	if config.trollker then
+		-- Create Joker
+		-- Give Xmult and it increase every round
+		-- At start of round and when playing cards it will spawn a bunch of cards to block
+		-- both vision and selection of buttons and cards
+
+		local trollker = {
+			loc = {
+				name = "Trollker",
+				text = {
+					"This Joker gains {X:mult,C:white}X#2#",
+					"Mult at end of round.",
+					"This joker may do",
+					"a little bit of {C:attention}Trolling",
+					"{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive})",
+				},
+			},
+			ability_name = "Aiz Trollker",
+			slug = "aiz_trollker",
+			ability = {
+				extra = {
+					Xmult = 2,
+					Xmult_mod = 0.5,
+					cards_per_mult = 4,
+					cards = {},
+				},
+			},
+			rarity = 3,
+			cost = 10,
+			unlocked = true,
+			discovered = false,
+			blueprint_compat = true,
+			eternal_compat = true,
+		}
+		-- Initialize Joker
+		init_joker(trollker, true)
+
+		SMODS.Jokers.j_aiz_trollker.loc_def = function(card)
+			return { card.ability.extra.Xmult, card.ability.extra.Xmult_mod }
+		end
+
+		SMODS.Jokers.j_aiz_trollker.calculate = function(card, context)
+			-- increment xmult at end of round
+			-- clean up cards
+			if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+				card_eval_status_text(card, "extra", nil, nil, nil, {
+					message = localize("k_upgrade_ex"),
+				})
+				card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
+				for i, blocking_card in ipairs(card.ability.extra.cards) do
+					blocking_card:start_dissolve(nil, i ~= #card.ability.extra.cards)
+				end
+			end
+			-- Give Xmult when scored
+			if SMODS.end_calculate_context(context) then
+				return {
+					message = localize({
+						type = "variable",
+						key = "a_xmult",
+						vars = { card.ability.extra.Xmult },
+					}),
+					Xmult_mod = card.ability.extra.Xmult,
+				}
+			end
+
+			-- Spawn blocking cards on first hand drawn and before scoring a hand
+			if
+				not context.blueprint
+				and (context.first_hand_drawn or (context.cardarea == G.jokers and context.before))
+			then
+				card_eval_status_text(
+					context.blueprint_card or card,
+					"extra",
+					nil,
+					nil,
+					nil,
+					{ message = localize("k_aiz_trolled") }
+				)
+				-- spawn a card for each mult it gives
+				for i = 1, math.floor(card.ability.extra.Xmult * card.ability.extra.cards_per_mult), 1 do
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							-- IDK if these values work everywhere but i guess its good enough for now
+							local x_cord = pseudorandom("trollker", 0, 15)
+							local y_cord = pseudorandom("trollker", 0, 10)
+							-- create a new empty card
+							local blocking_card = Card(
+								x_cord,
+								y_cord,
+								G.CARD_W,
+								G.CARD_H,
+								nil,
+								G.P_CENTERS.c_base,
+								{ playing_card = G.playing_card }
+							)
+							-- flip it manually so only back is shown
+							blocking_card.facing = "back"
+							blocking_card.sprite_facing = "back"
+							-- Glue card in place to prevent it from being moved
+							-- major needs to be set for start_materialize to work correctly
+							blocking_card:set_role({ major = blocking_card, role_type = "Glued" })
+							blocking_card:start_materialize(nil, i ~= 1)
+							table.insert(card.ability.extra.cards, blocking_card)
+							return true
+						end,
+					}))
+				end
+			end
+		end
+	end
 	if config.chess_pawn then
 		-- Chess pawn
 		-- After a few rounds it promotes to a different chess joker
@@ -1176,6 +1287,7 @@ function SMODS.INIT.JAIZ()
 	-- Localization
 	G.localization.misc.dictionary.k_aiz_advance = "Advance!"
 	G.localization.misc.dictionary.k_aiz_promoted = "Promoted!"
+	G.localization.misc.dictionary.k_aiz_trolled = "Trolled!"
 
 	if config.allEnabled then
 		if config.jokersEnabled then
