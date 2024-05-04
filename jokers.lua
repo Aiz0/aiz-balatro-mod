@@ -13,7 +13,7 @@ local config = {
 	allEnabled = true,
 	jokersEnabled = true,
 	-- Jokers
-	backwardsLongJump = true,
+	backwardsLongJump = false, -- WIP / Broken
 	chillJoker = true,
 	loudspeaker = true,
 	easyMode = true,
