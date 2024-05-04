@@ -729,14 +729,7 @@ function Jokers()
 				not context.blueprint
 				and (context.first_hand_drawn or (context.cardarea == G.jokers and context.before))
 			then
-				card_eval_status_text(
-					context.blueprint_card or card,
-					"extra",
-					nil,
-					nil,
-					nil,
-					{ message = localize("k_aiz_trolled") }
-				)
+				card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_aiz_trolled") })
 				-- spawn a card for each mult it gives
 				for i = 1, math.floor(card.ability.extra.Xmult * card.ability.extra.cards_per_mult), 1 do
 					G.E_MANAGER:add_event(Event({
