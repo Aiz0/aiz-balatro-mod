@@ -385,11 +385,6 @@ function Jokers()
 		}
 		-- Initialize Joker
 		init_joker(antibubzia, true)
-
-		-- Set local variables
-		SMODS.Jokers.j_aiz_antibubzia.loc_def = function(card)
-			return {}
-		end
 	end
 	if config.backwardsLongJump then
 		-- Backwards Long Jump (BLJ)
