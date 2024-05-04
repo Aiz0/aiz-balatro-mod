@@ -272,7 +272,7 @@ function Jokers()
 			rarity = 2,
 			cost = 7,
 			unlocked = true,
-			discovered = true,
+			discovered = false,
 			blueprint_compat = true,
 			eternal_compat = true,
 		}
@@ -336,7 +336,7 @@ function Jokers()
 			rarity = 1,
 			cost = 1,
 			unlocked = true,
-			discovered = true,
+			discovered = false,
 			blueprint_compat = false,
 			eternal_compat = true,
 			soul_pos = {
@@ -379,7 +379,7 @@ function Jokers()
 			rarity = 3,
 			cost = 10,
 			unlocked = true,
-			discovered = true,
+			discovered = false,
 			blueprint_compat = false,
 			eternal_compat = true,
 		}
@@ -416,7 +416,7 @@ function Jokers()
 			rarity = 4,
 			cost = 15,
 			unlocked = true,
-			discovered = true,
+			discovered = false,
 			blueprint_compat = false,
 			eternal_compat = true,
 		}
@@ -459,7 +459,7 @@ function Jokers()
 			rarity = 4,
 			cost = 15,
 			unlocked = true,
-			discovered = true,
+			discovered = false,
 			blueprint_compat = false,
 			eternal_compat = true,
 		}
@@ -819,7 +819,7 @@ function Jokers()
 			rarity = 1,
 			cost = 5,
 			unlocked = true,
-			discovered = true,
+			discovered = false,
 			blueprint_compat = true,
 			eternal_compat = true,
 		}
