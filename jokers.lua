@@ -1167,17 +1167,13 @@ function Jokers()
 				if min < 1 then
 					min = 1
 				end
-				for _, playing_card in ipairs(G.playing_cards) do
+				for i, playing_card in ipairs(G.playing_cards) do
 					if playing_card:get_id() <= min then
 						-- Add to Xmult
 						local mult_mod = card.ability.extra.Xmult_mod * min
 						card.ability.extra.Xmult = card.ability.extra.Xmult + mult_mod
 						-- Destroy card
-						if playing_card.ability.name == "Glass Card" then
-							playing_card:shatter()
-						else
-							playing_card:start_dissolve()
-						end
+						playing_card:start_dissolve(nil, i ~= 1)
 					end
 				end
 			end
