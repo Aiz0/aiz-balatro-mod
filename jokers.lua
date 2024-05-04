@@ -209,10 +209,10 @@ function Jokers()
 			ability = {
 				extra = {},
 			},
-			rarity = 1,
-			cost = 4,
+			rarity = 2,
+			cost = 6,
 			unlocked = true,
-			discovered = true,
+			discovered = false,
 			blueprint_compat = true,
 			eternal_compat = true,
 		}
@@ -222,7 +222,7 @@ function Jokers()
 		-- custom function
 		local function get_loudspeaker_chips()
 			return math.floor(
-				(G.SETTINGS.SOUND.music_volume + G.SETTINGS.SOUND.game_sounds_volume) * G.SETTINGS.SOUND.volume / 100
+				(G.SETTINGS.SOUND.music_volume + G.SETTINGS.SOUND.game_sounds_volume) * G.SETTINGS.SOUND.volume / 200
 			)
 		end
 
