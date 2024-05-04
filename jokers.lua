@@ -694,7 +694,7 @@ function Jokers()
 			eternal_compat = true,
 		}
 		-- Initialize Joker
-		init_joker(trollker, true)
+		init_joker(trollker)
 
 		SMODS.Jokers.j_aiz_trollker.loc_def = function(card)
 			return { card.ability.extra.Xmult, card.ability.extra.Xmult_mod }
