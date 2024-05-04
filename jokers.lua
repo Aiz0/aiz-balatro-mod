@@ -385,6 +385,10 @@ function Jokers()
 		}
 		-- Initialize Joker
 		init_joker(antibubzia, true)
+
+		SMODS.Jokers.j_aiz_antibubzia.set_ability = function(card)
+			card.ability.eternal = true
+		end
 	end
 	if config.backwardsLongJump then
 		-- Backwards Long Jump (BLJ)
