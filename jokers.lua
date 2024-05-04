@@ -277,7 +277,7 @@ function Jokers()
 			eternal_compat = true,
 		}
 		-- Initialize Joker
-		init_joker(easyMode, true)
+		init_joker(easyMode)
 
 		local function get_easy_mode_mult(card)
 			local mult = 0
