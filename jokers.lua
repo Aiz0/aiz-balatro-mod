@@ -1288,6 +1288,8 @@ function SMODS.INIT.JAIZ()
 	G.localization.misc.dictionary.k_aiz_advance = "Advance!"
 	G.localization.misc.dictionary.k_aiz_promoted = "Promoted!"
 	G.localization.misc.dictionary.k_aiz_trolled = "Trolled!"
+	G.localization.misc.dictionary.k_aiz_squared = "Squared!"
+	G.localization.misc.dictionary.k_aiz_cancelled = "Cancelled!"
 
 	if config.allEnabled then
 		if config.jokersEnabled then
@@ -1350,16 +1352,37 @@ function Back:trigger_effect(args)
 		for i = 1, #G.jokers.cards do
 			local card = G.jokers.cards[i]
 			if card.ability.name == "Aiz AntiBubzia" then
+				local text
 				if card.edition and card.edition.negative then
 					args.mult = args.mult * args.mult
 					args.chips = args.chips * args.chips
+					text = localize("k_aiz_squared")
 				else
 					args.mult = 0
 					args.chips = 0
+					text = localize("k_aiz_cancelled")
 				end
 				update_hand_text({ delay = 0 }, { mult = args.mult, chips = args.chips })
-				--TODO ADD COOL EFFECT HERE
-				delay(0.5)
+
+				-- mostly same effect as plasma deck.
+				G.E_MANAGER:add_event(Event({
+					trigger = "before",
+					delay = 4.3,
+					func = function()
+						play_sound("gong", 0.94, 0.3)
+						play_sound("gong", 0.94 * 1.5, 0.2)
+						play_sound("tarot1", 1.5)
+						attention_text({
+							scale = 1.4,
+							text = text,
+							hold = 2,
+							align = "cm",
+							offset = { x = 0, y = -2.7 },
+							major = G.play,
+						})
+						return true
+					end,
+				}))
 			end
 		end
 	end
