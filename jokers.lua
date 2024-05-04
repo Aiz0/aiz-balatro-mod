@@ -445,7 +445,7 @@ function Jokers()
 		-- Create Joker
 		local hands = {
 			loc = {
-				name = "Hand size Joker",
+				name = "Too Much To Handle",
 				text = {
 					"At end of round",
 					"set a random hand size",
