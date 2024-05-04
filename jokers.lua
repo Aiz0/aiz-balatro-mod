@@ -618,7 +618,7 @@ function Jokers()
 			eternal_compat = true,
 		}
 		-- Initialize Joker
-		init_joker(penny, true)
+		init_joker(penny)
 
 		SMODS.Jokers.j_aiz_penny.calculate = function(card, context)
 			if context.end_of_round and not context.individual and not context.repetition then
