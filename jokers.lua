@@ -546,7 +546,7 @@ function Jokers()
 			eternal_compat = true,
 		}
 		-- Initialize Joker
-		init_joker(poker_hand_xmult, true)
+		init_joker(poker_hand_xmult)
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_poker_hand_xmult.loc_def = function(card)
