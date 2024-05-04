@@ -323,7 +323,6 @@ function Jokers()
 			loc = {
 				name = "Blåhaj",
 				text = {
-					"A soft toy shark",
 					"{C:dark_edition}+#1#{} Joker slots",
 				},
 			},
