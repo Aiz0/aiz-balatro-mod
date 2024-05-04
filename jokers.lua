@@ -164,7 +164,7 @@ function Jokers()
 			eternal_compat = true,
 		}
 		-- Initialize Joker
-		init_joker(chill_joker, true)
+		init_joker(chill_joker)
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_chill_joker.loc_def = function(card)
