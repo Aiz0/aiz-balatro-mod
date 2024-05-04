@@ -384,7 +384,7 @@ function Jokers()
 			eternal_compat = true,
 		}
 		-- Initialize Joker
-		init_joker(antibubzia, true)
+		init_joker(antibubzia)
 
 		SMODS.Jokers.j_aiz_antibubzia.set_ability = function(card)
 			card.ability.eternal = true
