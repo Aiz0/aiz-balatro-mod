@@ -150,16 +150,16 @@ function Jokers()
 				},
 			},
 			ability_name = "Aiz Chill Joker",
-			slug = "aiz_chill",
+			slug = "aiz_chill_joker",
 			ability = {
 				extra = {
-					Xmult = 4,
+					Xmult = 2,
 				},
 			},
-			rarity = 1,
-			cost = 4,
+			rarity = 2,
+			cost = 7,
 			unlocked = true,
-			discovered = true,
+			discovered = false,
 			blueprint_compat = true,
 			eternal_compat = true,
 		}
@@ -167,12 +167,12 @@ function Jokers()
 		init_joker(chill_joker, true)
 
 		-- Set local variables
-		SMODS.Jokers.j_aiz_chill.loc_def = function(card)
+		SMODS.Jokers.j_aiz_chill_joker.loc_def = function(card)
 			return { card.ability.extra.Xmult, card.ability.extra.Xmult / G.SETTINGS.GAMESPEED }
 		end
 
 		-- Calculate
-		SMODS.Jokers.j_aiz_chill.calculate = function(card, context)
+		SMODS.Jokers.j_aiz_chill_joker.calculate = function(card, context)
 			if SMODS.end_calculate_context(context) then
 				-- Get current gamespeed and give Xmult based on that
 				local Xmult = card.ability.extra.Xmult / G.SETTINGS.GAMESPEED
