@@ -473,7 +473,7 @@ function Jokers()
 			eternal_compat = true,
 		}
 		-- Initialize Joker
-		init_joker(hands, true)
+		init_joker(hands)
 
 		local function set_random_hand_size(card)
 			card.ability.extra.hand_size.current = pseudorandom(
