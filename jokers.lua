@@ -217,7 +217,7 @@ function Jokers()
 			eternal_compat = true,
 		}
 		-- Initialize Joker
-		init_joker(loudspeaker, true)
+		init_joker(loudspeaker)
 
 		-- custom function
 		local function get_loudspeaker_chips()
