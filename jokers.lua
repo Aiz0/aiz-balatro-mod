@@ -209,8 +209,8 @@ function Jokers()
 			ability = {
 				extra = {},
 			},
-			rarity = 2,
-			cost = 6,
+			rarity = 1,
+			cost = 5,
 			unlocked = true,
 			discovered = false,
 			blueprint_compat = true,
