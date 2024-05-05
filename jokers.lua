@@ -672,7 +672,7 @@ function Jokers()
 					"This Joker gains {X:mult,C:white}X#2#",
 					"Mult at end of round.",
 					"This joker may do",
-					"a little bit of {C:attention}Trolling",
+					"a little bit of {C:attention,E:1,S:1.1}Trolling",
 					"{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive})",
 				},
 			},
