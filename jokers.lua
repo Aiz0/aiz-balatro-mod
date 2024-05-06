@@ -134,6 +134,33 @@ local function is_chess_joker(ability_name)
 	return false
 end
 
+local function create_blocking_card(card, position, silent)
+	G.E_MANAGER:add_event(Event({
+		func = function()
+			-- create a new empty card
+			local blocking_card = Card(
+				position.x,
+				position.y,
+				G.CARD_W,
+				G.CARD_H,
+				nil,
+				G.P_CENTERS.c_base,
+				{ playing_card = G.playing_card }
+			)
+			-- flip it manually so only back is shown
+			blocking_card.facing = "back"
+			blocking_card.sprite_facing = "back"
+			-- Glue card in place to prevent it from being moved
+			-- major needs to be set for start_materialize to work correctly
+			blocking_card:set_role({ major = blocking_card, role_type = "Glued" })
+			blocking_card:start_materialize(nil, silent)
+			table.insert(card.ability.extra.cards, blocking_card)
+			table.insert(card.ability.extra.card_positions, position)
+			return true
+		end,
+	}))
+end
+
 function Jokers()
 	if config.chillJoker then
 		-- Chill Joker
@@ -684,6 +711,7 @@ function Jokers()
 					Xmult_mod = 0.5,
 					cards_per_mult = 4,
 					cards = {},
+					card_positions = {},
 				},
 			},
 			rarity = 3,
@@ -711,6 +739,8 @@ function Jokers()
 				for i, blocking_card in ipairs(card.ability.extra.cards) do
 					blocking_card:start_dissolve(nil, i ~= #card.ability.extra.cards)
 				end
+				-- needs to be reset manually
+				card.ability.extra.card_positions = {}
 			end
 			-- Give Xmult when scored
 			if SMODS.end_calculate_context(context) then
@@ -732,32 +762,12 @@ function Jokers()
 				card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_aiz_trolled") })
 				-- spawn a card for each mult it gives
 				for i = 1, math.floor(card.ability.extra.Xmult * card.ability.extra.cards_per_mult), 1 do
-					G.E_MANAGER:add_event(Event({
-						func = function()
-							-- IDK if these values work everywhere but i guess its good enough for now
-							local x_cord = pseudorandom("trollker", 0, 15)
-							local y_cord = pseudorandom("trollker", 0, 10)
-							-- create a new empty card
-							local blocking_card = Card(
-								x_cord,
-								y_cord,
-								G.CARD_W,
-								G.CARD_H,
-								nil,
-								G.P_CENTERS.c_base,
-								{ playing_card = G.playing_card }
-							)
-							-- flip it manually so only back is shown
-							blocking_card.facing = "back"
-							blocking_card.sprite_facing = "back"
-							-- Glue card in place to prevent it from being moved
-							-- major needs to be set for start_materialize to work correctly
-							blocking_card:set_role({ major = blocking_card, role_type = "Glued" })
-							blocking_card:start_materialize(nil, i ~= 1)
-							table.insert(card.ability.extra.cards, blocking_card)
-							return true
-						end,
-					}))
+					-- IDK if these values work everywhere but i guess its good enough for now
+					local position = {
+						x = pseudorandom("trollker", 0, 18),
+						y = pseudorandom("trollker", 0, 9),
+					}
+					create_blocking_card(card, position, i ~= 1)
 				end
 			end
 		end
@@ -1344,5 +1354,17 @@ function Back:trigger_effect(args)
 	return args.chips, args.mult
 end
 
+local card_loadref = Card.load
+function Card:load(cardTable, other_card)
+	card_loadref(self, cardTable, other_card)
+
+	if self.ability.name == "Aiz Trollker" then
+		-- reset blocking_cards here
+		self.ability.extra.cards = {}
+		for i, position in ipairs(self.ability.extra.card_positions) do
+			create_blocking_card(self, position, i ~= 1)
+		end
+	end
+end
 ----------------------------------------------
 ------------MOD CODE END----------------------
