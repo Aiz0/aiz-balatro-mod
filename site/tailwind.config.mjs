@@ -67,6 +67,15 @@ export default {
       dropShadow: {
         soul: "0 0.5rem rgba(0,0,0,0.25)",
       },
+      keyframes: {
+        soul: {
+          "0%, 100%": { transform: "rotate(-5deg) scale(1)" },
+          "50%": { transform: "rotate(5deg) scale(1.05)" },
+        },
+      },
+      animation: {
+        soul: "soul 7s ease-in-out infinite",
+      },
     },
   },
   safelist: [{ pattern: /bg-balatro-/ }, { pattern: /text-balatro-/ }],
