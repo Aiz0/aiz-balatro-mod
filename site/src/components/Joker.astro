@@ -24,7 +24,7 @@ const modifiedText = text.map((line) => {
         if (selector === "C") {
           classes.push(`text-balatro-${color}`);
         } else if (selector === "X") {
-          classes.push(`bg-balatro-${color}`);
+          classes.push(`bg-balatro-${color}`, "rounded-md px-1");
         }
       });
       return "</span><span class='" + classes.join(" ") + "'>";
@@ -33,9 +33,13 @@ const modifiedText = text.map((line) => {
 });
 ---
 
-<div class="w-96 bg-gray-800 border-2 px-8">
-  <h3>{name}</h3>
-  <Image src={testimage} alt="" />
-  <div class="bg-red-500 rounded-xl text-center">Rare</div>
-  {modifiedText.map((line) => <div class="text-white" set:html={line} />)}
+<div
+  class="w-96 bg-gray-800 border-2 px-8 flex flex-col items-center text-balatro-white text-lg"
+>
+  <h3 class="">{name}</h3>
+  <div>
+    <Image src={testimage} alt=" " />
+    <div class="bg-red-500 rounded-lg text-center p-2">Rare</div>
+  </div>
+  {modifiedText.map((line) => <div set:html={line} />)}
 </div>
