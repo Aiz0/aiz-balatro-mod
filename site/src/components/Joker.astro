@@ -44,14 +44,14 @@ const modifiedText = text.map((line) => {
       <Image
         src={images[image_path]()}
         alt=" "
-        class="col-span-1 object-cover absolute top-0 left-0 object-left w-36 h-48"
+        class="col-span-1 object-cover absolute top-0 left-0 object-left w-36 h-48 render-pixelated"
       />
       {
         soul && (
           <Image
             src={images[image_path]()}
             alt=" "
-            class="absolute top-0 left-0 object-cover object-right w-36 h-48 animate-spin"
+            class="absolute top-0 left-0 object-cover object-right w-36 h-48 animate-spin render-pixelated"
           />
         )
       }
