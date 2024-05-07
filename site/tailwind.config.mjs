@@ -64,6 +64,9 @@ export default {
           },
         },
       },
+      dropShadow: {
+        soul: "0 0.5rem rgba(0,0,0,0.25)",
+      },
     },
   },
   safelist: [{ pattern: /bg-balatro-/ }, { pattern: /text-balatro-/ }],
