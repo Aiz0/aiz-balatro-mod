@@ -2,8 +2,8 @@ const jokers = [
   {
     name: "Chill Joker",
     text: [
-      "{X:mult,C:white}X#1#{} divided by game speed",
-      "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
+      "{X:mult,C:white}X2{} divided by game speed",
+      "{C:inactive}(Currently {X:mult,C:white}X2{C:inactive} Mult)",
     ],
     rarity: 1,
   },
