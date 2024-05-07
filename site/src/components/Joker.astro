@@ -2,19 +2,40 @@
 import Image from "astro/components/Image.astro";
 
 import testimage from "../../../assets/2x/j_aiz_chill_joker.png";
+import { jokers } from "../jokers";
 interface Props {
   name: string;
   text: string[];
   rarity: number;
   soul: boolean;
 }
+const { name, text, rarity, soul } = Astro.props;
 
-const { name, text, rarity } = Astro.props;
+let cols = {};
+
+const regex = /{([^}]+)}/g;
+
+const modifiedText = text.map((line) => {
+  return (
+    line.replace("{}", "</span>").replace(regex, (_match, p1) => {
+      const classes: string[] = [];
+      p1.split(",").forEach((item: string) => {
+        const [selector, color] = item.split(":");
+        if (selector === "C") {
+          classes.push(`text-balatro-${color}`);
+        } else if (selector === "X") {
+          classes.push(`bg-balatro-${color}`);
+        }
+      });
+      return "</span><span class='" + classes.join(" ") + "'>";
+    }) + "</span>"
+  );
+});
 ---
 
 <div class="w-96 bg-gray-800 border-2 px-8">
   <h3>{name}</h3>
   <Image src={testimage} alt="" />
   <div class="bg-red-500 rounded-xl text-center">Rare</div>
-  {text.map((line) => <li>{line}</li>)}
+  {modifiedText.map((line) => <div class="text-white" set:html={line} />)}
 </div>

@@ -1,8 +1,52 @@
 /** @type {import('tailwindcss').Config} */
+const colors = require("tailwindcss/colors");
 export default {
-	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
-	theme: {
-		extend: {},
-	},
-	plugins: [],
-}
+  content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
+  theme: {
+    extend: {
+      colors: {
+        balatro: {
+          mult: "#fe5f55",
+          chips: "#009dff",
+          money: "#f3b958",
+          xmult: "#fe5f55",
+          filter: "#ff9a00",
+          attention: "#ff9a00",
+          blue: "#009dff",
+          red: "#fe5f55",
+          green: "#4bc292",
+          pale_green: "#56a887",
+          orange: "#fda200",
+          important: "#ff9a00",
+          gold: "#eac058",
+          yellow: "#ffff00",
+          clear: "#00000000",
+          white: "#ffffff",
+          purple: "#8867a5",
+          black: "#374244",
+          l_black: "#4f6367",
+          grey: "#5f7377",
+          chance: "#4bc292",
+          joker_grey: "#bfc7d5",
+          voucher: "#cb724c",
+          booster: "#646eb7",
+          edition: "#ffffff",
+          dark_edition: "#5d5dff",
+          eternal: "#c75985",
+          inactive: "#ffffff99",
+          hearts: "#f03464",
+          diamonds: "#f06b3f",
+          spades: "#403995",
+          clubs: "#235955",
+          enhanced: "#8389dd",
+          joker: "#708b91",
+          tarot: "#a782d1",
+          planet: "#13afce",
+          spectral: "#4584fa",
+        },
+      },
+    },
+  },
+  safelist: [{ pattern: /bg-balatro-/ }, { pattern: /text-balatro-/ }],
+  plugins: [],
+};
