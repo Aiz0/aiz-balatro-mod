@@ -6,7 +6,7 @@ interface Props {
   text: string[];
   badge: string;
   image: string;
-  soul: boolean;
+  soul: boolean | undefined;
 }
 const { name, text, badge, image, soul } = Astro.props;
 
@@ -40,7 +40,22 @@ const modifiedText = text.map((line) => {
 >
   <h3 class="">{name}</h3>
   <div>
-    <Image src={images[image_path]()} alt=" " />
+    <div class="relative w-36 h-48">
+      <Image
+        src={images[image_path]()}
+        alt=" "
+        class="col-span-1 object-cover absolute top-0 left-0 object-left w-36 h-48"
+      />
+      {
+        soul && (
+          <Image
+            src={images[image_path]()}
+            alt=" "
+            class="absolute top-0 left-0 object-cover object-right w-36 h-48 animate-spin"
+          />
+        )
+      }
+    </div>
     <!-- Badge -->
     <div
       class={`rounded-lg text-center p-2 bg-balatro-badge-${badge.toLowerCase()}`}

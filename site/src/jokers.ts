@@ -13,6 +13,7 @@ const jokers = [
     text: ["{C:dark_edition}+1{} Joker slots"],
     badge: "common",
     image: "j_aiz_blåhaj",
+    soul: true,
   },
 ];
 export { jokers };
