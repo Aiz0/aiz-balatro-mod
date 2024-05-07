@@ -1,8 +1,20 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
+import Joker from "../components/Joker.astro";
+import { jokers } from "../jokers.ts";
 ---
 
 <Layout title="Welcome to Astro.">
-  <main></main>
+  <main>
+    {
+      jokers.map((joker) => (
+        <Joker
+          name={joker.name}
+          rarity={joker.rarity}
+          text={joker.text}
+          soul={false}
+        />
+      ))
+    }
+  </main>
 </Layout>

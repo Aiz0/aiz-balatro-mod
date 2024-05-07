@@ -1,21 +1,20 @@
 ---
+import Image from "astro/components/Image.astro";
+
+import testimage from "../../../assets/2x/j_aiz_chill_joker.png";
 interface Props {
-  title: string;
-  body: string;
-  href: string;
+  name: string;
+  text: string[];
+  rarity: number;
+  soul: boolean;
 }
 
-const { href, title, body } = Astro.props;
+const { name, text, rarity } = Astro.props;
 ---
 
-<li>
-  <a href={href}>
-    <h2>
-      {title}
-      <span>&rarr;</span>
-    </h2>
-    <p>
-      {body}
-    </p>
-  </a>
-</li>
+<div class="w-96 bg-gray-800 border-2 px-8">
+  <h3>{name}</h3>
+  <Image src={testimage} alt="" />
+  <div class="bg-red-500 rounded-xl text-center">Rare</div>
+  {text.map((line) => <li>{line}</li>)}
+</div>
