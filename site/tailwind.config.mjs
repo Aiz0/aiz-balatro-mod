@@ -4,6 +4,9 @@ export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
     extend: {
+      fontFamily: {
+        balatro: ["m6x11plus"],
+      },
       colors: {
         balatro: {
           mult: "#fe5f55",
