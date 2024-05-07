@@ -6,10 +6,10 @@ import { jokers } from "../jokers";
 interface Props {
   name: string;
   text: string[];
-  rarity: number;
+  badge: string;
   soul: boolean;
 }
-const { name, text, rarity, soul } = Astro.props;
+const { name, text, badge, soul } = Astro.props;
 
 let cols = {};
 
@@ -39,7 +39,12 @@ const modifiedText = text.map((line) => {
   <h3 class="">{name}</h3>
   <div>
     <Image src={testimage} alt=" " />
-    <div class="bg-red-500 rounded-lg text-center p-2">Rare</div>
+    <!-- Badge -->
+    <div
+      class={`rounded-lg text-center p-2 bg-balatro-badge-${badge.toLowerCase()}`}
+    >
+      {badge}
+    </div>
   </div>
   {modifiedText.map((line) => <div set:html={line} />)}
 </div>
