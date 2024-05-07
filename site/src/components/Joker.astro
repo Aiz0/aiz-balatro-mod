@@ -1,20 +1,22 @@
 ---
 import Image from "astro/components/Image.astro";
 
-import testimage from "../../../assets/2x/j_aiz_chill_joker.png";
-import { jokers } from "../jokers";
 interface Props {
   name: string;
   text: string[];
   badge: string;
+  image: string;
   soul: boolean;
 }
-const { name, text, badge, soul } = Astro.props;
+const { name, text, badge, image, soul } = Astro.props;
 
-let cols = {};
+const base_path = "../../../assets/2x";
+const images = import.meta.glob<{ default: ImageMetadata }>(
+  "../../../assets/2x/*.png"
+);
+const image_path = `${base_path}/${image}.png`;
 
 const regex = /{([^}]+)}/g;
-
 const modifiedText = text.map((line) => {
   return (
     line.replace("{}", "</span>").replace(regex, (_match, p1) => {
@@ -38,7 +40,7 @@ const modifiedText = text.map((line) => {
 >
   <h3 class="">{name}</h3>
   <div>
-    <Image src={testimage} alt=" " />
+    <Image src={images[image_path]()} alt=" " />
     <!-- Badge -->
     <div
       class={`rounded-lg text-center p-2 bg-balatro-badge-${badge.toLowerCase()}`}
