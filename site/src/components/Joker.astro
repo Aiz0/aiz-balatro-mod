@@ -59,7 +59,9 @@ switch (badge.toLowerCase()) {
 <div
   class="bg-balatro-black border-4 border-balatro-outline px-8 w-80 flex flex-col items-center gap-2 py-4 text-balatro-white text-2xl font-balatro rounded-2xl shadow-balatro shadow-balatro-outline-dark"
 >
+  <!-- Name -->
   <h3 class="text-4xl text-shadow capitalize">{name}</h3>
+	<!-- Image -->
   <div class="relative w-36 h-48">
     <Image
       src={images[image_path]()}
@@ -68,6 +70,7 @@ switch (badge.toLowerCase()) {
     />
     {
       soul && (
+			<!-- Soul  -->
         <Image
           src={images[image_path]()}
           alt=" "
@@ -76,12 +79,13 @@ switch (badge.toLowerCase()) {
       )
     }
   </div>
-  <!-- Badge -->
+	<!-- Badge -->
   <div
     class={`rounded-full w-36 shadow-balatro text-center capitalize ${badgeColor} ${badgeShadowColor} text-shadow`}
   >
     {badge}
   </div>
+	<!-- Description -->
   <p
     class="px-2 bg-white rounded-2xl shadow-balatro w-full shadow-balatro-outline-dark min-h-20 content-center text-center text-balatro-black"
   >
