@@ -5,21 +5,22 @@ import { jokers } from "../jokers.ts";
 ---
 
 <Layout title="Welcome to Astro.">
-  <div class="flex justify-center">
-    <main>
-      <div class="grid grid-cols-3 gap-8 px-8 w-fit">
-        {
-          jokers.map((joker) => (
-            <Joker
-              name={joker.name}
-              badge={joker.badge}
-              text={joker.text}
-              image={joker.image}
-              soul={joker.soul}
-            />
-          ))
-        }
-      </div>
-    </main>
-  </div>
+  <main class="flex flex-col items-center text-white font-balatro">
+    <h1 class="text-8xl">Aiz's Balatro Mod</h1>
+
+    <h2 class="text-6xl">Jokers</h2>
+    <div class="grid grid-cols-3 gap-8 px-8 w-fit">
+      {
+        jokers.map((joker) => (
+          <Joker
+            name={joker.name}
+            badge={joker.badge}
+            text={joker.text}
+            image={joker.image}
+            soul={joker.soul}
+          />
+        ))
+      }
+    </div>
+  </main>
 </Layout>
