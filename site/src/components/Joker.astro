@@ -24,9 +24,35 @@ const modifiedText = text.map((line) => {
       p1.split(",").forEach((item: string) => {
         const [selector, color] = item.split(":");
         if (selector === "C") {
-          classes.push(`text-balatro-${color}`);
+					switch(color){
+						case "white":
+							classes.push("text-white")
+						case "mult":
+							classes.push("text-balatro-red");
+							break;
+						case "chips":
+							classes.push("text-balatro-blue");
+							break;
+						case "attention":
+							classes.push("text-balatro-orange");
+							break;
+						case "money":
+							classes.push("text-balatro-gold");
+							break;
+						case "dark_edition":
+							classes.push("text-balatro-blue-special");
+							break;
+						case "inactive":
+							classes.push("text-balatro-grey-light");
+							break;
+					}
         } else if (selector === "X") {
-          classes.push(`bg-balatro-${color}`, "rounded-md px-1");
+					switch(color){
+						case "mult":
+							classes.push("bg-balatro-red");
+							break;
+					}
+          classes.push("rounded-md px-1");
         }
       });
       return "</span><span class='" + classes.join(" ") + "'>";

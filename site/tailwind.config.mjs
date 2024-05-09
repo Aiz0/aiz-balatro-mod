@@ -17,17 +17,15 @@ export default {
           blue: {
             DEFAULT: "#009dff", // chips, uncommon
             dark: "#005e99",
-            special: "5d5dff", // spectral, dark edition, boss blind, seal
+            special: "#5d5dff", // spectral, dark edition, boss blind, seal
           },
           gold: {
             DEFAULT: "#f3b958", // money
             dark: "#eac058", // gold
           },
           yellow: "#ffff00",
-          orange: "#fda200",
-
           orange: {
-            DEFAULT: "ff9a00", // attention, important,
+            DEFAULT: "#ff9a00", // attention, important,
             other: "#fda200",
             voucher: "#fd682b", // voucher
           },
@@ -90,6 +88,5 @@ export default {
       },
     },
   },
-  safelist: [{ pattern: /bg-balatro-/ }, { pattern: /text-balatro-/ }],
   plugins: [],
 };
