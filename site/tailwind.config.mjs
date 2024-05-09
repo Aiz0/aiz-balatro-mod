@@ -9,78 +9,68 @@ export default {
       },
       colors: {
         balatro: {
-          mult: "#fe5f55",
-          chips: "#009dff",
-          money: "#f3b958",
-          xmult: "#fe5f55",
-          filter: "#ff9a00",
-          attention: "#ff9a00",
-          blue: "#009dff",
-          red: "#fe5f55",
-          green: "#4bc292",
-          pale_green: "#56a887",
-          orange: "#fda200",
-          important: "#ff9a00",
-          gold: "#eac058",
+          white: "#ffffff", // edition
+          red: {
+            DEFAULT: "#fe5f55", // mult, xmult, rare
+            dark: "#ca0d01",
+          },
+          blue: {
+            DEFAULT: "#009dff", // chips, uncommon
+            dark: "#005e99",
+            special: "5d5dff", // spectral, dark edition, boss blind, seal
+          },
+          gold: {
+            DEFAULT: "#f3b958", // money
+            dark: "#eac058", // gold
+          },
           yellow: "#ffff00",
-          clear: "#00000000",
-          white: "#ffffff",
-          purple: "#8867a5",
-          black: "#374244",
-          l_black: "#4f6367",
-          grey: "#5f7377",
-          chance: "#4bc292",
-          joker_grey: "#bfc7d5",
-          voucher: "#cb724c",
-          booster: "#646eb7",
-          edition: "#ffffff",
-          dark_edition: "#5d5dff",
-          eternal: "#c75985",
-          inactive: "#88888899",
+          orange: "#fda200",
+
+          orange: {
+            DEFAULT: "ff9a00", // attention, important,
+            other: "#fda200",
+            voucher: "#fd682b", // voucher
+          },
+          green: {
+            pale: "#56a887",
+            DEFAULT: "#4bc292", // chance, uncommmon
+            dark: "#297958",
+            edition: "#4ca893",
+          },
+
+          purple: {
+            tarot: "#a782d1",
+            DEFAULT: "#b26cbb", // legendary
+            dark: "#723879",
+            other: "#8867a5", // purple
+            booster: "#646eb7",
+            showdown: "#4584fa",
+          },
+          black: {
+            DEFAULT: "#374244",
+            light: "#4f6367", // l_black
+          },
+          grey: {
+            DEFAULT: "d8d8d8", // outline
+            dark: "#828282", // outline
+            light: "#88888899", // inactive
+            other: "#5f7377",
+            joker: "#bfc7d5", // joker_gray
+            enhancement: "#8389dd",
+          },
+          cyan: {
+            DEFAULT: "#13afce", //planet
+          },
+          brown: "#cb724c", // voucher thingy
+
+          // Gonna Keep these as is
           hearts: "#f03464",
           diamonds: "#f06b3f",
           spades: "#403995",
           clubs: "#235955",
-          enhanced: "#8389dd",
+          eternal: "#c75985",
+          deck: "#9bb6bd", // pack aswell
           joker: "#708b91",
-          tarot: "#a782d1",
-          planet: "#13afce",
-          spectral: "#4584fa",
-          outline: {
-            DEFAULT: "d8d8d8",
-            dark: "#828282",
-          },
-          badge: {
-            common: {
-              DEFAULT: "#009dff",
-              dark: "#005e99",
-            },
-            uncommon: {
-              DEFAULT: "#4bc292",
-              dark: "#297958",
-            },
-            rare: {
-              DEFAULT: "#fe5f55",
-              dark: "#ca0d01",
-            },
-            legendary: {
-              DEFAULT: "#b26cbb",
-              dark: "#723879",
-            },
-            joker: "#708b91",
-            tarot: "#a782d1",
-            planet: "#13afce",
-            spectral: "#4584fa",
-            voucher: "#fd682b",
-            pack: "#9bb6bd",
-            enhancement: "#8389dd",
-            edition: "#4ca893",
-            seal: "#4584fa",
-            deck: "#9bb6bd",
-            sticker: "#5d5dff",
-            boss_blind: "#5d5dff",
-            showdown: "#4584fa",
-          },
         },
       },
       boxShadow: {

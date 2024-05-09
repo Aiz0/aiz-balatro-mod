@@ -38,26 +38,26 @@ let badgeColor = "bg-balatro-inactive";
 let badgeShadowColor = "shadow-black";
 switch (badge.toLowerCase()) {
   case "common":
-    badgeColor = "bg-balatro-badge-common";
-    badgeShadowColor = "shadow-balatro-badge-common-dark";
+    badgeColor = "bg-balatro-blue";
+    badgeShadowColor = "shadow-balatro-blue-dark";
     break;
   case "uncommon":
-    badgeColor = "bg-balatro-badge-uncommon";
-    badgeShadowColor = "shadow-balatro-badge-uncommon-dark";
+    badgeColor = "bg-balatro-green";
+    badgeShadowColor = "shadow-balatro-green-dark";
     break;
   case "rare":
-    badgeColor = "bg-balatro-badge-rare";
-    badgeShadowColor = "shadow-balatro-badge-rare-dark";
+    badgeColor = "bg-balatro-red";
+    badgeShadowColor = "shadow-balatro-red-dark";
     break;
   case "legendary":
-    badgeColor = "bg-balatro-badge-legendary";
-    badgeShadowColor = "shadow-balatro-badge-legendary-dark";
+    badgeColor = "bg-balatro-purple";
+    badgeShadowColor = "shadow-balatro-purple-dark";
     break;
 }
 ---
 
 <div
-  class="bg-balatro-black border-4 border-balatro-outline px-8 w-80 flex flex-col items-center gap-2 py-4 rounded-2xl shadow-balatro shadow-balatro-outline-dark text-2xl"
+  class="bg-balatro-black border-4 border-balatro-outline px-8 w-80 flex flex-col items-center gap-2 py-4 rounded-2xl shadow-balatro shadow-balatro-grey-dark text-2xl"
 >
   <!-- Name -->
   <h3 class="text-4xl text-shadow-lg capitalize">{name}</h3>
@@ -74,7 +74,7 @@ switch (badge.toLowerCase()) {
         <Image
           src={images[image_path]()}
           alt=" "
-          class="absolute top-0 left-0 object-cover object-right w-36 h-48  render-pixelated drop-shadow-soul animate-soul"
+          class="absolute top-0 left-0 object-cover object-right w-36 h-48 render-pixelated drop-shadow-soul animate-soul"
         />
       )
     }
@@ -87,7 +87,7 @@ switch (badge.toLowerCase()) {
   </div>
 	<!-- Description -->
   <p
-    class="px-2 bg-white rounded-2xl shadow-balatro w-full shadow-balatro-outline-dark min-h-20 content-center text-center text-balatro-black"
+    class="px-2 bg-white rounded-2xl shadow-balatro w-full shadow-balatro-grey-dark min-h-20 content-center text-center text-balatro-black"
   >
     {
       modifiedText.map((line) => (
