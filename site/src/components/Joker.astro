@@ -59,30 +59,22 @@ switch (badge.toLowerCase()) {
 <div
   class="bg-balatro-black border-2 px-8 max-w-80 flex flex-col items-center text-balatro-white text-2xl font-balatro"
 >
-  <h3 class="text-shadow capitalize">{name}</h3>
-  <div>
-    <div class="relative w-36 h-48">
-      <Image
-        src={images[image_path]()}
-        alt=" "
-        class="col-span-1 object-cover absolute top-0 left-0 object-left w-36 h-48 render-pixelated"
-      />
-      {
-        soul && (
-          <Image
-            src={images[image_path]()}
-            alt=" "
-            class="absolute top-0 left-0 object-cover object-right w-36 h-48  render-pixelated drop-shadow-soul animate-soul"
-          />
-        )
-      }
-    </div>
-    <!-- Badge -->
-    <div
-      class={`rounded-full shadow-balatro text-center capitalize ${badgeColor} ${badgeShadowColor} text-shadow`}
-    >
-      {badge}
-    </div>
+  <h3 class="text-4xl text-shadow capitalize">{name}</h3>
+  <div class="relative w-36 h-48">
+    <Image
+      src={images[image_path]()}
+      alt=" "
+      class="col-span-1 object-cover absolute top-0 left-0 object-left w-36 h-48 render-pixelated"
+    />
+    {
+      soul && (
+        <Image
+          src={images[image_path]()}
+          alt=" "
+          class="absolute top-0 left-0 object-cover object-right w-36 h-48  render-pixelated drop-shadow-soul animate-soul"
+        />
+      )
+    }
   </div>
   <p
     class="px-2 bg-white rounded-2xl shadow-balatro shadow-balatro-grey min-h-20 content-center text-center text-balatro-black"
@@ -96,4 +88,10 @@ switch (badge.toLowerCase()) {
       ))
     }
   </p>
+  <!-- Badge -->
+  <div
+    class={`rounded-full w-36 shadow-balatro text-center capitalize ${badgeColor} ${badgeShadowColor} text-shadow`}
+  >
+    {badge}
+  </div>
 </div>
