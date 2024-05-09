@@ -92,6 +92,7 @@ switch (badge.toLowerCase()) {
     <Image
       src={images[image_path]()}
       alt=" "
+      quality={100}
       class="render-pixelated absolute left-0 top-0 col-span-1 h-48 w-36 object-cover object-left drop-shadow-soul"
     />
     {
@@ -99,6 +100,7 @@ switch (badge.toLowerCase()) {
         <Image
           src={images[image_path]()}
           alt=" "
+          quality={100}
           class="render-pixelated absolute left-0 top-0 h-48 w-36 animate-soul object-cover object-right drop-shadow-soul"
         />
       )
