@@ -17,7 +17,9 @@ import { jokers } from "../jokers.ts";
       >Download on Github</a
     >
     <h2 class="text-6xl text-shadow-xl">Jokers</h2>
-    <div class="grid grid-cols-3 gap-8 px-8 w-fit">
+    <div
+      class="grid grid-cols-1 gap-8 px-8 w-fit md:grid-cols-2 lg:grid-cols-3"
+    >
       {
         jokers.map((joker) => (
           <Joker
