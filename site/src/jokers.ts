@@ -2,7 +2,8 @@ const jokers = [
   {
     name: "Chill Joker",
     text: [
-      "{X:mult,C:white}X2{} divided by game speed",
+      "{X:mult,C:white}X2{} divided by",
+      "game speed",
       "{C:inactive}(Currently {X:mult,C:white}X2{C:inactive} Mult)",
     ],
     badge: "Rare",
@@ -23,7 +24,8 @@ const jokers = [
     text: [
       "Gives {C:mult}+1 mult{} for",
       "every 2 jokers with ",
-      "{C:attention}White stickers{} in your collection",
+      "{C:attention}White stickers{} in",
+      "your collection",
       "{C:inactive}(Currently {C:mult}+0{C:inactive} Mult)",
     ],
     badge: "uncommon",
@@ -53,7 +55,7 @@ const jokers = [
     text: [
       "At end of round",
       "set a random hand size",
-      "between {C:attention}#1#{} and {C:attention}#2#{}",
+      "between {C:attention}4{} and {C:attention}15",
       "{C:inactive}(Currently {C:attention}-1{C:inactive} hand size)",
     ],
     badge: "rare",
@@ -66,7 +68,7 @@ const jokers = [
       "per {C:attention}consecutive{} unique",
       "hand played, reset on non",
       "unique hand played.",
-      "{C:inactive}(Currently {X:mult,C:white} X1 {C:inactive} Mult)",
+      "{C:inactive}(Currently {X:mult,C:white}X1{C:inactive} Mult)",
     ],
     badge: "Rare",
     image: "j_aiz_poker_hand_xmult",
