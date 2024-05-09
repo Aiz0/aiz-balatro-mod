@@ -36,7 +36,7 @@ export default {
           edition: "#ffffff",
           dark_edition: "#5d5dff",
           eternal: "#c75985",
-          inactive: "#ffffff99",
+          inactive: "#88888899",
           hearts: "#f03464",
           diamonds: "#f06b3f",
           spades: "#403995",

@@ -84,16 +84,16 @@ switch (badge.toLowerCase()) {
       {badge}
     </div>
   </div>
-  <div>
-    <p class="text-center">
-      {
-        modifiedText.map((line) => (
-          <>
-            <Fragment set:html={line} />
-            <br />
-          </>
-        ))
-      }
-    </p>
-  </div>
+  <p
+    class="px-2 bg-white rounded-2xl shadow-balatro shadow-balatro-grey min-h-20 content-center text-center text-balatro-black"
+  >
+    {
+      modifiedText.map((line) => (
+        <>
+          <Fragment set:html={line} />
+          <br />
+        </>
+      ))
+    }
+  </p>
 </div>
