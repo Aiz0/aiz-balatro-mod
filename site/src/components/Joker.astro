@@ -76,6 +76,12 @@ switch (badge.toLowerCase()) {
       )
     }
   </div>
+  <!-- Badge -->
+  <div
+    class={`rounded-full w-36 shadow-balatro text-center capitalize ${badgeColor} ${badgeShadowColor} text-shadow`}
+  >
+    {badge}
+  </div>
   <p
     class="px-2 bg-white rounded-2xl shadow-balatro w-full shadow-balatro-outline-dark min-h-20 content-center text-center text-balatro-black"
   >
@@ -88,10 +94,4 @@ switch (badge.toLowerCase()) {
       ))
     }
   </p>
-  <!-- Badge -->
-  <div
-    class={`rounded-full w-36 shadow-balatro text-center capitalize ${badgeColor} ${badgeShadowColor} text-shadow`}
-  >
-    {badge}
-  </div>
 </div>
