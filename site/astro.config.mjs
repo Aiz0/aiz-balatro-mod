@@ -6,5 +6,5 @@ import tailwind from "@astrojs/tailwind";
 export default defineConfig({
   integrations: [tailwind()],
   site: "https://aiz0.github.io",
-  base: "balatro",
+  base: "aiz-balatro-mod",
 });
