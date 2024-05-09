@@ -21,6 +21,8 @@ const { title } = Astro.props;
   </body>
 </html>
 <style is:global>
+  @tailwind components;
+
   @font-face {
     font-family: "m6x11plus";
     src: url(/fonts/m6x11plus.ttf) format("truetype");
@@ -28,12 +30,22 @@ const { title } = Astro.props;
   :root {
     @apply bg-slate-700;
   }
+  @layer components {
+    .render-pixelated {
+      image-rendering: pixelated;
+    }
 
-  .render-pixelated {
-    image-rendering: pixelated;
-  }
-
-  .text-shadow {
-    text-shadow: 0 0.1rem 0 rgba(0, 0, 0, 0.25);
+    .text-shadow {
+      text-shadow: 0 0.1rem 0 rgba(0, 0, 0, 0.25);
+    }
+    .text-shadow-lg {
+      text-shadow: 0 0.25rem 0 rgba(0, 0, 0, 0.25);
+    }
+    .text-shadow-xl {
+      text-shadow: 0 0.375rem 0 rgba(0, 0, 0, 0.25);
+    }
+    .text-shadow-2xl {
+      text-shadow: 0 0.5rem 0 rgba(0, 0, 0, 0.25);
+    }
   }
 </style>
