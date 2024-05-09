@@ -46,6 +46,10 @@ export default {
           tarot: "#a782d1",
           planet: "#13afce",
           spectral: "#4584fa",
+          outline: {
+            DEFAULT: "d8d8d8",
+            dark: "#828282",
+          },
           badge: {
             common: {
               DEFAULT: "#009dff",
