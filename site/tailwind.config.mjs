@@ -47,10 +47,22 @@ export default {
           planet: "#13afce",
           spectral: "#4584fa",
           badge: {
-            common: "#009dff",
-            uncommon: "#4bc292",
-            rare: "#fe5f55",
-            legendary: "#b26cbb",
+            common: {
+              DEFAULT: "#009dff",
+              dark: "#005e99",
+            },
+            uncommon: {
+              DEFAULT: "#4bc292",
+              dark: "#297958",
+            },
+            rare: {
+              DEFAULT: "#fe5f55",
+              dark: "#ca0d01",
+            },
+            legendary: {
+              DEFAULT: "#b26cbb",
+              dark: "#723879",
+            },
             joker: "#708b91",
             tarot: "#a782d1",
             planet: "#13afce",
@@ -66,6 +78,9 @@ export default {
             showdown: "#4584fa",
           },
         },
+      },
+      boxShadow: {
+        balatro: "0 0.25rem 0",
       },
       dropShadow: {
         soul: "0 0.5rem rgba(0,0,0,0.25)",

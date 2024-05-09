@@ -33,6 +33,27 @@ const modifiedText = text.map((line) => {
     }) + "</span>"
   );
 });
+
+let badgeColor = "bg-balatro-inactive";
+let badgeShadowColor = "shadow-black";
+switch (badge.toLowerCase()) {
+  case "common":
+    badgeColor = "bg-balatro-badge-common";
+    badgeShadowColor = "shadow-balatro-badge-common-dark";
+    break;
+  case "uncommon":
+    badgeColor = "bg-balatro-badge-uncommon";
+    badgeShadowColor = "shadow-balatro-badge-uncommon-dark";
+    break;
+  case "rare":
+    badgeColor = "bg-balatro-badge-rare";
+    badgeShadowColor = "shadow-balatro-badge-rare-dark";
+    break;
+  case "legendary":
+    badgeColor = "bg-balatro-badge-legendary";
+    badgeShadowColor = "shadow-balatro-badge-legendary-dark";
+    break;
+}
 ---
 
 <div
@@ -58,7 +79,7 @@ const modifiedText = text.map((line) => {
     </div>
     <!-- Badge -->
     <div
-      class={`rounded-lg text-center p-2 bg-balatro-badge-${badge.toLowerCase()}`}
+      class={`rounded-full shadow-balatro text-center capitalize ${badgeColor} ${badgeShadowColor}`}
     >
       {badge}
     </div>
