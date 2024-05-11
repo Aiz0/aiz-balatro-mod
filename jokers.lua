@@ -627,7 +627,7 @@ function Jokers()
 				text = {
 					"At end of round,",
 					"duplicate {C:attention}All{} cards",
-					"in your deck.",
+					"in your deck",
 					"{s:0.5}Please sell when you have 1000 cards or more!",
 				},
 			},

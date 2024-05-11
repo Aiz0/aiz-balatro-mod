@@ -78,7 +78,7 @@ const jokers = [
     text: [
       "At end of round,",
       "duplicate {C:attention}All{} cards",
-      "in your deck.",
+      "in your deck",
     ],
     badge: "rare",
     image: "j_aiz_penny",
