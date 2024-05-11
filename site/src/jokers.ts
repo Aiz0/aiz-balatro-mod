@@ -65,9 +65,9 @@ const jokers = [
     name: "poker hand xmult WIP",
     text: [
       "This Joker Gains {X:mult,C:white}X0.5{} Mult",
-      "per {C:attention}consecutive{} unique",
-      "hand played, reset on non",
-      "unique hand played.",
+      "per {C:attention}consecutive unique{}",
+      "hand played, reset on",
+      "{C:attention}non unique{} hand played",
       "{C:inactive}(Currently {X:mult,C:white}X1{C:inactive} Mult)",
     ],
     badge: "Rare",
