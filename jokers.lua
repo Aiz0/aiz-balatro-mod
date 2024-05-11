@@ -284,8 +284,9 @@ function Jokers()
 				name = "Easy Mode",
 				text = {
 					"Gives {C:mult}+1 mult{} for",
-					"every 2 jokers with ",
-					"{C:attention}White stickers{} in your collection",
+					"every 2 jokers with",
+					"{C:attention}White stickers{}",
+					"in your collection",
 					"{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
 				},
 			},
