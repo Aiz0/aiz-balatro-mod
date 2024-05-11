@@ -158,5 +158,18 @@ const jokers = [
     image: "j_aiz_king",
     soul: true,
   },
+  {
+    name: "Jay-Z",
+    text: [
+      "{C:green}1 in 10{} chance this",
+      "card is destroyed and",
+      "{C:dark_edition}Polychrome{} is added",
+      "to {C:attention}All{} cards",
+      "at end of round",
+    ],
+    badge: "legendary",
+    image: "j_aiz_jay_z",
+    soul: true,
+  },
 ];
 export { jokers };
