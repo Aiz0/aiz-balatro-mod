@@ -1268,7 +1268,9 @@ function Jokers()
 				name = "Jay-Z",
 				text = {
 					"{C:green}#1# in #2#{} chance this",
-					"card is destroyed",
+					"card is destroyed and",
+					"{C:dark_edition}Polychrome{} is added",
+					"to {C:attention}All{} cards",
 					"at end of round",
 				},
 			},
