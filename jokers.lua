@@ -1372,7 +1372,7 @@ function Jokers()
 					}))
 				else
 					return {
-						message = localize("k_safe_ex"),
+						message = localize("k_aiz_dinner_postponed"),
 					}
 				end
 			end
@@ -1388,6 +1388,7 @@ function SMODS.INIT.JAIZ()
 	G.localization.misc.dictionary.k_aiz_squared = "Squared!"
 	G.localization.misc.dictionary.k_aiz_cancelled = "Cancelled!"
 	G.localization.misc.dictionary.k_aiz_knowledge_gained = "Knowledge Gained!"
+	G.localization.misc.dictionary.k_aiz_dinner_postponed = "Dinner Postponed!"
 
 	if config.allEnabled then
 		if config.jokersEnabled then
