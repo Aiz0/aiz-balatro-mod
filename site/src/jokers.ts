@@ -12,7 +12,7 @@ const jokers = [
   {
     name: "Loudspeaker",
     text: [
-      "Gives {C:chips}Chips{} based ",
+      "Gives {C:chips}Chips{} based",
       "on {C:attention}Audio volume{}",
       "{C:inactive}(Currently {C:chips}+100{C:inactive} Chips)",
     ],

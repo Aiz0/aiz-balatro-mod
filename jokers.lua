@@ -227,7 +227,7 @@ function Jokers()
 			loc = {
 				name = "Loudspeaker",
 				text = {
-					"Gives {C:chips}Chips{} based ",
+					"Gives {C:chips}Chips{} based",
 					"on {C:attention}Audio volume{}",
 					"{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)",
 				},
