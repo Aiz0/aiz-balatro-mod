@@ -1287,9 +1287,10 @@ function Jokers()
 			discovered = false,
 			blueprint_compat = false,
 			eternal_compat = false,
+			soul_pos = { x = 1, y = 0 },
 		}
 		-- Initialize Joker
-		init_joker(jay_z, true)
+		init_joker(jay_z)
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_jay_z.loc_def = function(card)
