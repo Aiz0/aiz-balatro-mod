@@ -703,16 +703,16 @@ function Jokers()
 					"Mult at end of round.",
 					"This joker may do",
 					"a little bit of {C:attention,E:1,S:1.1}Trolling",
-					"{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive})",
+					"{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)",
 				},
 			},
 			ability_name = "Aiz Trollker",
 			slug = "aiz_trollker",
 			ability = {
 				extra = {
-					Xmult = 2,
-					Xmult_mod = 0.5,
-					cards_per_mult = 4,
+					Xmult = 1,
+					Xmult_mod = 1,
+					cards_per_mult = 3,
 					cards = {},
 					card_positions = {},
 				},
@@ -764,7 +764,8 @@ function Jokers()
 			then
 				card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_aiz_trolled") })
 				-- spawn a card for each mult it gives
-				for i = 1, math.floor(card.ability.extra.Xmult * card.ability.extra.cards_per_mult), 1 do
+				-- -1 so that it only starts spawning cards when it gives xmult
+				for i = 1, math.floor((card.ability.extra.Xmult - 1) * card.ability.extra.cards_per_mult), 1 do
 					-- IDK if these values work everywhere but i guess its good enough for now
 					local position = {
 						x = pseudorandom("trollker", 0, 18),

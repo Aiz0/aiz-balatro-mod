@@ -86,11 +86,11 @@ const jokers = [
   {
     name: "Trollker",
     text: [
-      "This Joker gains {X:mult,C:white}X0.5",
+      "This Joker gains {X:mult,C:white}X1",
       "Mult at end of round.",
       "This joker may do",
       "a little bit of {C:attention,E:1,S:1.1}Trolling",
-      "{C:inactive}(Currently {X:mult,C:white}X2{C:inactive})",
+      "{C:inactive}(Currently {X:mult,C:white}X1{C:inactive} Mult)",
     ],
     badge: "Rare",
     image: "j_aiz_trollker",
