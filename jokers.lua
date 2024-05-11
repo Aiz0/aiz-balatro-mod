@@ -29,6 +29,7 @@ local config = {
 	poker_hand_xmult = true,
 	penny = true,
 	trollker = true,
+	jay_Z = true,
 }
 
 -- Helper functions
@@ -1256,6 +1257,124 @@ function Jokers()
 			end
 		end
 	end
+	if config.jay_Z then
+		-- Jay-Z famous rapper
+		-- Sell for 500
+		-- Makes all cards polychrome
+
+		-- Create Joker
+		local jay_z = {
+			loc = {
+				name = "Jay-Z",
+				text = {
+					"{C:green}#1# in #2#{} chance this",
+					"card is destroyed",
+					"at end of round",
+				},
+			},
+			ability_name = "Aiz Jay-Z",
+			slug = "aiz_jay_z",
+			ability = {
+				extra = {
+					odds = 10,
+				},
+			},
+			rarity = 4,
+			cost = 1000,
+			unlocked = true,
+			discovered = false,
+			blueprint_compat = false,
+			eternal_compat = false,
+		}
+		-- Initialize Joker
+		init_joker(jay_z, true)
+
+		-- Set local variables
+		SMODS.Jokers.j_aiz_jay_z.loc_def = function(card)
+			return { (G.GAME and G.GAME.probabilities.normal or 1), card.ability.extra.odds }
+		end
+
+		local function turn_polychrome(card)
+			G.E_MANAGER:add_event(Event({
+				trigger = "after",
+				delay = 0.3,
+				func = function()
+					if card.edition and card.edition.negative then
+						if card.ability.consumeable then
+							G.consumeables.config.card_limit = G.consumeables.config.card_limit - 1
+						else
+							G.jokers.config.card_limit = G.jokers.config.card_limit - 1
+						end
+					end
+					card:set_edition({ polychrome = true }, true)
+					return true
+				end,
+			}))
+		end
+
+		-- Calculate
+		SMODS.Jokers.j_aiz_jay_z.calculate = function(card, context)
+			if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+				if pseudorandom("aiz_jay_z") < G.GAME.probabilities.normal / card.ability.extra.odds then
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							-- Destroy Jay-Z
+							play_sound("tarot1")
+							card.T.r = -0.2
+							card:juice_up(0.3, 0.4)
+							card.states.drag.is = true
+							card.children.center.pinch.x = true
+							G.E_MANAGER:add_event(Event({
+								trigger = "after",
+								delay = 0.3,
+								blockable = false,
+								func = function()
+									G.jokers:remove_card(card)
+									card:remove()
+									card = nil
+									return true
+								end,
+							}))
+							return true
+						end,
+					}))
+					-- show message before polychrome starts
+					card_eval_status_text(
+						card,
+						"extra",
+						nil,
+						nil,
+						nil,
+						{ message = localize("k_aiz_knowledge_gained") }
+					)
+					-- Turn all cards polychrome
+					-- start with cards held in hand
+					for _, playing_card in ipairs(G.hand.cards) do
+						turn_polychrome(playing_card)
+					end
+					for _, joker_card in ipairs(G.jokers.cards) do
+						turn_polychrome(joker_card)
+					end
+					for _, consumable_card in ipairs(G.consumeables.cards) do
+						turn_polychrome(consumable_card)
+					end
+					-- Rest of Playing Cards are done later
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							for _, playing_card in ipairs(G.playing_cards) do
+								playing_card:set_edition({ polychrome = true }, true, true)
+							end
+							return true
+						end,
+					}))
+				else
+					return {
+						message = localize("k_safe_ex"),
+					}
+				end
+			end
+		end
+	end
 end
 
 function SMODS.INIT.JAIZ()
@@ -1265,6 +1384,7 @@ function SMODS.INIT.JAIZ()
 	G.localization.misc.dictionary.k_aiz_trolled = "Trolled!"
 	G.localization.misc.dictionary.k_aiz_squared = "Squared!"
 	G.localization.misc.dictionary.k_aiz_cancelled = "Cancelled!"
+	G.localization.misc.dictionary.k_aiz_knowledge_gained = "Knowledge Gained!"
 
 	if config.allEnabled then
 		if config.jokersEnabled then
