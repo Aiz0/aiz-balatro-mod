@@ -30,6 +30,7 @@ local config = {
 	penny = true,
 	trollker = true,
 	jay_Z = true,
+	chaos = true,
 }
 
 -- Helper functions
@@ -1379,6 +1380,72 @@ function Jokers()
 					return {
 						message = localize("k_aiz_dinner_postponed"),
 					}
+				end
+			end
+		end
+	end
+
+	if config.chaos then
+		-- Create Joker
+		local chaos = {
+			loc = {
+				name = "Chaos",
+				text = {
+					"{C:green}#1# in #2#{} for +100 Chips",
+					"{C:green}#1# in #2#{} for +20 Mult",
+					"{C:green}#1# in #2#{} for X3 Mult",
+				},
+			},
+			ability_name = "Aiz Chaos",
+			slug = "aiz_chaos",
+			ability = {
+				extra = {
+					odds = 1,
+				},
+			},
+			rarity = 2,
+			cost = 7,
+			unlocked = true,
+			discovered = true,
+			blueprint_compat = true,
+			eternal_compat = true,
+		}
+		-- Initialize Joker
+		init_joker(chaos, true)
+
+		-- Set local variables
+		SMODS.Jokers.j_aiz_chaos.loc_def = function(card)
+			return { (G.GAME and G.GAME.probabilities.normal or 1), card.ability.extra.odds }
+		end
+
+		local function eval_this(_card, eval_type, amount)
+			if eval_type == "mult" then
+				mult = mod_mult(mult + amount)
+			end
+			if eval_type == "chips" then
+				hand_chips = mod_chips(hand_chips + amount)
+			end
+			if eval_type == "x_mult" then
+				mult = mod_mult(mult * amount)
+			end
+			update_hand_text({ delay = 0 }, {
+				chips = eval_type == "chips" and hand_chips,
+				mult = (eval_type == "mult" or eval_type == "x_mult") and mult,
+			})
+			card_eval_status_text(_card, eval_type, amount, nil, nil, nil)
+		end
+
+		-- Calculate
+		SMODS.Jokers.j_aiz_chaos.calculate = function(card, context)
+			if SMODS.end_calculate_context(context) then
+				if pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds then
+					eval_this(card, "chips", 100)
+				end
+				if pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds then
+					eval_this(card, "mult", 20)
+				end
+				if pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds then
+					eval_this(card, "x_mult", 3)
 				end
 			end
 		end
