@@ -1394,6 +1394,10 @@ function Jokers()
 					"{C:green}#1# in #2#{} for +100 Chips",
 					"{C:green}#1# in #2#{} for +20 Mult",
 					"{C:green}#1# in #2#{} for X3 Mult",
+					"{C:green}#1# in #2#{} to create a random Joker",
+					"{C:green}#1# in #2#{} for Tarot Card",
+					"{C:green}#1# in #2#{} for Planet Card",
+					"{C:green}#1# in #2#{} for Spectal Card",
 				},
 			},
 			ability_name = "Aiz Chaos",
@@ -1438,14 +1442,126 @@ function Jokers()
 		-- Calculate
 		SMODS.Jokers.j_aiz_chaos.calculate = function(card, context)
 			if SMODS.end_calculate_context(context) then
+				-- Chips
 				if pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds then
-					eval_this(card, "chips", 100)
+					eval_this(context.blueprint_card or card, "chips", 100)
 				end
+				-- Mult
 				if pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds then
-					eval_this(card, "mult", 20)
+					eval_this(context.blueprint_card or card, "mult", 20)
 				end
+				-- Xmult
 				if pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds then
-					eval_this(card, "x_mult", 3)
+					eval_this(context.blueprint_card or card, "x_mult", 3)
+				end
+				-- Random Joker
+				if
+					pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds
+					and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
+				then
+					-- Modified from Riff Raff code
+					G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							local new_joker = create_card("Joker", G.jokers, nil, nil, nil, nil, nil, "aiz_chaos")
+							new_joker:add_to_deck()
+							G.jokers:emplace(new_joker)
+							new_joker:start_materialize()
+							G.GAME.joker_buffer = 0
+							return true
+						end,
+					}))
+					card_eval_status_text(
+						context.blueprint_card or card,
+						"extra",
+						nil,
+						nil,
+						nil,
+						{ message = localize("k_plus_joker"), colour = G.C.BLUE }
+					)
+				end
+				-- Random Tarot
+				if
+					pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds
+					and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
+				then
+					-- Modified from Hallucination code
+					G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+					G.E_MANAGER:add_event(Event({
+						trigger = "before",
+						delay = 0.0,
+						func = function()
+							local new_tarot = create_card("Tarot", G.consumeables, nil, nil, nil, nil, nil, "aiz_chaos")
+							new_tarot:add_to_deck()
+							G.consumeables:emplace(new_tarot)
+							G.GAME.consumeable_buffer = 0
+							return true
+						end,
+					}))
+					card_eval_status_text(
+						context.blueprint_card or card,
+						"extra",
+						nil,
+						nil,
+						nil,
+						{ message = localize("k_plus_tarot"), colour = G.C.PURPLE }
+					)
+				end
+				-- Random planet
+				if
+					pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds
+					and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
+				then
+					-- Modified from Hallucination code
+					G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+					G.E_MANAGER:add_event(Event({
+						trigger = "before",
+						delay = 0.0,
+						func = function()
+							local new_tarot =
+								create_card("Planet", G.consumeables, nil, nil, nil, nil, nil, "aiz_chaos")
+							new_tarot:add_to_deck()
+							G.consumeables:emplace(new_tarot)
+							G.GAME.consumeable_buffer = 0
+							return true
+						end,
+					}))
+					card_eval_status_text(
+						context.blueprint_card or card,
+						"extra",
+						nil,
+						nil,
+						nil,
+						{ message = localize("k_plus_planet"), colour = G.C.PURPLE }
+					)
+				end
+				-- Random spectral
+				if
+					pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds
+					and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
+				then
+					-- Modified from Hallucination code
+					G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + 1
+					G.E_MANAGER:add_event(Event({
+						trigger = "before",
+						delay = 0.0,
+						func = function()
+							local new_tarot =
+								create_card("Spectral", G.consumeables, nil, nil, nil, nil, nil, "aiz_chaos")
+							new_tarot:add_to_deck()
+							G.consumeables:emplace(new_tarot)
+							G.GAME.consumeable_buffer = 0
+							return true
+						end,
+					}))
+					card_eval_status_text(
+						context.blueprint_card or card,
+						"extra",
+						nil,
+						nil,
+						nil,
+						{ message = localize("k_plus_Spectral"), colour = G.C.PURPLE }
+					)
 				end
 			end
 		end
