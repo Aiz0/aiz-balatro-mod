@@ -1374,6 +1374,8 @@ function Jokers()
 						end,
 					}))
 				else
+					card.base_cost = card.base_cost / 2
+					card:set_cost()
 					return {
 						message = localize("k_aiz_dinner_postponed"),
 					}
