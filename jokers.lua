@@ -1454,6 +1454,11 @@ function Jokers()
 				if pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds then
 					eval_this(context.blueprint_card or card, "x_mult", 3)
 				end
+				-- Money
+				if pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds then
+					ease_dollars(10)
+					card_eval_status_text(context.blueprint_card or card, "dollars", 10, nil, nil, nil)
+				end
 				-- Random Joker
 				if
 					pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds
