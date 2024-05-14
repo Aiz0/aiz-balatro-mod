@@ -1394,6 +1394,7 @@ function Jokers()
 					"{C:green}#1# in #2#{} for +100 Chips",
 					"{C:green}#1# in #2#{} for +20 Mult",
 					"{C:green}#1# in #2#{} for X3 Mult",
+					"{C:green}#1# in #2#{} for $10",
 					"{C:green}#1# in #2#{} to create a random Joker",
 					"{C:green}#1# in #2#{} for Tarot Card",
 					"{C:green}#1# in #2#{} for Planet Card",
