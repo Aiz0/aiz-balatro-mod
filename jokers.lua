@@ -1399,6 +1399,7 @@ function Jokers()
 					"{C:green}#1# in #2#{} for Tarot Card",
 					"{C:green}#1# in #2#{} for Planet Card",
 					"{C:green}#1# in #2#{} for Spectal Card",
+					"{C:green}#1# in #2#{} for Playing Card at start of round",
 				},
 			},
 			ability_name = "Aiz Chaos",
@@ -1442,6 +1443,32 @@ function Jokers()
 
 		-- Calculate
 		SMODS.Jokers.j_aiz_chaos.calculate = function(card, context)
+			-- Start of round
+			if context.first_hand_drawn then
+				-- Copied from Certificate
+				if pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds then
+					G.E_MANAGER:add_event(Event({
+						func = function()
+							local new_playing_card = create_playing_card({
+								front = pseudorandom_element(G.P_CARDS, pseudoseed("aiz_chaos")),
+								center = G.P_CENTERS.c_base,
+							}, G.hand, nil, nil, { G.C.SECONDARY_SET.Enhanced })
+
+							G.GAME.blind:debuff_card(new_playing_card)
+							G.hand:sort()
+							if context.blueprint_card then
+								context.blueprint_card:juice_up()
+							else
+								card:juice_up()
+							end
+							return true
+						end,
+					}))
+					playing_card_joker_effects({ true })
+				end
+			end
+
+			-- At Scoring
 			if SMODS.end_calculate_context(context) then
 				-- Chips
 				if pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds then
