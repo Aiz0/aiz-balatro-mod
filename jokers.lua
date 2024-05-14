@@ -1399,7 +1399,9 @@ function Jokers()
 					"{C:green}#1# in #2#{} for Tarot Card",
 					"{C:green}#1# in #2#{} for Planet Card",
 					"{C:green}#1# in #2#{} for Spectal Card",
-					"{C:green}#1# in #2#{} for Playing Card at start of round",
+					"At Start of round:",
+					"{C:green}#1# in #2#{} for Playing Card",
+					"{C:green}#1# in #2#{} for to flip and shuffle Jokers",
 				},
 			},
 			ability_name = "Aiz Chaos",
@@ -1465,6 +1467,46 @@ function Jokers()
 						end,
 					}))
 					playing_card_joker_effects({ true })
+				end
+
+				if pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds then
+					G.jokers:unhighlight_all()
+					for k, v in ipairs(G.jokers.cards) do
+						v:flip()
+					end
+					if #G.jokers.cards > 1 then
+						G.E_MANAGER:add_event(Event({
+							trigger = "after",
+							delay = 0.2,
+							func = function()
+								G.E_MANAGER:add_event(Event({
+									func = function()
+										G.jokers:shuffle("aajk")
+										play_sound("cardSlide1", 0.85)
+										return true
+									end,
+								}))
+								delay(0.15)
+								G.E_MANAGER:add_event(Event({
+									func = function()
+										G.jokers:shuffle("aajk")
+										play_sound("cardSlide1", 1.15)
+										return true
+									end,
+								}))
+								delay(0.15)
+								G.E_MANAGER:add_event(Event({
+									func = function()
+										G.jokers:shuffle("aajk")
+										play_sound("cardSlide1", 1)
+										return true
+									end,
+								}))
+								delay(0.5)
+								return true
+							end,
+						}))
+					end
 				end
 			end
 
