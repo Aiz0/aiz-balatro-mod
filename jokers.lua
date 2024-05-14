@@ -1537,7 +1537,7 @@ function Jokers()
 						nil,
 						nil,
 						nil,
-						{ message = localize("k_plus_planet"), colour = G.C.PURPLE }
+						{ message = localize("k_plus_planet"), colour = G.C.SECONDARY_SET.Planet }
 					)
 				end
 				-- Random spectral
@@ -1565,7 +1565,7 @@ function Jokers()
 						nil,
 						nil,
 						nil,
-						{ message = localize("k_plus_Spectral"), colour = G.C.PURPLE }
+						{ message = localize("k_plus_spectral"), colour = G.C.SECONDARY_SET.Spectral }
 					)
 				end
 			end
