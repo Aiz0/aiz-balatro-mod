@@ -62,7 +62,7 @@ const jokers = [
     image: "j_aiz_hands",
   },
   {
-    name: "poker hand xmult WIP",
+    name: "Tetris",
     text: [
       "This Joker Gains {X:mult,C:white}X0.5{} Mult",
       "per {C:attention}consecutive unique{}",
@@ -71,7 +71,7 @@ const jokers = [
       "{C:inactive}(Currently {X:mult,C:white}X1{C:inactive} Mult)",
     ],
     badge: "Rare",
-    image: "j_aiz_poker_hand_xmult",
+    image: "j_aiz_tetris",
   },
   {
     name: "Penny",

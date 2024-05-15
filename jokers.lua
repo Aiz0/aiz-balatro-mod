@@ -26,7 +26,7 @@ local config = {
 	chess_queen = true,
 	chess_king = true,
 	hand_size = true,
-	poker_hand_xmult = true,
+	tetris = true,
 	penny = true,
 	trollker = true,
 	jay_Z = true,
@@ -547,11 +547,11 @@ function Jokers()
 			end
 		end
 	end
-	if config.poker_hand_xmult then
+	if config.tetris then
 		-- Create Joker
-		local poker_hand_xmult = {
+		local tetris = {
 			loc = {
-				name = "poker hand xmult WIP",
+				name = "Tetris",
 				text = {
 					"This Joker Gains {X:mult,C:white}X#1#{} Mult",
 					"per {C:attention}consecutive unique{}",
@@ -560,8 +560,8 @@ function Jokers()
 					"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
 				},
 			},
-			ability_name = "Aiz poker hand xmult",
-			slug = "aiz_poker_hand_xmult",
+			ability_name = "Aiz Tetris",
+			slug = "aiz_tetris",
 			ability = {
 				extra = {
 					Xmult = 1,
@@ -577,17 +577,17 @@ function Jokers()
 			eternal_compat = true,
 		}
 		-- Initialize Joker
-		init_joker(poker_hand_xmult)
+		init_joker(tetris)
 
 		-- Set local variables
-		SMODS.Jokers.j_aiz_poker_hand_xmult.loc_def = function(card)
+		SMODS.Jokers.j_aiz_tetris.loc_def = function(card)
 			return {
 				card.ability.extra.Xmult_mod,
 				card.ability.extra.Xmult,
 			}
 		end
 
-		SMODS.Jokers.j_aiz_poker_hand_xmult.calculate = function(card, context)
+		SMODS.Jokers.j_aiz_tetris.calculate = function(card, context)
 			if context.cardarea == G.jokers and context.before and not context.blueprint then
 				local reset = false
 				for _, hand in pairs(card.ability.extra.played_hands) do
