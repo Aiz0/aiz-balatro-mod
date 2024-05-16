@@ -1403,12 +1403,14 @@ function Jokers()
 					"{C:green}#1# in #10#{} for Playing Card",
 					"{C:green}#1# in #11#{} for to flip and shuffle Jokers",
 					"{C:green}#1# in #12#{} to Destroy random Joker",
+					"{C:green}#1# in #13#{} to increase this Jokers {C:green,E:1,S:1.1}Probabilities",
 				},
 			},
 			ability_name = "Aiz Chaos",
 			slug = "aiz_chaos",
 			ability = {
 				extra = {
+					probability = 1,
 					odds = {
 						chips = 2,
 						mult = 4,
@@ -1421,6 +1423,7 @@ function Jokers()
 						playing_card = 2,
 						shuffle = 10,
 						destroy_joker = 20,
+						increase_odds = 50,
 					},
 				},
 			},
@@ -1437,7 +1440,7 @@ function Jokers()
 		-- Set local variables
 		SMODS.Jokers.j_aiz_chaos.loc_def = function(card)
 			return {
-				(G.GAME and G.GAME.probabilities.normal or 1),
+				(G.GAME and G.GAME.probabilities.normal or 1) * card.ability.extra.probability,
 				card.ability.extra.odds.chips,
 				card.ability.extra.odds.mult,
 				card.ability.extra.odds.Xmult,
@@ -1449,11 +1452,8 @@ function Jokers()
 				card.ability.extra.odds.playing_card,
 				card.ability.extra.odds.shuffle,
 				card.ability.extra.odds.destroy_joker,
+				card.ability.extra.odds.increase_odds,
 			}
-		end
-
-		local function chaos_random(odds)
-			return pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / odds
 		end
 
 		local function eval_this(_card, eval_type, amount)
@@ -1475,8 +1475,17 @@ function Jokers()
 
 		-- Calculate
 		SMODS.Jokers.j_aiz_chaos.calculate = function(card, context)
+			local function chaos_random(odds)
+				return pseudorandom("aiz_chaos") < (G.GAME.probabilities.normal * card.ability.extra.probability) / odds
+			end
 			-- Start of round
 			if context.first_hand_drawn then
+				if not context.blueprint and chaos_random(card.ability.extra.odds.increase_odds) then
+					card.ability.extra.probability = card.ability.extra.probability + 1
+					card_eval_status_text((context.blueprint_card or card), "extra", nil, nil, nil, {
+						message = "probability increased",
+					})
+				end
 				-- Copied from Certificate
 				if chaos_random(card.ability.extra.odds.playing_card) then
 					G.E_MANAGER:add_event(Event({
