@@ -1392,24 +1392,36 @@ function Jokers()
 				name = "Chaos",
 				text = {
 					"{C:green}#1# in #2#{} for +100 Chips",
-					"{C:green}#1# in #2#{} for +20 Mult",
-					"{C:green}#1# in #2#{} for X3 Mult",
-					"{C:green}#1# in #2#{} for $10",
-					"{C:green}#1# in #2#{} to create a random Joker",
-					"{C:green}#1# in #2#{} for Tarot Card",
-					"{C:green}#1# in #2#{} for Planet Card",
-					"{C:green}#1# in #2#{} for Spectal Card",
+					"{C:green}#1# in #3#{} for +20 Mult",
+					"{C:green}#1# in #4#{} for X3 Mult",
+					"{C:green}#1# in #5#{} for $10",
+					"{C:green}#1# in #6#{} to create a random Joker",
+					"{C:green}#1# in #7#{} for Tarot Card",
+					"{C:green}#1# in #8#{} for Planet Card",
+					"{C:green}#1# in #9#{} for Spectal Card",
 					"At Start of round:",
-					"{C:green}#1# in #2#{} for Playing Card",
-					"{C:green}#1# in #2#{} for to flip and shuffle Jokers",
-					"{C:green}#1# in #2#{} to Destroy random Joker",
+					"{C:green}#1# in #10#{} for Playing Card",
+					"{C:green}#1# in #11#{} for to flip and shuffle Jokers",
+					"{C:green}#1# in #12#{} to Destroy random Joker",
 				},
 			},
 			ability_name = "Aiz Chaos",
 			slug = "aiz_chaos",
 			ability = {
 				extra = {
-					odds = 1,
+					odds = {
+						chips = 2,
+						mult = 4,
+						Xmult = 8,
+						dollars = 15,
+						joker = 10,
+						tarot = 10,
+						planet = 10,
+						spectral = 20,
+						playing_card = 2,
+						shuffle = 10,
+						destroy_joker = 20,
+					},
 				},
 			},
 			rarity = 2,
@@ -1424,7 +1436,24 @@ function Jokers()
 
 		-- Set local variables
 		SMODS.Jokers.j_aiz_chaos.loc_def = function(card)
-			return { (G.GAME and G.GAME.probabilities.normal or 1), card.ability.extra.odds }
+			return {
+				(G.GAME and G.GAME.probabilities.normal or 1),
+				card.ability.extra.odds.chips,
+				card.ability.extra.odds.mult,
+				card.ability.extra.odds.Xmult,
+				card.ability.extra.odds.dollars,
+				card.ability.extra.odds.joker,
+				card.ability.extra.odds.tarot,
+				card.ability.extra.odds.planet,
+				card.ability.extra.odds.spectral,
+				card.ability.extra.odds.playing_card,
+				card.ability.extra.odds.shuffle,
+				card.ability.extra.odds.destroy_joker,
+			}
+		end
+
+		local function chaos_random(odds)
+			return pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / odds
 		end
 
 		local function eval_this(_card, eval_type, amount)
@@ -1449,7 +1478,7 @@ function Jokers()
 			-- Start of round
 			if context.first_hand_drawn then
 				-- Copied from Certificate
-				if pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds then
+				if chaos_random(card.ability.extra.odds.playing_card) then
 					G.E_MANAGER:add_event(Event({
 						func = function()
 							local new_playing_card = create_playing_card({
@@ -1470,7 +1499,7 @@ function Jokers()
 					playing_card_joker_effects({ true })
 				end
 
-				if pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds then
+				if chaos_random(card.ability.extra.odds.shuffle) then
 					G.jokers:unhighlight_all()
 					for k, v in ipairs(G.jokers.cards) do
 						v:flip()
@@ -1511,10 +1540,7 @@ function Jokers()
 				end
 				-- Destroy Card
 				-- Copied from Madness
-				if
-					not context.blueprint
-					and pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds
-				then
+				if not context.blueprint and chaos_random(card.ability.extra.odds.destroy_joker) then
 					local destructable_jokers = {}
 					for i = 1, #G.jokers.cards do
 						if
@@ -1550,25 +1576,25 @@ function Jokers()
 			-- At Scoring
 			if SMODS.end_calculate_context(context) then
 				-- Chips
-				if pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds then
+				if chaos_random(card.ability.extra.odds.chips) then
 					eval_this(context.blueprint_card or card, "chips", 100)
 				end
 				-- Mult
-				if pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds then
+				if chaos_random(card.ability.extra.odds.mult) then
 					eval_this(context.blueprint_card or card, "mult", 20)
 				end
 				-- Xmult
-				if pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds then
+				if chaos_random(card.ability.extra.odds.Xmult) then
 					eval_this(context.blueprint_card or card, "x_mult", 3)
 				end
 				-- Money
-				if pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds then
+				if chaos_random(card.ability.extra.odds.dollars) then
 					ease_dollars(10)
 					card_eval_status_text(context.blueprint_card or card, "dollars", 10, nil, nil, nil)
 				end
 				-- Random Joker
 				if
-					pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds
+					chaos_random(card.ability.extra.odds.joker)
 					and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
 				then
 					-- Modified from Riff Raff code
@@ -1594,7 +1620,7 @@ function Jokers()
 				end
 				-- Random Tarot
 				if
-					pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds
+					chaos_random(card.ability.extra.odds.tarot)
 					and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
 				then
 					-- Modified from Hallucination code
@@ -1621,7 +1647,7 @@ function Jokers()
 				end
 				-- Random planet
 				if
-					pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds
+					chaos_random(card.ability.extra.odds.tarot)
 					and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
 				then
 					-- Modified from Hallucination code
@@ -1649,7 +1675,7 @@ function Jokers()
 				end
 				-- Random spectral
 				if
-					pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds
+					chaos_random(card.ability.extra.odds.spectral)
 					and #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit
 				then
 					-- Modified from Hallucination code
