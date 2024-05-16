@@ -1395,14 +1395,14 @@ function Jokers()
 					"{C:green}#1# in #3#{} for +20 Mult",
 					"{C:green}#1# in #4#{} for X3 Mult",
 					"{C:green}#1# in #5#{} for $10",
-					"{C:green}#1# in #6#{} to create a random Joker",
-					"{C:green}#1# in #7#{} for Tarot Card",
-					"{C:green}#1# in #8#{} for Planet Card",
-					"{C:green}#1# in #9#{} for Spectal Card",
+					"{C:green}#1# in #6#{} for Tarot Card",
+					"{C:green}#1# in #7#{} for Planet Card",
+					"{C:green}#1# in #8#{} for Spectal Card",
 					"At Start of round:",
-					"{C:green}#1# in #10#{} for Playing Card",
-					"{C:green}#1# in #11#{} for to flip and shuffle Jokers",
-					"{C:green}#1# in #12#{} to Destroy random Joker",
+					"{C:green}#1# in #9#{} for Playing Card",
+					"{C:green}#1# in #10#{} for to flip and shuffle Jokers",
+					"{C:green}#1# in #11#{} to Destroy random Joker",
+					"{C:green}#1# in #12#{} to create a random Joker",
 					"{C:green}#1# in #13#{} to increase this Jokers {C:green,E:1,S:1.1}Probabilities",
 				},
 			},
@@ -1445,13 +1445,13 @@ function Jokers()
 				card.ability.extra.odds.mult,
 				card.ability.extra.odds.Xmult,
 				card.ability.extra.odds.dollars,
-				card.ability.extra.odds.joker,
 				card.ability.extra.odds.tarot,
 				card.ability.extra.odds.planet,
 				card.ability.extra.odds.spectral,
 				card.ability.extra.odds.playing_card,
 				card.ability.extra.odds.shuffle,
 				card.ability.extra.odds.destroy_joker,
+				card.ability.extra.odds.joker,
 				card.ability.extra.odds.increase_odds,
 			}
 		end
@@ -1580,27 +1580,6 @@ function Jokers()
 						})
 					end
 				end
-			end
-
-			-- At Scoring
-			if SMODS.end_calculate_context(context) then
-				-- Chips
-				if chaos_random(card.ability.extra.odds.chips) then
-					eval_this(context.blueprint_card or card, "chips", 100)
-				end
-				-- Mult
-				if chaos_random(card.ability.extra.odds.mult) then
-					eval_this(context.blueprint_card or card, "mult", 20)
-				end
-				-- Xmult
-				if chaos_random(card.ability.extra.odds.Xmult) then
-					eval_this(context.blueprint_card or card, "x_mult", 3)
-				end
-				-- Money
-				if chaos_random(card.ability.extra.odds.dollars) then
-					ease_dollars(10)
-					card_eval_status_text(context.blueprint_card or card, "dollars", 10, nil, nil, nil)
-				end
 				-- Random Joker
 				if
 					chaos_random(card.ability.extra.odds.joker)
@@ -1627,6 +1606,28 @@ function Jokers()
 						{ message = localize("k_plus_joker"), colour = G.C.BLUE }
 					)
 				end
+			end
+
+			-- At Scoring
+			if SMODS.end_calculate_context(context) then
+				-- Chips
+				if chaos_random(card.ability.extra.odds.chips) then
+					eval_this(context.blueprint_card or card, "chips", 100)
+				end
+				-- Mult
+				if chaos_random(card.ability.extra.odds.mult) then
+					eval_this(context.blueprint_card or card, "mult", 20)
+				end
+				-- Xmult
+				if chaos_random(card.ability.extra.odds.Xmult) then
+					eval_this(context.blueprint_card or card, "x_mult", 3)
+				end
+				-- Money
+				if chaos_random(card.ability.extra.odds.dollars) then
+					ease_dollars(10)
+					card_eval_status_text(context.blueprint_card or card, "dollars", 10, nil, nil, nil)
+				end
+
 				-- Random Tarot
 				if
 					chaos_random(card.ability.extra.odds.tarot)
