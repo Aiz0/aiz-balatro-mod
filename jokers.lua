@@ -1402,6 +1402,7 @@ function Jokers()
 					"At Start of round:",
 					"{C:green}#1# in #2#{} for Playing Card",
 					"{C:green}#1# in #2#{} for to flip and shuffle Jokers",
+					"{C:green}#1# in #2#{} to Destroy random Joker",
 				},
 			},
 			ability_name = "Aiz Chaos",
@@ -1506,6 +1507,42 @@ function Jokers()
 								return true
 							end,
 						}))
+					end
+				end
+				-- Destroy Card
+				-- Copied from Madness
+				if
+					not context.blueprint
+					and pseudorandom("aiz_chaos") < G.GAME.probabilities.normal / card.ability.extra.odds
+				then
+					local destructable_jokers = {}
+					for i = 1, #G.jokers.cards do
+						if
+							G.jokers.cards[i] ~= card
+							and not G.jokers.cards[i].ability.eternal
+							and not G.jokers.cards[i].getting_sliced
+						then
+							destructable_jokers[#destructable_jokers + 1] = G.jokers.cards[i]
+						end
+					end
+					local joker_to_destroy = #destructable_jokers > 0
+							and pseudorandom_element(destructable_jokers, pseudoseed("aiz_chaos"))
+						or nil
+
+					if joker_to_destroy and not (context.blueprint_card or card).getting_sliced then
+						joker_to_destroy.getting_sliced = true
+						G.E_MANAGER:add_event(Event({
+							func = function()
+								(context.blueprint_card or card):juice_up(0.8, 0.8)
+								joker_to_destroy:start_dissolve({ G.C.RED }, nil, 1.6)
+								return true
+							end,
+						}))
+					end
+					if not (context.blueprint_card or card).getting_sliced then
+						card_eval_status_text((context.blueprint_card or card), "extra", nil, nil, nil, {
+							message = localize("k_aiz_destroy"),
+						})
 					end
 				end
 			end
@@ -1652,6 +1689,7 @@ function SMODS.INIT.JAIZ()
 	G.localization.misc.dictionary.k_aiz_cancelled = "Cancelled!"
 	G.localization.misc.dictionary.k_aiz_knowledge_gained = "Knowledge Gained!"
 	G.localization.misc.dictionary.k_aiz_dinner_postponed = "Dinner Postponed!"
+	G.localization.misc.dictionary.k_aiz_destroy = "Destroyed!"
 
 	if config.allEnabled then
 		if config.jokersEnabled then
