@@ -1141,7 +1141,7 @@ function Jokers()
 					"in your full deck.",
 					"This Joker gains {X:mult,C:white}X{} Mult",
 					"for each card destroyed",
-					"{C:inactive}Currently {X:mult,C:white}X#1#{} Mult",
+					"{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)",
 				},
 			},
 			ability_name = "Aiz Queen",

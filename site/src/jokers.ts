@@ -146,7 +146,7 @@ const jokers = [
       "in your full deck.",
       "This Joker gains {X:mult,C:white}X{} Mult",
       "for each card destroyed",
-      "{C:inactive}Currently {X:mult,C:white}X1{} Mult",
+      "{C:inactive}(Currently {X:mult,C:white}X1{C:inactive} Mult)",
     ],
     badge: "rare",
     image: "j_aiz_queen",
