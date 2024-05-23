@@ -27,6 +27,7 @@ const modifiedText = text.map((line) => {
           switch (color) {
             case "white":
               classes.push("text-white");
+            case "red":
             case "mult":
               classes.push("text-balatro-red");
               break;
@@ -47,6 +48,12 @@ const modifiedText = text.map((line) => {
               break;
             case "green":
               classes.push("text-balatro-green");
+              break;
+            case "planet":
+              classes.push("text-balatro-cyan")
+              break;
+            case "tarot":
+              classes.push("text-balatro-purple-tarot")
               break;
           }
         } else if (selector === "X") {
