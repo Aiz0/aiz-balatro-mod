@@ -1404,6 +1404,7 @@ function Jokers()
 					"{C:green}#1# in #11#{} to {C:red}Destroy{} a random Joker",
 					"{C:green}#1# in #12#{} to {C:attention}Create{} a random Joker",
 					"{C:green}#1# in #13#{} to increase this Jokers {C:green,E:1,S:1.1}Probabilities",
+					"{C:green}#1# in #14#{} to {C:attention}Double{} all listed {C:green,E:1,S:1.1}Probabilities",
 				},
 			},
 			ability_name = "Aiz Chaos",
@@ -1424,6 +1425,7 @@ function Jokers()
 						shuffle = 10,
 						destroy_joker = 20,
 						increase_odds = 50,
+						double_all_odds = 1000,
 					},
 				},
 			},
@@ -1453,6 +1455,7 @@ function Jokers()
 				card.ability.extra.odds.destroy_joker,
 				card.ability.extra.odds.joker,
 				card.ability.extra.odds.increase_odds,
+				card.ability.extra.odds.double_all_odds,
 			}
 		end
 
@@ -1484,6 +1487,14 @@ function Jokers()
 					card.ability.extra.probability = card.ability.extra.probability + 1
 					card_eval_status_text((context.blueprint_card or card), "extra", nil, nil, nil, {
 						message = "probability increased",
+					})
+				end
+				if chaos_random(card.ability.extra.odds.double_all_odds) then
+					for k, v in pairs(G.GAME.probabilities) do
+						G.GAME.probabilities[k] = v * 2
+					end
+					card_eval_status_text((context.blueprint_card or card), "extra", nil, nil, nil, {
+						message = "Probabilities doubled",
 					})
 				end
 				-- Copied from Certificate
