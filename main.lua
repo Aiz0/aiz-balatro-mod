@@ -19,6 +19,7 @@ local config = {
 		jay_z = true,
 		chess_bishop = true,
 		chess_rook = true,
+		chess_queen = true,
 	},
 }
 
