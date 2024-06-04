@@ -14,6 +14,7 @@ local config = {
 		easy_mode = true,
 		chill_joker = true,
 		tetris = true,
+		penny = true,
 	},
 }
 
