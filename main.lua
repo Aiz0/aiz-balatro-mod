@@ -10,6 +10,7 @@
 local config = {
 	jokers = {
 		blåhaj = true,
+		loudspeaker = true,
 	},
 }
 
