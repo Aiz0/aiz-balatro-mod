@@ -11,6 +11,7 @@ local config = {
 	jokers = {
 		blåhaj = true,
 		loudspeaker = true,
+		easy_mode = true,
 	},
 }
 
