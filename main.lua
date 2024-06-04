@@ -12,6 +12,7 @@ local config = {
 		blåhaj = true,
 		loudspeaker = true,
 		easy_mode = true,
+		chill_joker = true,
 	},
 }
 
