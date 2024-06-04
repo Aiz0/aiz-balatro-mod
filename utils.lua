@@ -44,3 +44,16 @@ function Turn_polychrome(card)
 		end,
 	}))
 end
+
+function Flip_card_event(card)
+	G.E_MANAGER:add_event(Event({
+		delay = 0.5,
+		trigger = "after",
+		func = function()
+			card:flip()
+			play_sound("card1")
+			card:juice_up(0.3, 0.3)
+			return true
+		end,
+	}))
+end

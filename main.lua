@@ -18,6 +18,7 @@ local config = {
 		trollker = true,
 		jay_z = true,
 		chess_bishop = true,
+		chess_rook = true,
 	},
 }
 
