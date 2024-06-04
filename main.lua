@@ -16,6 +16,7 @@ local config = {
 		tetris = true,
 		penny = true,
 		trollker = true,
+		jay_z = true,
 	},
 }
 

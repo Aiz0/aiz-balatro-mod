@@ -25,3 +25,22 @@ function Create_blocking_card(card, position, silent)
 		end,
 	}))
 end
+
+-- Makes card polychrome even if it has another edition
+function Turn_polychrome(card)
+	G.E_MANAGER:add_event(Event({
+		trigger = "after",
+		delay = 0.3,
+		func = function()
+			if card.edition and card.edition.negative then
+				if card.ability.consumeable then
+					G.consumeables.config.card_limit = G.consumeables.config.card_limit - 1
+				else
+					G.jokers.config.card_limit = G.jokers.config.card_limit - 1
+				end
+			end
+			card:set_edition({ polychrome = true }, true)
+			return true
+		end,
+	}))
+end
