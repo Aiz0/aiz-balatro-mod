@@ -13,6 +13,7 @@ local config = {
 		loudspeaker = true,
 		easy_mode = true,
 		chill_joker = true,
+		tetris = true,
 	},
 }
 
