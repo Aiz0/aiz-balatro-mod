@@ -20,6 +20,7 @@ local config = {
 		chess_bishop = true,
 		chess_rook = true,
 		chess_queen = true,
+		chess_king = true,
 	},
 }
 
