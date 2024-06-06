@@ -22,6 +22,7 @@ local config = {
 		chess_queen = true,
 		chess_king = true,
 		chess_knight = true,
+		chess_pawn = true,
 	},
 }
 
