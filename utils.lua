@@ -57,3 +57,37 @@ function Flip_card_event(card)
 		end,
 	}))
 end
+
+local suits = {
+	light = {
+		"Hearts",
+		"Diamonds",
+	},
+	dark = {
+		"Spades",
+		"Clubs",
+	},
+}
+function Get_suit_type(card_suit)
+	for i, suit in ipairs(suits.dark) do
+		if card_suit == suit then
+			return "Dark"
+		end
+	end
+	for i, suit in ipairs(suits.light) do
+		if card_suit == suit then
+			return "Light"
+		end
+	end
+	return "Unknown"
+end
+
+function Get_random_suit_of_type(suit_type)
+	local choosen_type
+	if suit_type == "Light" then
+		choosen_type = suits.light
+	else
+		choosen_type = suits.dark
+	end
+	return pseudorandom_element(choosen_type, pseudoseed("random_suit"))
+end

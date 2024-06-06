@@ -21,6 +21,7 @@ local config = {
 		chess_rook = true,
 		chess_queen = true,
 		chess_king = true,
+		chess_knight = true,
 	},
 }
 
