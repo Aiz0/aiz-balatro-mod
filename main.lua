@@ -24,6 +24,7 @@ local config = {
 		chess_knight = true,
 		chess_pawn = true,
 		antibubzia = true,
+		hand_size = true,
 	},
 }
 
