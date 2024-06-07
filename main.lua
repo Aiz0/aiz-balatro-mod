@@ -23,6 +23,7 @@ local config = {
 		chess_king = true,
 		chess_knight = true,
 		chess_pawn = true,
+		antibubzia = true,
 	},
 }
 
