@@ -28,7 +28,6 @@ SMODS.Joker({
 		-- Add mult for every sticker matching
 		for _, v in pairs(G.P_CENTERS) do
 			if v.set == "Joker" then
-				sendDebugMessage(get_joker_win_sticker(v, false))
 				if get_joker_win_sticker(v, false) == card.ability.extra.sticker then
 					mult = mult + card.ability.extra.mult_mod
 				end
