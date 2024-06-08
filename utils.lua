@@ -91,3 +91,20 @@ function Get_random_suit_of_type(suit_type)
 	end
 	return pseudorandom_element(choosen_type, pseudoseed("random_suit"))
 end
+
+function Eval_this(_card, eval_type, amount)
+	if eval_type == "mult" then
+		mult = mod_mult(mult + amount)
+	end
+	if eval_type == "chips" then
+		hand_chips = mod_chips(hand_chips + amount)
+	end
+	if eval_type == "x_mult" then
+		mult = mod_mult(mult * amount)
+	end
+	update_hand_text({ delay = 0 }, {
+		chips = eval_type == "chips" and hand_chips,
+		mult = (eval_type == "mult" or eval_type == "x_mult") and mult,
+	})
+	card_eval_status_text(_card, eval_type, amount, nil, nil, nil)
+end
