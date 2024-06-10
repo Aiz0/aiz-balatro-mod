@@ -59,28 +59,16 @@ Aiz_utils = {
 		}))
 	end,
 
-	get_suit_type = function(card_suit)
-		for i, suit in ipairs(Aiz_config.suits.dark) do
-			if card_suit == suit then
-				return "Dark"
-			end
-		end
-		for i, suit in ipairs(Aiz_config.suits.light) do
-			if card_suit == suit then
-				return "Light"
-			end
-		end
-		return "Unknown"
+	get_suit_type = function(suit)
+		-- stylua: ignore
+		return Aiz_config.suits.Dark[suit] ~= nil and "Dark" or
+			Aiz_config.suits.Light[suit] ~= nil and "Light" or
+			nil
 	end,
 
 	get_random_suit_of_type = function(suit_type)
-		local choosen_type
-		if suit_type == "Light" then
-			choosen_type = Aiz_config.suits.light
-		else
-			choosen_type = Aiz_config.suits.dark
-		end
-		return pseudorandom_element(choosen_type, pseudoseed("random_suit"))
+		-- returns key because value is meaningless
+		return select(2, pseudorandom_element(Aiz_config.suits[suit_type], pseudoseed("random_suit")))
 	end,
 
 	eval_this = function(_card, eval_type, amount)

@@ -21,13 +21,13 @@ Aiz_config = {
 	},
 
 	suits = {
-		light = {
-			"Hearts",
-			"Diamonds",
+		Light = {
+			Hearts = true,
+			Diamonds = true,
 		},
-		dark = {
-			"Spades",
-			"Clubs",
+		Dark = {
+			Spades = true,
+			Clubs = true,
 		},
 	},
 }
