@@ -5,13 +5,14 @@ SMODS.Joker({
 		text = {
 			"Converts scored {C:attention}#2#{} suits",
 			"To random {C:attention}#3#{} suits",
-			"Converted cards give {C:mult}+#1#{} Mult",
+			"Give {C:mult}+#1#{} Mult for each converted card",
 			"{s:0.8}Flips conversion at end of round{}",
 		},
 	},
 	config = {
 		extra = {
-			mult = 10,
+			mult = 0,
+			mult_mod = 10,
 			change = {
 				from = "Dark",
 				to = "Light",
@@ -27,7 +28,7 @@ SMODS.Joker({
 	yes_pool_flag = "this flag will never be set",
 
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.mult, card.ability.extra.change.from, card.ability.extra.change.to } }
+		return { vars = { card.ability.extra.mult_mod, card.ability.extra.change.from, card.ability.extra.change.to } }
 	end,
 
 	set_ability = function(self, card)
@@ -38,41 +39,57 @@ SMODS.Joker({
 		card.ability.extra.change.to = (change_to_light and "Light" or "Dark")
 	end,
 
-	card_can_be_converted = function(card, other_card)
-		-- just checks if current suit is the type that should be converted
-		return (
-			((other_card.aiz_knight_suit == other_card.base.suit) or not other_card.aiz_knight_suit)
-			and Get_suit_type(other_card.base.suit) == card.ability.extra.change.from
-		)
-			or (
-				other_card.aiz_knight_suit ~= other_card.base.suit
-				and Get_suit_type(other_card.aiz_knight_suit) == card.ability.extra.change.from
-			)
-	end,
-
 	calculate = function(self, card, context)
-		-- TODO make actual suit change during calculation instead of using a temp property
-		if context.individual and context.cardarea == G.play then
-			if self.card_can_be_converted(card, context.other_card) then
-				-- Get new suit and add it to a new property so that multiple knights can work together
+		if context.cardarea == G.jokers and context.before then
+			-- Reset mult every round
+			card.ability.extra.mult = 0
+			-- table used so i don't have to do the check twice
+			local converted_cards = {}
+			-- Flip cards and calculate mult
+			for _, playing_card in ipairs(context.scoring_hand) do
+				if Get_suit_type(playing_card.base.suit) == card.ability.extra.change.from then
+					Flip_card_event(playing_card)
+					table.insert(converted_cards, playing_card)
+				end
+			end
+			-- Change suit and flip cards back
+			for _, playing_card in ipairs(converted_cards) do
 				local new_suit = Get_random_suit_of_type(card.ability.extra.change.to)
-				context.other_card.aiz_knight_suit = new_suit
-
-				Flip_card_event(context.other_card)
+				playing_card.base.suit = new_suit
 				G.E_MANAGER:add_event(Event({
 					delay = 0.15,
 					trigger = "after",
 					func = function()
-						-- after setting suit we also need to reset knight suit
-						context.other_card:change_suit(new_suit)
-						context.other_card.aiz_knight_suit = nil
+						playing_card:change_suit(new_suit)
 						return true
 					end,
 				}))
-				Flip_card_event(context.other_card)
+				Flip_card_event(playing_card)
+			end
+			if #converted_cards > 0 then
+				card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod * #converted_cards
 				return {
-					mult = card.ability.extra.mult,
+					message = localize({
+						type = "variable",
+						key = "a_mult",
+						vars = { card.ability.extra.mult },
+					}),
+					colour = G.C.MULT,
 					card = card,
+				}
+			end
+		end
+
+		-- I gave up and seperated card conversion and mult giving into 2 steps.
+		if context.joker_main then
+			if card.ability.extra.mult > 0 then
+				return {
+					message = localize({
+						type = "variable",
+						key = "a_mult",
+						vars = { card.ability.extra.mult },
+					}),
+					mult_mod = card.ability.extra.mult,
 				}
 			end
 		end
