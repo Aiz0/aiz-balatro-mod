@@ -47,8 +47,8 @@ end
 
 function Flip_card_event(card)
 	G.E_MANAGER:add_event(Event({
-		delay = 0.5,
-		trigger = "after",
+		delay = 0.25,
+		trigger = "before",
 		func = function()
 			card:flip()
 			play_sound("card1")
