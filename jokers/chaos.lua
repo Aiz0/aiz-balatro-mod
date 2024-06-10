@@ -222,15 +222,15 @@ SMODS.Joker({
 		if context.joker_main then
 			-- Chips
 			if chaos_random(card.ability.extra.odds.chips) then
-				Eval_this(context.blueprint_card or card, "chips", 100)
+				Aiz_utils.eval_this(context.blueprint_card or card, "chips", 100)
 			end
 			-- Mult
 			if chaos_random(card.ability.extra.odds.mult) then
-				Eval_this(context.blueprint_card or card, "mult", 20)
+				Aiz_utils.eval_this(context.blueprint_card or card, "mult", 20)
 			end
 			-- Xmult
 			if chaos_random(card.ability.extra.odds.Xmult) then
-				Eval_this(context.blueprint_card or card, "x_mult", 3)
+				Aiz_utils.eval_this(context.blueprint_card or card, "x_mult", 3)
 			end
 			-- Money
 			if chaos_random(card.ability.extra.odds.dollars) then

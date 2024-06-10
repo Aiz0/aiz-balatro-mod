@@ -50,14 +50,14 @@ SMODS.Joker({
 			local converted_cards = {}
 			-- Flip cards and calculate mult
 			for _, playing_card in ipairs(context.scoring_hand) do
-				if Get_suit_type(playing_card.base.suit) == card.ability.extra.change.from then
+				if Aiz_utils.get_suit_type(playing_card.base.suit) == card.ability.extra.change.from then
 					Flip_card_event(playing_card)
 					table.insert(converted_cards, playing_card)
 				end
 			end
 			-- Change suit and flip cards back
 			for _, playing_card in ipairs(converted_cards) do
-				local new_suit = Get_random_suit_of_type(card.ability.extra.change.to)
+				local new_suit = Aiz_utils.get_random_suit_of_type(card.ability.extra.change.to)
 				playing_card.base.suit = new_suit
 				G.E_MANAGER:add_event(Event({
 					delay = 0.15,
