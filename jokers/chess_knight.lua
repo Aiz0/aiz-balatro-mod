@@ -41,7 +41,7 @@ SMODS.Joker({
 	end,
 
 	calculate = function(self, card, context)
-		if context.cardarea == G.jokers and context.before then
+		if context.cardarea == G.jokers and context.before and not context.blueprint then
 			-- Reset mult every round
 			card.ability.extra.mult = 0
 			-- table used so i don't have to do the check twice
@@ -86,6 +86,7 @@ SMODS.Joker({
 		end
 
 		-- I gave up and seperated card conversion and mult giving into 2 steps.
+		-- This is why blueprint won't convert cards anymore
 		if context.joker_main then
 			if card.ability.extra.mult > 0 then
 				return {
