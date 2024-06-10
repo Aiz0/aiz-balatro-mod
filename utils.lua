@@ -59,23 +59,13 @@ Aiz_utils = {
 		}))
 	end,
 
-	suits = {
-		light = {
-			"Hearts",
-			"Diamonds",
-		},
-		dark = {
-			"Spades",
-			"Clubs",
-		},
-	},
 	get_suit_type = function(card_suit)
-		for i, suit in ipairs(suits.dark) do
+		for i, suit in ipairs(Aiz_config.suits.dark) do
 			if card_suit == suit then
 				return "Dark"
 			end
 		end
-		for i, suit in ipairs(suits.light) do
+		for i, suit in ipairs(Aiz_config.suits.light) do
 			if card_suit == suit then
 				return "Light"
 			end
@@ -86,9 +76,9 @@ Aiz_utils = {
 	get_random_suit_of_type = function(suit_type)
 		local choosen_type
 		if suit_type == "Light" then
-			choosen_type = suits.light
+			choosen_type = Aiz_config.suits.light
 		else
-			choosen_type = suits.dark
+			choosen_type = Aiz_config.suits.dark
 		end
 		return pseudorandom_element(choosen_type, pseudoseed("random_suit"))
 	end,

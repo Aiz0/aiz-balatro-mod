@@ -7,25 +7,27 @@
 
 ----------------------------------------------
 ------------MOD CODE -------------------------
-local config = {
+
+-- contains filenames of modules that can be enabled disabled
+local modules = {
 	jokers = {
-		blåhaj = true,
-		loudspeaker = true,
-		easy_mode = true,
-		chill_joker = true,
-		tetris = true,
-		penny = true,
-		trollker = true,
-		jay_z = true,
-		chess_bishop = true,
-		chess_rook = true,
-		chess_queen = true,
-		chess_king = true,
-		chess_knight = true,
-		chess_pawn = true,
-		antibubzia = true,
-		hand_size = true,
-		chaos = true,
+		"blåhaj",
+		"loudspeaker",
+		"easy_mode",
+		"chill_joker",
+		"tetris",
+		"penny",
+		"trollker",
+		"jay_z",
+		"chess_bishop",
+		"chess_rook",
+		"chess_queen",
+		"chess_king",
+		"chess_knight",
+		"chess_pawn",
+		"antibubzia",
+		"hand_size",
+		"chaos",
 	},
 }
 
@@ -49,11 +51,15 @@ SMODS.Atlas({
 })
 
 local mod_path = SMODS.current_mod.path
--- load utils
+-- load config & utils
 require(mod_path .. "utils")
+require(mod_path .. "config")
 
 -- load all enabled jokers
-for joker, enabled in pairs(config.jokers) do
+-- only explicitly disabled jokers are disabled
+-- jokers not listed are still enabled
+for _, joker in ipairs(modules.jokers) do
+	local enabled = Aiz_config.jokers[joker] == nil or Aiz_config.jokers[joker]
 	if enabled then
 		require(mod_path .. "jokers/" .. joker)
 	end
