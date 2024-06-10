@@ -5,8 +5,9 @@ SMODS.Joker({
 		text = {
 			"Converts scored {C:attention}#2#{} suits",
 			"To random {C:attention}#3#{} suits",
-			"Give {C:mult}+#1#{} Mult for each converted card",
-			"{s:0.8}Flips conversion at end of round{}",
+			"Give {C:mult}+#1#{} Mult for each",
+			"converted card in played hand",
+			"{s:0.8}Flips order after conversion{}",
 		},
 	},
 	config = {
@@ -67,7 +68,11 @@ SMODS.Joker({
 				Flip_card_event(playing_card)
 			end
 			if #converted_cards > 0 then
+				-- Calculate mult this round
 				card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod * #converted_cards
+				-- flip conversion
+				card.ability.extra.change.from, card.ability.extra.change.to =
+					card.ability.extra.change.to, card.ability.extra.change.from
 				return {
 					message = localize({
 						type = "variable",
@@ -92,13 +97,6 @@ SMODS.Joker({
 					mult_mod = card.ability.extra.mult,
 				}
 			end
-		end
-		-- TODO only change suit if cards got flipped
-		-- flip suit to change at end of round
-		if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-			local temp = card.ability.extra.change.from
-			card.ability.extra.change.from = card.ability.extra.change.to
-			card.ability.extra.change.to = temp
 		end
 	end,
 })
