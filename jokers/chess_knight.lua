@@ -28,10 +28,15 @@ SMODS.Joker({
 	-- makes sure this joker doesn't spawn in any pools
 	yes_pool_flag = "this flag will never be set",
 
-	--TODO localization for suit colors
 	--TODO use dark/light color for text instead of attention.
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.mult_mod, card.ability.extra.change.from, card.ability.extra.change.to } }
+		return {
+			vars = {
+				card.ability.extra.mult_mod,
+				G.localization.misc.dictionary.k_aiz[card.ability.extra.change.from],
+				G.localization.misc.dictionary.k_aiz[card.ability.extra.change.to],
+			},
+		}
 	end,
 
 	set_ability = function(self, card)

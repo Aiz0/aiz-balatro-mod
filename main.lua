@@ -33,6 +33,8 @@ local modules = {
 
 function SMODS.current_mod.process_loc_text()
 	-- Localization
+	-- Don't know if doing this is allowed.
+	G.localization.misc.dictionary.k_aiz = {}
 	G.localization.misc.dictionary.k_aiz_advance = "Advance!"
 	G.localization.misc.dictionary.k_aiz_promoted = "Promoted!"
 	G.localization.misc.dictionary.k_aiz_trolled = "Trolled!"
@@ -41,6 +43,8 @@ function SMODS.current_mod.process_loc_text()
 	G.localization.misc.dictionary.k_aiz_knowledge_gained = "Knowledge Gained!"
 	G.localization.misc.dictionary.k_aiz_dinner_postponed = "Dinner Postponed!"
 	G.localization.misc.dictionary.k_aiz_destroy = "Destroyed!"
+	G.localization.misc.dictionary.k_aiz.Light = "Light"
+	G.localization.misc.dictionary.k_aiz.Dark = "Dark"
 end
 
 SMODS.Atlas({
