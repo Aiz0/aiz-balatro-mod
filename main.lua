@@ -11,22 +11,22 @@
 -- contains filenames of modules that can be enabled disabled
 local modules = {
 	jokers = {
-		"blåhaj",
+		"chill_joker",
 		"loudspeaker",
 		"easy_mode",
-		"chill_joker",
+		"blåhaj",
+		"antibubzia",
+		"hand_size",
 		"tetris",
 		"penny",
 		"trollker",
-		"jay_z",
+		"chess_pawn",
 		"chess_bishop",
 		"chess_rook",
 		"chess_queen",
 		"chess_king",
 		"chess_knight",
-		"chess_pawn",
-		"antibubzia",
-		"hand_size",
+		"jay_z",
 		"chaos",
 	},
 }
