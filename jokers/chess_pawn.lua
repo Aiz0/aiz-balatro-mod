@@ -31,20 +31,13 @@ SMODS.Joker({
 		-- TODO replace this with a function that takes arbitrary numbers
 		-- and doesn't need to add up to 1
 		local jokers = {
-			j_aiz_chess_knight = { probability = 30 / 100 },
-			j_aiz_chess_bishop = { probability = 25 / 100 },
-			j_aiz_chess_rook = { probability = 20 / 100 },
-			j_aiz_chess_queen = { probability = 15 / 100 },
-			j_aiz_chess_king = { probability = 10 / 100 },
+			j_aiz_chess_knight = 10,
+			j_aiz_chess_bishop = 7,
+			j_aiz_chess_rook = 5,
+			j_aiz_chess_queen = 3,
+			j_aiz_chess_king = 1,
 		}
-		local p = pseudorandom("chess_joker")
-		local cumulativeProbability = 0
-		for slug, joker in pairs(jokers) do
-			cumulativeProbability = cumulativeProbability + joker.probability
-			if p <= cumulativeProbability then
-				return slug
-			end
-		end
+		return Aiz.utils.get_weighted_random(jokers, "random_chess_joker")
 	end,
 
 	calculate = function(self, card, context)
