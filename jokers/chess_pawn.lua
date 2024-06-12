@@ -28,8 +28,6 @@ SMODS.Joker({
 	end,
 
 	get_random_chess_joker = function()
-		-- TODO replace this with a function that takes arbitrary numbers
-		-- and doesn't need to add up to 1
 		local jokers = {
 			j_aiz_chess_knight = 10,
 			j_aiz_chess_bishop = 7,
@@ -37,7 +35,20 @@ SMODS.Joker({
 			j_aiz_chess_queen = 3,
 			j_aiz_chess_king = 1,
 		}
-		return Aiz.utils.get_weighted_random(jokers, "random_chess_joker")
+
+		-- Remove any jokers that aren't registered
+		-- Prevents crash by trying to create non existent jokers
+		local available_jokers = {}
+		for k, v in pairs(jokers) do
+			for _, center in pairs(G.P_CENTERS) do
+				if center.set == "Joker" then
+					if k == center.key then
+						available_jokers[k] = v
+					end
+				end
+			end
+		end
+		return Aiz.utils.get_weighted_random(available_jokers, "random_chess_joker")
 	end,
 
 	calculate = function(self, card, context)
