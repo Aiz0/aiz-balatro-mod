@@ -3,7 +3,7 @@ SMODS.Joker({
 	loc_txt = {
 		name = "Too Much To Handle",
 		text = {
-			"At end of round",
+			"When blind is selected",
 			"set a random hand size",
 			"between {C:attention}#1#{} and {C:attention}#2#{}",
 			"{C:inactive}(Currently {C:attention}#3##4#{C:inactive} hand size)",
@@ -55,7 +55,7 @@ SMODS.Joker({
 	end,
 
 	calculate = function(self, card, context)
-		if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+		if context.setting_blind and not context.blueprint and not card.getting_sliced then
 			G.hand:change_size(-card.ability.extra.hand_size.difference)
 			G.E_MANAGER:add_event(Event({
 				func = function()
