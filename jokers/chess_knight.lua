@@ -91,9 +91,6 @@ SMODS.Joker({
 			if #converted_cards > 0 then
 				-- Calculate mult this round
 				card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_mod * #converted_cards
-				-- flip conversion
-				card.ability.extra.change.from, card.ability.extra.change.to =
-					card.ability.extra.change.to, card.ability.extra.change.from
 				return {
 					message = localize({
 						type = "variable",
@@ -119,6 +116,17 @@ SMODS.Joker({
 					mult_mod = card.ability.extra.mult,
 				}
 			end
+		end
+
+		if context.after and card.ability.extra.mult > 0 then
+			-- flip conversion
+			card.ability.extra.change.from, card.ability.extra.change.to =
+				card.ability.extra.change.to, card.ability.extra.change.from
+
+			card_eval_status_text(card, "extra", nil, nil, nil, {
+				message = localize("k_aiz_" .. card.ability.extra.change.from:lower()),
+				colour = card.ability.extra.change.from == "Light" and G.C.FILTER or G.C.BLACK,
+			})
 		end
 	end,
 })
