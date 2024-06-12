@@ -57,7 +57,7 @@ SMODS.Joker({
 			local converted_cards = {}
 			-- Flip cards and calculate mult
 			for _, playing_card in ipairs(context.scoring_hand) do
-				if Aiz_utils.get_suit_type(playing_card.base.suit) == card.ability.extra.change.from then
+				if Aiz_utils.is_suit_type(playing_card, card.ability.extra.change.from) then
 					Aiz_utils.flip_card_event(playing_card)
 					table.insert(converted_cards, playing_card)
 				end

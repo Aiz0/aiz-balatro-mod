@@ -59,11 +59,19 @@ Aiz_utils = {
 		}))
 	end,
 
-	get_suit_type = function(suit)
+	--- Determines if any suit in suit_type is same as suit of playing_card
+	---comment
+	---@param playing_card any Balatro Playing Card
+	---@param suit_type string Dark | Light
+	---@return boolean
+	is_suit_type = function(playing_card, suit_type)
 		-- stylua: ignore
-		return Aiz_config.suits.Dark[suit] ~= nil and "Dark" or
-			Aiz_config.suits.Light[suit] ~= nil and "Light" or
-			nil
+		for suit, _ in pairs(Aiz_config.suits[suit_type]) do
+			if playing_card:is_suit(suit) then
+				return true
+			end
+		end
+		return false
 	end,
 
 	get_random_suit_of_type = function(suit_type)
