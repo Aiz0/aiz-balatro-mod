@@ -45,6 +45,7 @@ function SMODS.current_mod.process_loc_text()
 	G.localization.misc.dictionary.k_aiz_destroy = "Destroyed!"
 	G.localization.misc.dictionary.k_aiz_light = "Light"
 	G.localization.misc.dictionary.k_aiz_dark = "Dark"
+	G.localization.misc.dictionary.k_aiz_new_hand = "New Hand!"
 end
 
 SMODS.Atlas({
