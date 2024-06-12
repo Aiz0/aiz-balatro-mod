@@ -32,7 +32,7 @@ SMODS.Joker({
 	calculate = function(self, card, context)
 		if context.pre_discard and not context.blueprint then
 			for i = 1, #G.hand.highlighted do
-				Aiz_utils.flip_card_event(G.hand.highlighted[i])
+				Aiz.utils.flip_card_event(G.hand.highlighted[i])
 			end
 			for i = 1, #G.hand.highlighted do
 				G.E_MANAGER:add_event(Event({
@@ -45,7 +45,7 @@ SMODS.Joker({
 				}))
 			end
 			for i = 1, #G.hand.highlighted do
-				Aiz_utils.flip_card_event(G.hand.highlighted[i])
+				Aiz.utils.flip_card_event(G.hand.highlighted[i])
 			end
 		end
 	end,

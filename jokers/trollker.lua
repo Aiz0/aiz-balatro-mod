@@ -72,7 +72,7 @@ SMODS.Joker({
 					x = pseudorandom("trollker", 0, 18),
 					y = pseudorandom("trollker", 0, 9),
 				}
-				Aiz_utils.create_blocking_card(card, position, i ~= 1)
+				Aiz.utils.create_blocking_card(card, position, i ~= 1)
 			end
 		end
 	end,
@@ -82,7 +82,7 @@ SMODS.Joker({
 		card.ability.extra.cards = {}
 		-- Create new ones with same positions
 		for i, position in ipairs(card.ability.extra.card_positions) do
-			Aiz_utils.Create_blocking_card(card, position, i ~= 1)
+			Aiz.utils.Create_blocking_card(card, position, i ~= 1)
 		end
 	end,
 })

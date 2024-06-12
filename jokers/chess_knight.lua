@@ -56,14 +56,14 @@ SMODS.Joker({
 			local converted_cards = {}
 			-- Flip cards and calculate mult
 			for _, playing_card in ipairs(context.scoring_hand) do
-				if Aiz_utils.is_suit_type(playing_card, card.ability.extra.change.from) then
-					Aiz_utils.flip_card_event(playing_card)
+				if Aiz.utils.is_suit_type(playing_card, card.ability.extra.change.from) then
+					Aiz.utils.flip_card_event(playing_card)
 					table.insert(converted_cards, playing_card)
 				end
 			end
 			-- Change suit
 			for _, playing_card in ipairs(converted_cards) do
-				local new_suit = Aiz_utils.get_random_suit_of_type(card.ability.extra.change.to)
+				local new_suit = Aiz.utils.get_random_suit_of_type(card.ability.extra.change.to)
 				-- This is hopefully fine. I just don't want any sprite changes at this point
 				playing_card.base.suit = new_suit
 
@@ -86,7 +86,7 @@ SMODS.Joker({
 			end
 			-- flip cards back
 			for _, playing_card in ipairs(converted_cards) do
-				Aiz_utils.flip_card_event(playing_card)
+				Aiz.utils.flip_card_event(playing_card)
 			end
 			if #converted_cards > 0 then
 				-- Calculate mult this round

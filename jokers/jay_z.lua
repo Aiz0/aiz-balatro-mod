@@ -60,13 +60,13 @@ SMODS.Joker({
 				-- Turn all cards polychrome
 				-- start with cards held in hand
 				for _, playing_card in ipairs(G.hand.cards) do
-					Aiz_utils.set_polychrome(playing_card)
+					Aiz.utils.set_polychrome(playing_card)
 				end
 				for _, joker_card in ipairs(G.jokers.cards) do
-					Aiz_utils.set_polychrome(joker_card)
+					Aiz.utils.set_polychrome(joker_card)
 				end
 				for _, consumable_card in ipairs(G.consumeables.cards) do
-					Aiz_utils.set_polychrome(consumable_card)
+					Aiz.utils.set_polychrome(consumable_card)
 				end
 				-- Playing Cards in deck are done last and without a delay
 				G.E_MANAGER:add_event(Event({

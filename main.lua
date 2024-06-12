@@ -7,6 +7,8 @@
 
 ----------------------------------------------
 ------------MOD CODE -------------------------
+-- Global Table for mod utils and config
+Aiz = {}
 
 -- contains filenames of modules that can be enabled disabled
 local modules = {
@@ -62,7 +64,7 @@ require(mod_path .. "config")
 -- only explicitly disabled jokers are disabled
 -- jokers not listed are still enabled
 for _, joker in ipairs(modules.jokers) do
-	local enabled = Aiz_config.jokers[joker] == nil or Aiz_config.jokers[joker]
+	local enabled = Aiz.config.jokers[joker] == nil or Aiz.config.jokers[joker]
 	if enabled then
 		require(mod_path .. "jokers/" .. joker)
 	end
