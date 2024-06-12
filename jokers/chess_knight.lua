@@ -48,8 +48,7 @@ SMODS.Joker({
 	end,
 
 	calculate = function(self, card, context)
-		--TODO handle cards played previously visual debuff
-		--TODO handle suit debuff not applying to converted cards
+		--TODO try to fix debuff texture visible before new suit is. for bosses that debuff suits
 		if context.cardarea == G.jokers and context.before and not context.blueprint then
 			-- Reset mult every round
 			card.ability.extra.mult = 0
@@ -62,19 +61,30 @@ SMODS.Joker({
 					table.insert(converted_cards, playing_card)
 				end
 			end
-			-- Change suit and flip cards back
+			-- Change suit
 			for _, playing_card in ipairs(converted_cards) do
 				local new_suit = Aiz_utils.get_random_suit_of_type(card.ability.extra.change.to)
+				-- This is hopefully fine. I just don't want any sprite changes at this point
 				playing_card.base.suit = new_suit
+
+				-- Handle debuffing card after being played
+				-- set to false so pillar doesn't debuff valid cards
+				playing_card.ability.played_this_ante = false
+				-- Do a debuff check manually so debuffs are applied
+				-- This will show some cards as debuffed before their suit is changed.
+				G.GAME.blind:debuff_card(playing_card)
 				G.E_MANAGER:add_event(Event({
 					delay = 0.15,
 					trigger = "after",
 					func = function()
 						playing_card:change_suit(new_suit)
+						-- set to true again after suit change because of call to blind:debuff_card()
+						playing_card.ability.played_this_ante = true
 						return true
 					end,
 				}))
 			end
+			-- flip cards back
 			for _, playing_card in ipairs(converted_cards) do
 				Aiz_utils.flip_card_event(playing_card)
 			end
