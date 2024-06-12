@@ -33,8 +33,8 @@ SMODS.Joker({
 		return {
 			vars = {
 				card.ability.extra.mult_mod,
-				G.localization.misc.dictionary.k_aiz[card.ability.extra.change.from],
-				G.localization.misc.dictionary.k_aiz[card.ability.extra.change.to],
+				localize("k_aiz_" .. card.ability.extra.change.from:lower()),
+				localize("k_aiz_" .. card.ability.extra.change.to:lower()),
 			},
 		}
 	end,
