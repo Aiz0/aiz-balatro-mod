@@ -35,7 +35,6 @@ local modules = {
 
 function SMODS.current_mod.process_loc_text()
 	-- Localization
-	-- Don't know if doing this is allowed.
 	G.localization.misc.dictionary.k_aiz_advance = "Advance!"
 	G.localization.misc.dictionary.k_aiz_promoted = "Promoted!"
 	G.localization.misc.dictionary.k_aiz_trolled = "Trolled!"
