@@ -44,15 +44,26 @@ SMODS.Joker({
 			if min < 1 then
 				min = 1
 			end
+
+			-- keep track of xmult
+			local mult_mod = 0
 			for i, playing_card in ipairs(G.playing_cards) do
 				if playing_card:get_id() <= min then
 					-- Add to Xmult
-					local mult_mod = card.ability.extra.Xmult_mod * min
-					card.ability.extra.Xmult = card.ability.extra.Xmult + mult_mod
+					mult_mod = mult_mod + card.ability.extra.Xmult_mod * min
 					-- Destroy card
 					playing_card:start_dissolve(nil, i ~= 1)
 				end
 			end
+			-- Add xmult to card and display it
+			card.ability.extra.Xmult = card.ability.extra.Xmult + mult_mod
+			card_eval_status_text(card, "extra", nil, nil, nil, {
+				message = localize({
+					type = "variable",
+					key = "a_xmult",
+					vars = { card.ability.extra.Xmult },
+				}),
+			})
 		end
 		if context.joker_main and card.ability.extra.Xmult > 1 then
 			return {
