@@ -24,7 +24,6 @@ SMODS.Joker({
 
 	get_mult = function(card)
 		local mult = 0
-		sendDebugMessage(card.ability.extra.sticker)
 		-- Add mult for every sticker matching
 		for _, v in pairs(G.P_CENTERS) do
 			if v.set == "Joker" then
