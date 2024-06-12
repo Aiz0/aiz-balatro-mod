@@ -48,10 +48,12 @@ SMODS.Joker({
 	end,
 
 	calculate = function(self, card, context)
+		--TODO handle cards played previously visual debuff
+		--TODO handle suit debuff not applying to converted cards
 		if context.cardarea == G.jokers and context.before and not context.blueprint then
 			-- Reset mult every round
 			card.ability.extra.mult = 0
-			-- table used so i don't have to do the check twice
+			-- table used so i don't have to do the check thrice
 			local converted_cards = {}
 			-- Flip cards and calculate mult
 			for _, playing_card in ipairs(context.scoring_hand) do
@@ -72,6 +74,8 @@ SMODS.Joker({
 						return true
 					end,
 				}))
+			end
+			for _, playing_card in ipairs(converted_cards) do
 				Aiz_utils.flip_card_event(playing_card)
 			end
 			if #converted_cards > 0 then
