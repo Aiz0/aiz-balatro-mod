@@ -9,7 +9,7 @@ SMODS.Joker({
 			"destroy all cards",
 			"of {C:attention}lowest{} rank",
 			"in your full deck.",
-			"This Joker gains {X:mult,C:white}X{} Mult",
+			"This Joker gains {X:mult,C:white}X#2#{} Mult",
 			"for each card destroyed",
 			"{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)",
 		},
@@ -17,7 +17,7 @@ SMODS.Joker({
 	config = {
 		extra = {
 			Xmult = 1,
-			Xmult_mod = 0.05,
+			Xmult_mod = 0.1,
 		},
 	},
 	atlas = "jokers",
@@ -29,7 +29,7 @@ SMODS.Joker({
 	yes_pool_flag = "this flag will never be set",
 
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.Xmult } }
+		return { vars = { card.ability.extra.Xmult, card.ability.extra.Xmult_mod } }
 	end,
 
 	calculate = function(self, card, context)
@@ -49,8 +49,7 @@ SMODS.Joker({
 			local mult_mod = 0
 			for i, playing_card in ipairs(G.playing_cards) do
 				if playing_card:get_id() <= min then
-					-- Add to Xmult
-					mult_mod = mult_mod + card.ability.extra.Xmult_mod * min
+					mult_mod = mult_mod + card.ability.extra.Xmult_mod
 					-- Destroy card
 					playing_card:start_dissolve(nil, i ~= 1)
 				end
