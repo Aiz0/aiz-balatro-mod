@@ -5,7 +5,7 @@ SMODS.Joker({
 	loc_txt = {
 		name = "Queen",
 		text = {
-			"When round begins,",
+			"When blind is selected,",
 			"destroy all cards",
 			"of {C:attention}lowest{} rank",
 			"in your full deck.",
@@ -24,7 +24,7 @@ SMODS.Joker({
 	pos = { y = 13, x = 0 },
 	rarity = 3,
 	cost = 15,
-	blueprint_compat = false,
+	blueprint_compat = true,
 	-- makes sure this joker doesn't spawn in any pools
 	yes_pool_flag = "this flag will never be set",
 
@@ -33,7 +33,7 @@ SMODS.Joker({
 	end,
 
 	calculate = function(self, card, context)
-		if context.first_hand_drawn and not context.blueprint then
+		if context.setting_blind and not context.blueprint and not card.getting_sliced then
 			-- Find out what smallest id in deck is
 			local min = math.huge
 			for _, playing_card in ipairs(G.playing_cards) do
