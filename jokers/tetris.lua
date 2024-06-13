@@ -4,9 +4,9 @@ SMODS.Joker({
 		name = "Tetris",
 		text = {
 			"This Joker Gains {X:mult,C:white}X#1#{} Mult",
-			"per {C:attention}consecutive unique{}",
-			"hand played, reset on",
-			"{C:attention}non unique{} hand played",
+			"per {C:attention}consecutive{} hand",
+			"played without",
+			"repeating a {C:attention}poker hand{}",
 			"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
 		},
 	},
