@@ -7,14 +7,19 @@ SMODS.Joker({
 	loc_txt = {
 		name = "Rook",
 		text = {
-			"Discarded cards are",
-			"turned to stone",
+			"Enhances {C:attention}Discarded{} cards",
+			"into {C:attention}Stone Cards{}",
 			"{C:attention}-#1#{} discards",
+			"Gives {X:mult,C:white}XMult{} based on ratio of",
+			"{C:attention}Stone cards{} in your {C:attention}full deck.",
+			"{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
 		},
 	},
 	config = {
 		extra = {
 			discard_size = 1,
+			base = 4, -- controls max mult
+			exponent = 2, -- controls how fast/slow mult should grow
 		},
 	},
 	atlas = "jokers",
@@ -26,7 +31,29 @@ SMODS.Joker({
 	yes_pool_flag = "this flag will never be set",
 
 	loc_vars = function(self, info_queue, card)
-		return { vars = { card.ability.extra.discard_size } }
+		return {
+			vars = {
+				card.ability.extra.discard_size,
+				self.get_mult(card),
+			},
+		}
+	end,
+
+	get_mult = function(card)
+		if G.playing_cards == nil then
+			return 1
+		else
+			local stone_tally = 0
+			for _, v in pairs(G.playing_cards) do
+				if v.config.center == G.P_CENTERS.m_stone then
+					stone_tally = stone_tally + 1
+				end
+			end
+
+			local exact_mult = card.ability.extra.base
+				^ ((stone_tally / #G.playing_cards) ^ card.ability.extra.exponent)
+			return Aiz.utils.round_2d(exact_mult)
+		end
 	end,
 
 	calculate = function(self, card, context)
@@ -47,6 +74,18 @@ SMODS.Joker({
 			for i = 1, #G.hand.highlighted do
 				Aiz.utils.flip_card_event(G.hand.highlighted[i])
 			end
+			delay(0.3)
+		end
+		if context.joker_main then
+			local mult = self.get_mult(card)
+			return {
+				message = localize({
+					type = "variable",
+					key = "a_xmult",
+					vars = { mult },
+				}),
+				Xmult_mod = mult,
+			}
 		end
 	end,
 

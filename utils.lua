@@ -113,4 +113,11 @@ Aiz.utils = {
 			end
 		end
 	end,
+
+	---uses string.format to round to 2 decimal places
+	---@param exact number
+	---@return number?
+	round_2d = function(exact)
+		return tonumber(string.format("%.2f", exact))
+	end,
 }
