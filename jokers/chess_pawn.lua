@@ -27,19 +27,13 @@ SMODS.Joker({
 		return { vars = { card.ability.extra.rank } }
 	end,
 
-	get_random_chess_joker = function()
-		local jokers = {
-			j_aiz_chess_knight = 10,
-			j_aiz_chess_bishop = 7,
-			j_aiz_chess_rook = 5,
-			j_aiz_chess_queen = 3,
-			j_aiz_chess_king = 1,
-		}
-
+	---Returns key of a random joker from table **Aiz.config.pawn_promotion**
+	---@return string
+	get_promotion_joker = function()
 		-- Remove any jokers that aren't registered
-		-- Prevents crash by trying to create non existent jokers
+		-- Prevents crash from trying to create non existent jokers
 		local available_jokers = {}
-		for k, v in pairs(jokers) do
+		for k, v in pairs(Aiz.config.pawn.promotion) do
 			for _, center in pairs(G.P_CENTERS) do
 				if center.set == "Joker" then
 					if k == center.key then
@@ -48,6 +42,16 @@ SMODS.Joker({
 				end
 			end
 		end
+
+		-- Check owned jokers and reduce weight to prevent duplicates
+		for i = 1, #G.jokers.cards do
+			for key, probability in pairs(available_jokers) do
+				if G.jokers.cards[i].config.center.key == key then
+					available_jokers[key] = probability * Aiz.config.pawn.duplicate_chance_reduction
+				end
+			end
+		end
+
 		return Aiz.utils.get_weighted_random(available_jokers, "random_chess_joker")
 	end,
 
@@ -96,7 +100,7 @@ SMODS.Joker({
 								G.jokers:remove_card(card)
 								card:remove()
 								card = nil
-								local joker_slug = self.get_random_chess_joker()
+								local joker_slug = self.get_promotion_joker()
 								local new_card = create_card("Joker", G.jokers, nil, nil, nil, nil, joker_slug, nil)
 								new_card:set_edition(edition, nil, true)
 								new_card:add_to_deck()

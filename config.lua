@@ -30,4 +30,17 @@ Aiz.config = {
 			Clubs = true,
 		},
 	},
+
+	-- slug and probability
+	pawn = {
+		promotion = {
+			j_aiz_chess_knight = 10,
+			j_aiz_chess_bishop = 7,
+			j_aiz_chess_rook = 5,
+			j_aiz_chess_queen = 3,
+			j_aiz_chess_king = 1,
+		},
+		-- if you have any of above reduce probability by multiplying with this value
+		duplicate_chance_reduction = 0.5,
+	},
 }
