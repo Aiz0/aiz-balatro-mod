@@ -120,4 +120,57 @@ Aiz.utils = {
 	round_2d = function(exact)
 		return tonumber(string.format("%.2f", exact))
 	end,
+
+	---Flips all jokers
+	flip_jokers = function()
+		for _, joker in ipairs(G.jokers.cards) do
+			joker:flip()
+		end
+	end,
+
+	---Shuffles all Jokers like that one blind does it.
+	---@param flip boolean flip cards before shuffle
+	---@param unhighlight boolean if cards should be unhighlighted before shuffle
+	shuffle_jokers = function(self, flip, unhighlight)
+		if #G.jokers.cards == 0 then
+			return
+		end
+		if unhighlight then
+			G.jokers:unhighlight_all()
+		end
+		if flip then
+			self.flip_jokers()
+		end
+		G.E_MANAGER:add_event(Event({
+			trigger = "after",
+			delay = 0.2,
+			func = function()
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						G.jokers:shuffle("aajk")
+						play_sound("cardSlide1", 0.85)
+						return true
+					end,
+				}))
+				delay(0.15)
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						G.jokers:shuffle("aajk")
+						play_sound("cardSlide1", 1.15)
+						return true
+					end,
+				}))
+				delay(0.15)
+				G.E_MANAGER:add_event(Event({
+					func = function()
+						G.jokers:shuffle("aajk")
+						play_sound("cardSlide1", 1)
+						return true
+					end,
+				}))
+				delay(0.5)
+				return true
+			end,
+		}))
+	end,
 }
