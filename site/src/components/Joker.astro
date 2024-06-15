@@ -19,7 +19,7 @@ const image_path = `${base_path}/${image}.png`;
 const regex = /{([^}]+)}/g;
 const modifiedText = text.map((line) => {
   return (
-    line.replace("{}", "</span>").replace(regex, (_match, p1) => {
+    line.replaceAll("{}", "</span>").replace(regex, (_match, p1) => {
       const classes: string[] = [];
       p1.split(",").forEach((item: string) => {
         const [selector, color] = item.split(":");
