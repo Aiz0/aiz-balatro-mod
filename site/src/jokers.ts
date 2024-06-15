@@ -53,7 +53,7 @@ const jokers = [
   {
     name: "Too Much To Handle",
     text: [
-      "At end of round",
+      "When blind is selected",
       "set a random hand size",
       "between {C:attention}4{} and {C:attention}15",
       "{C:inactive}(Currently {C:attention}-1{C:inactive} hand size)",
@@ -65,9 +65,9 @@ const jokers = [
     name: "Tetris",
     text: [
       "This Joker Gains {X:mult,C:white}X0.5{} Mult",
-      "per {C:attention}consecutive unique{}",
-      "hand played, reset on",
-      "{C:attention}non unique{} hand played",
+      "per {C:attention}consecutive{} hand",
+      "played without",
+      "repeating a {C:attention}poker hand{}",
       "{C:inactive}(Currently {X:mult,C:white}X1{C:inactive} Mult)",
     ],
     badge: "Rare",
@@ -110,8 +110,9 @@ const jokers = [
     text: [
       "Converts scored {C:attention}Dark{} suits",
       "To random {C:attention}Light{} suits",
-      "Converted cards give {C:mult}+10{} Mult",
-      "{s:0.8}Flips conversion at end of round{}",
+      "Give {C:mult}+10{} Mult for each",
+      "converted card in played hand",
+      "{s:0.8}Flips order after conversion{}",
     ],
     badge: "uncommon",
     image: "j_aiz_knight",
@@ -130,9 +131,12 @@ const jokers = [
   {
     name: "Rook",
     text: [
-      "Discarded cards are",
-      "turned to stone",
+      "Enhances {C:attention}Discarded{} cards",
+      "into {C:attention}Stone Cards{}",
       "{C:attention}-1{} discards",
+      "Gives {X:mult,C:white}XMult{} based on ratio of",
+      "{C:attention}Stone cards{} in your {C:attention}full deck.",
+      "{C:inactive}(Currently {X:mult,C:white}X1{C:inactive} Mult)",
     ],
     badge: "rare",
     image: "j_aiz_rook",
@@ -140,11 +144,11 @@ const jokers = [
   {
     name: "Queen",
     text: [
-      "When round begins,",
+      "When blind is selected,",
       "destroy all cards",
       "of {C:attention}lowest{} rank",
       "in your full deck.",
-      "This Joker gains {X:mult,C:white}X{} Mult",
+      "This Joker gains {X:mult,C:white}X0.1{} Mult",
       "for each card destroyed",
       "{C:inactive}(Currently {X:mult,C:white}X1{C:inactive} Mult)",
     ],
