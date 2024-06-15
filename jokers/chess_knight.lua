@@ -123,10 +123,11 @@ SMODS.Joker({
 			card.ability.extra.change.from, card.ability.extra.change.to =
 				card.ability.extra.change.to, card.ability.extra.change.from
 
-			card_eval_status_text(card, "extra", nil, nil, nil, {
-				message = localize("k_aiz_" .. card.ability.extra.change.from:lower()),
-				colour = card.ability.extra.change.from == "Light" and G.C.FILTER or G.C.BLACK,
-			})
+			Aiz.utils.status_text(
+				card,
+				"k_aiz_" .. card.ability.extra.change.from:lower(),
+				card.ability.extra.change.from == "Light" and G.C.FILTER or G.C.BLACK
+			)
 		end
 	end,
 })

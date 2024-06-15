@@ -74,14 +74,9 @@ SMODS.Joker({
 			local advances = (card.ability.extra.rank == 2) and 2 or 1
 			card.ability.extra.rank = card.ability.extra.rank + advances
 			if card.ability.extra.rank < card.ability.extra.promotion_rank then
-				card_eval_status_text(card, "extra", nil, nil, nil, {
-					message = localize("k_aiz_advance"),
-				})
+				Aiz.utils.status_text(card, "k_aiz_advance")
 			else
-				-- shake card
-				card_eval_status_text(card, "extra", nil, nil, nil, {
-					message = localize("k_aiz_promoted"),
-				})
+				Aiz.utils.status_text(card, "k_aiz_promoted")
 
 				G.E_MANAGER:add_event(Event({
 					func = function()

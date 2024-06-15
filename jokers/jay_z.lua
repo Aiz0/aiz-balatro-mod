@@ -56,7 +56,7 @@ SMODS.Joker({
 					end,
 				}))
 				-- show message before polychrome starts
-				card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_aiz_knowledge_gained") })
+				Aiz.utils.status_text(card, "k_aiz_knowledge_gained")
 				-- Turn all cards polychrome
 				-- start with cards held in hand
 				for _, playing_card in ipairs(G.hand.cards) do

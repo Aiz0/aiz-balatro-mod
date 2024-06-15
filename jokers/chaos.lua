@@ -74,17 +74,13 @@ SMODS.Joker({
 		if context.first_hand_drawn then
 			if not context.blueprint and chaos_random(card.ability.extra.odds.increase_odds) then
 				card.ability.extra.probability = card.ability.extra.probability + 1
-				card_eval_status_text((context.blueprint_card or card), "extra", nil, nil, nil, {
-					message = "probability increased",
-				})
+				Aiz.utils.status_text(context.blueprint_card or card, "k_aiz_odds_increased")
 			end
 			if chaos_random(card.ability.extra.odds.double_all_odds) then
 				for k, v in pairs(G.GAME.probabilities) do
 					G.GAME.probabilities[k] = v * 2
 				end
-				card_eval_status_text((context.blueprint_card or card), "extra", nil, nil, nil, {
-					message = "Probabilities doubled",
-				})
+				Aiz.utils.status_text(context.blueprint_card or card, "k_aiz_odds_doubled")
 			end
 			-- Copied from Certificate
 			if chaos_random(card.ability.extra.odds.playing_card) then
@@ -139,9 +135,7 @@ SMODS.Joker({
 					}))
 				end
 				if not (context.blueprint_card or card).getting_sliced then
-					card_eval_status_text((context.blueprint_card or card), "extra", nil, nil, nil, {
-						message = localize("k_aiz_destroy"),
-					})
+					Aiz.utils.status_text(context.blueprint_card or card, "k_aiz_destroy")
 				end
 			end
 			-- Random Joker
@@ -161,14 +155,7 @@ SMODS.Joker({
 						return true
 					end,
 				}))
-				card_eval_status_text(
-					context.blueprint_card or card,
-					"extra",
-					nil,
-					nil,
-					nil,
-					{ message = localize("k_plus_joker"), colour = G.C.BLUE }
-				)
+				Aiz.utils.status_text(context.blueprint_card or card, "k_plus_joker", G.C.BLUE)
 			end
 		end
 
@@ -210,14 +197,7 @@ SMODS.Joker({
 						return true
 					end,
 				}))
-				card_eval_status_text(
-					context.blueprint_card or card,
-					"extra",
-					nil,
-					nil,
-					nil,
-					{ message = localize("k_plus_tarot"), colour = G.C.PURPLE }
-				)
+				Aiz.utils.status_text(context.blueprint_card or card, "k_plus_tarot", G.C.PURPLE)
 			end
 			-- Random planet
 			if
@@ -237,14 +217,7 @@ SMODS.Joker({
 						return true
 					end,
 				}))
-				card_eval_status_text(
-					context.blueprint_card or card,
-					"extra",
-					nil,
-					nil,
-					nil,
-					{ message = localize("k_plus_planet"), colour = G.C.SECONDARY_SET.Planet }
-				)
+				Aiz.utils.status_text(context.blueprint_card or card, "k_plus_planet", G.C.SECONDARY_SET.Planet)
 			end
 			-- Random spectral
 			if
@@ -264,14 +237,8 @@ SMODS.Joker({
 						return true
 					end,
 				}))
-				card_eval_status_text(
-					context.blueprint_card or card,
-					"extra",
-					nil,
-					nil,
-					nil,
-					{ message = localize("k_plus_spectral"), colour = G.C.SECONDARY_SET.Spectral }
-				)
+
+				Aiz.utils.status_text(context.blueprint_card or card, "k_plus_spectral", G.C.SECONDARY_SET.Spectral)
 			end
 		end
 	end,

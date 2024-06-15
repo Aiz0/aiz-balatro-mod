@@ -33,9 +33,7 @@ SMODS.Joker({
 		-- increment xmult at end of round
 		-- clean up cards
 		if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
-			card_eval_status_text(card, "extra", nil, nil, nil, {
-				message = localize("k_upgrade_ex"),
-			})
+			Aiz.utils.status_text(card, "k_upgrade_ex")
 			card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
 			-- TODO move this logic to blocking cards themselves
 			for i, blocking_card in ipairs(card.ability.extra.cards) do
@@ -61,7 +59,7 @@ SMODS.Joker({
 			not context.blueprint and (context.first_hand_drawn or (context.cardarea == G.jokers and context.before))
 		then
 			if card.ability.extra.Xmult > 1 then
-				card_eval_status_text(card, "extra", nil, nil, nil, { message = localize("k_aiz_trolled") })
+				Aiz.utils.status_text(card, "k_aiz_trolled")
 			end
 			-- spawn cards for each mult it gives
 			-- -1 so that it only starts spawning cards when it gives xmult

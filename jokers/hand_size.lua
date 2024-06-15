@@ -65,9 +65,7 @@ SMODS.Joker({
 				end,
 			}))
 
-			card_eval_status_text(card, "extra", nil, nil, nil, {
-				message = localize("k_aiz_new_hand"),
-			})
+			Aiz.utils.status_text(card, "k_aiz_new_hand")
 		end
 	end,
 

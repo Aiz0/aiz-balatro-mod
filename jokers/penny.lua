@@ -34,14 +34,7 @@ SMODS.Joker({
 					return true
 				end,
 			}))
-			card_eval_status_text(
-				context.blueprint_card or card,
-				"extra",
-				nil,
-				nil,
-				nil,
-				{ message = localize("k_duplicated_ex") }
-			)
+			Aiz.utils.status_text(context.blueprint_card or card, "k_duplicated_ex")
 			G.E_MANAGER:add_event(Event({
 				func = function()
 					G.deck.config.card_limit = G.deck.config.card_limit + #new_cards

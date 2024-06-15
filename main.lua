@@ -46,6 +46,8 @@ function SMODS.current_mod.process_loc_text()
 	G.localization.misc.dictionary.k_aiz_light = "Light"
 	G.localization.misc.dictionary.k_aiz_dark = "Dark"
 	G.localization.misc.dictionary.k_aiz_new_hand = "New Hand!"
+	G.localization.misc.dictionary.k_aiz_odds_increased = "Odds Increased!"
+	G.localization.misc.dictionary.k_aiz_odds_doubled = "Odds Doubled!"
 end
 
 SMODS.Atlas({
