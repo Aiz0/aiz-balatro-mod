@@ -44,11 +44,9 @@ SMODS.Joker({
 		end
 
 		-- Check owned jokers and reduce weight to prevent duplicates
-		for i = 1, #G.jokers.cards do
-			for key, probability in pairs(available_jokers) do
-				if G.jokers.cards[i].config.center.key == key then
-					available_jokers[key] = probability * Aiz.config.pawn.duplicate_chance_reduction
-				end
+		for key, probability in pairs(available_jokers) do
+			if #SMODS.find_card(key, true) > 0 then
+				available_jokers[key] = probability * Aiz.config.pawn.duplicate_chance_reduction
 			end
 		end
 
