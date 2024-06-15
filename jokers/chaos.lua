@@ -66,16 +66,6 @@ SMODS.Joker({
 		}
 	end,
 
-	set_random_hand_size = function(card)
-		card.ability.extra.hand_size.current = pseudorandom(
-			pseudoseed("aiz_hand_size"),
-			card.ability.extra.hand_size.min,
-			card.ability.extra.hand_size.max
-		)
-		card.ability.extra.hand_size.difference = card.ability.extra.hand_size.current
-			- (G.hand and G.hand.config.card_limit or 8)
-	end,
-
 	calculate = function(self, card, context)
 		local function chaos_random(odds)
 			return pseudorandom("aiz_chaos") < (G.GAME.probabilities.normal * card.ability.extra.probability) / odds
