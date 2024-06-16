@@ -59,6 +59,12 @@ SMODS.Atlas({
 	px = 71,
 	py = 95,
 })
+SMODS.Atlas({
+	key = "jokers_soul",
+	path = "jokers_soul.png",
+	px = 71,
+	py = 95,
+})
 
 local mod_path = SMODS.current_mod.path
 -- load config & utils

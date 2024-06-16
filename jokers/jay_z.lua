@@ -18,9 +18,9 @@ SMODS.Joker({
 			odds = 10,
 		},
 	},
-	atlas = "jokers",
-	pos = { y = 7, x = 0 },
-	soul_pos = { y = 7, x = 1 },
+	atlas = "jokers_soul",
+	pos = { y = 0, x = 4 },
+	soul_pos = { y = 0, x = 5 },
 	rarity = 4,
 	-- sell price will be half this
 	cost = 1000,

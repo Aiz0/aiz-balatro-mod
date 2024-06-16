@@ -11,9 +11,9 @@ SMODS.Joker({
 			joker_slots = 1,
 		},
 	},
-	atlas = "jokers",
-	pos = { y = 2, x = 0 },
-	soul_pos = { y = 2, x = 1 },
+	atlas = "jokers_soul",
+	pos = { y = 0, x = 0 },
+	soul_pos = { y = 0, x = 1 },
 	rarity = 1,
 	cost = 1,
 
