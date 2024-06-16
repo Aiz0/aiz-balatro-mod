@@ -3,6 +3,7 @@
 --- MOD_ID: AIZ
 --- MOD_AUTHOR: [Aiz]
 --- MOD_DESCRIPTION: jank jokers
+--- BADGE_COLOUR: 0ea5e9
 --- LOADER_VERSION_GEQ: 1.0.0
 
 ----------------------------------------------
