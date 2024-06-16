@@ -7,7 +7,7 @@ const jokers = [
       "{C:inactive}(Currently {X:mult,C:white}X2{C:inactive} Mult)",
     ],
     badge: "Rare",
-    image: "j_aiz_chill_joker",
+    image: "j_chill_joker",
   },
   {
     name: "Loudspeaker",
@@ -17,7 +17,7 @@ const jokers = [
       "{C:inactive}(Currently {C:chips}+100{C:inactive} Chips)",
     ],
     badge: "common",
-    image: "j_aiz_loudspeaker",
+    image: "j_loudspeaker",
   },
   {
     name: "Easy Mode",
@@ -29,13 +29,13 @@ const jokers = [
       "{C:inactive}(Currently {C:mult}+0{C:inactive} Mult)",
     ],
     badge: "uncommon",
-    image: "j_aiz_easy_mode",
+    image: "j_easy_mode",
   },
   {
     name: "Blåhaj",
     text: ["{C:dark_edition}+1{} Joker slots"],
     badge: "common",
-    image: "j_aiz_blåhaj",
+    image: "j_s_blåhaj",
     soul: true,
   },
   {
@@ -48,7 +48,7 @@ const jokers = [
       "every {C:attention}freaking{} time",
     ],
     badge: "rare",
-    image: "j_aiz_antibubzia",
+    image: "j_antibubzia",
   },
   {
     name: "Too Much To Handle",
@@ -59,7 +59,7 @@ const jokers = [
       "{C:inactive}(Currently {C:attention}-1{C:inactive} hand size)",
     ],
     badge: "rare",
-    image: "j_aiz_hands",
+    image: "j_hands",
   },
   {
     name: "Tetris",
@@ -71,7 +71,7 @@ const jokers = [
       "{C:inactive}(Currently {X:mult,C:white}X1{C:inactive} Mult)",
     ],
     badge: "Rare",
-    image: "j_aiz_tetris",
+    image: "j_tetris",
   },
   {
     name: "Penny",
@@ -81,7 +81,7 @@ const jokers = [
       "in your deck",
     ],
     badge: "rare",
-    image: "j_aiz_penny",
+    image: "j_penny",
   },
   {
     name: "Trollker",
@@ -93,7 +93,7 @@ const jokers = [
       "{C:inactive}(Currently {X:mult,C:white}X1{C:inactive} Mult)",
     ],
     badge: "Rare",
-    image: "j_aiz_trollker",
+    image: "j_trollker",
   },
   {
     name: "Pawn",
@@ -103,7 +103,7 @@ const jokers = [
       "{C:inactive}(Currently on rank {C:attention}2{C:inactive})",
     ],
     badge: "common",
-    image: "j_aiz_pawn",
+    image: "j_pawn",
   },
   {
     name: "Knight",
@@ -115,7 +115,7 @@ const jokers = [
       "{s:0.8}Flips order after conversion{}",
     ],
     badge: "uncommon",
-    image: "j_aiz_knight",
+    image: "j_knight",
   },
   {
     name: "Bishop",
@@ -126,7 +126,7 @@ const jokers = [
       "{C:attention}lose{} {C:money}$1",
     ],
     badge: "uncommon",
-    image: "j_aiz_bishop",
+    image: "j_bishop",
   },
   {
     name: "Rook",
@@ -139,7 +139,7 @@ const jokers = [
       "{C:inactive}(Currently {X:mult,C:white}X1{C:inactive} Mult)",
     ],
     badge: "rare",
-    image: "j_aiz_rook",
+    image: "j_rook",
   },
   {
     name: "Queen",
@@ -153,13 +153,13 @@ const jokers = [
       "{C:inactive}(Currently {X:mult,C:white}X1{C:inactive} Mult)",
     ],
     badge: "rare",
-    image: "j_aiz_queen",
+    image: "j_queen",
   },
   {
     name: "King",
     text: ["Other {C:attention}Chess Jokers", "Give {X:mult,C:white}X5{} Mult"],
     badge: "legendary",
-    image: "j_aiz_king",
+    image: "j_s_king",
     soul: true,
   },
   {
@@ -172,7 +172,7 @@ const jokers = [
       "at end of round",
     ],
     badge: "legendary",
-    image: "j_aiz_jay_z",
+    image: "j_s_jay_z",
     soul: true,
   },
   {
@@ -194,7 +194,7 @@ const jokers = [
       "{C:green}1 in 1000{} to {C:attention}Double{} all listed {C:green,}Probabilities",
     ],
     badge: "uncommon",
-    image: "j_aiz_chaos",
+    image: "j_chaos",
   },
 ];
 export { jokers };

@@ -1,5 +1,5 @@
 ---
-import Image from "astro/components/Image.astro";
+import { Image } from "astro:assets";
 
 interface Props {
   name: string;
@@ -10,11 +10,13 @@ interface Props {
 }
 const { name, text, badge, image, soul } = Astro.props;
 
-const base_path = "../../../assets/2x";
+const base_path = "/src/assets";
 const images = import.meta.glob<{ default: ImageMetadata }>(
-  "../../../assets/2x/*.png",
+  "/src/assets/*.png"
 );
 const image_path = `${base_path}/${image}.png`;
+if (!images[image_path])
+  throw new Error(`"${image_path}" does not exist in glob: "src/assets/*.png"`);
 
 const regex = /{([^}]+)}/g;
 const modifiedText = text.map((line) => {
