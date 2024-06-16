@@ -4,6 +4,7 @@
 --- MOD_AUTHOR: [Aiz]
 --- MOD_DESCRIPTION: jank jokers
 --- BADGE_COLOUR: 0ea5e9
+--- VERSION: 0.5.0
 --- LOADER_VERSION_GEQ: 1.0.0
 
 ----------------------------------------------
