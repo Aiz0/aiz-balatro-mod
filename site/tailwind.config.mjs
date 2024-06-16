@@ -75,11 +75,7 @@ export default {
           joker: "#708b91",
         },
       },
-      boxShadow: {
-        balatro: "0 0.25rem 0",
-      },
       dropShadow: {
-        balatro: "0 2rem",
         soul: "0 0.5rem rgba(0,0,0,0.25)",
       },
       keyframes: {
