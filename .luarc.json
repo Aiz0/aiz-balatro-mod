@@ -1,6 +1,4 @@
 {
-    "diagnostics.disable": [
-        "undefined-global"
-    ],
-    "runtime.unicodeName": true
+  "diagnostics.disable": ["undefined-global"],
+  "runtime.unicodeName": true
 }

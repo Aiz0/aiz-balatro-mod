@@ -50,10 +50,10 @@ const modifiedText = text.map((line) => {
               classes.push("text-balatro-green");
               break;
             case "planet":
-              classes.push("text-balatro-cyan")
+              classes.push("text-balatro-cyan");
               break;
             case "tarot":
-              classes.push("text-balatro-purple-tarot")
+              classes.push("text-balatro-purple-tarot");
               break;
           }
         } else if (selector === "X") {
@@ -75,64 +75,72 @@ let badgeShadowColor = "shadow-black";
 switch (badge.toLowerCase()) {
   case "common":
     badgeColor = "bg-balatro-blue";
-    badgeShadowColor = "shadow-balatro-blue-dark";
+    badgeShadowColor = "custom-shadow-balatro-blue-dark";
     break;
   case "uncommon":
     badgeColor = "bg-balatro-green";
-    badgeShadowColor = "shadow-balatro-green-dark";
+    badgeShadowColor = "custom-shadow-balatro-green-dark";
     break;
   case "rare":
     badgeColor = "bg-balatro-red";
-    badgeShadowColor = "shadow-balatro-red-dark";
+    badgeShadowColor = "custom-shadow-balatro-red-dark";
     break;
   case "legendary":
     badgeColor = "bg-balatro-purple";
-    badgeShadowColor = "shadow-balatro-purple-dark";
+    badgeShadowColor = "custom-shadow-balatro-purple-dark";
     break;
 }
 ---
 
-<div
-  class="border-balatro-outline flex flex-col w-96 items-center gap-3 rounded-2xl border-4 bg-balatro-black p-4 text-2xl shadow-balatro shadow-balatro-grey-dark"
->
-  <!-- Name -->
-  <h3 class="text-shadow-lg text-center text-4xl capitalize">{name}</h3>
-  <!-- Image -->
-  <div class="relative h-48 w-36">
-    <Image
-      src={images[image_path]()}
-      alt=" "
-      quality={100}
-      class="render-pixelated absolute left-0 top-0 col-span-1 h-48 w-36 object-cover object-left drop-shadow-soul"
-    />
-    {
-      soul && (
+<div class="flex custom-shadow-balatro-grey-dark">
+  <div class="pixel-corners flex border-4 border-balatro-grey bg-balatro-grey">
+    <div
+      class="pixel-corners flex w-96 flex-col items-center gap-3 rounded-2xl bg-balatro-black p-4 text-2xl"
+    >
+      <!-- Name -->
+      <h3 class="text-shadow-lg text-center text-4xl capitalize">{name}</h3>
+      <!-- Image -->
+      <div class="relative h-48 w-36">
         <Image
           src={images[image_path]()}
           alt=" "
           quality={100}
-          class="render-pixelated absolute left-0 top-0 h-48 w-36 animate-soul object-cover object-right drop-shadow-soul"
+          class="render-pixelated absolute left-0 top-0 col-span-1 h-48 w-36 object-cover object-left drop-shadow-soul"
         />
-      )
-    }
+        {
+          soul && (
+            <Image
+              src={images[image_path]()}
+              alt=" "
+              quality={100}
+              class="render-pixelated absolute left-0 top-0 h-48 w-36 animate-soul object-cover object-right drop-shadow-soul"
+            />
+          )
+        }
+      </div>
+      <!-- Badge -->
+      <div class={badgeShadowColor}>
+        <div
+          class={`w-36 text-center capitalize ${badgeColor} text-shadow pixel-corners-sm`}
+        >
+          {badge}
+        </div>
+      </div>
+      <!-- Description -->
+      <div class="w-full custom-shadow-balatro-grey-dark">
+        <p
+          class="pixel-corners min-h-20 content-center bg-white p-2 text-center text-balatro-black"
+        >
+          {
+            modifiedText.map((line) => (
+              <>
+                <Fragment set:html={line} />
+                <br />
+              </>
+            ))
+          }
+        </p>
+      </div>
+    </div>
   </div>
-  <!-- Badge -->
-  <div
-    class={`rounded-full w-36 shadow-balatro text-center capitalize ${badgeColor} ${badgeShadowColor} text-shadow`}
-  >
-    {badge}
-  </div>
-  <!-- Description -->
-  <p
-    class="min-h-20 w-full content-center rounded-2xl bg-white p-2 text-center text-balatro-black shadow-balatro shadow-balatro-grey-dark"
-  >
-    {
-      modifiedText.map((line) => (
-        <>
-          <Fragment set:html={line} />
-          <br />
-        </>
-      ))
-    }
-  </p>
 </div>

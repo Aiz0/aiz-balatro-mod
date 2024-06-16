@@ -6,20 +6,22 @@ import { jokers } from "../jokers.ts";
 
 <Layout title="Aiz's Balatro Mod">
   <main class="flex flex-col items-center gap-8 py-8 font-balatro text-white">
-    <h1 class="text-shadow-2xl text-8xl text-center">Aiz's Balatro Mod</h1>
+    <h1 class="text-shadow-2xl text-center text-8xl">Aiz's Balatro Mod</h1>
     <p class="text-center text-2xl">
       A chaotic Balatro Mod with {jokers.length} Jokers.<br />
       Some Jokers are still WIP
     </p>
-    <a
-      href="https://github.com/Aiz0/aiz-balatro-mod/releases/latest"
-      class="text-shadow rounded-lg bg-balatro-red p-4 text-3xl shadow-balatro shadow-balatro-red-dark active:translate-y-1 active:shadow-none"
-      >Download on Github</a
-    >
-    <h2 class="text-shadow-xl text-6xl">Jokers</h2>
     <div
-      class="flex flex-wrap place-content-center w-fit gap-8 px-8"
+      class="custom-shadow-balatro-red-dark active:translate-y-1 active:filter-none"
     >
+      <a
+        href="https://github.com/Aiz0/aiz-balatro-mod/releases/latest"
+        class="text-shadow pixel-corners bg-balatro-red p-4 text-3xl"
+        >Download on Github</a
+      >
+    </div>
+    <h2 class="text-shadow-xl text-6xl">Jokers</h2>
+    <div class="flex w-fit flex-wrap place-content-center gap-8 px-8">
       {
         jokers.map((joker) => (
           <Joker

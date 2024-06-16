@@ -1,5 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 const colors = require("tailwindcss/colors");
+const plugin = require("tailwindcss/plugin");
+const {
+  default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
 export default {
   content: ["./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}"],
   theme: {
@@ -49,7 +53,7 @@ export default {
             light: "#4f6367", // l_black
           },
           grey: {
-            DEFAULT: "d8d8d8", // outline
+            DEFAULT: "#d8d8d8", // outline
             dark: "#828282", // outline
             light: "#88888899", // inactive
             other: "#5f7377",
@@ -75,6 +79,7 @@ export default {
         balatro: "0 0.25rem 0",
       },
       dropShadow: {
+        balatro: "0 2rem",
         soul: "0 0.5rem rgba(0,0,0,0.25)",
       },
       keyframes: {
@@ -88,5 +93,19 @@ export default {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          "custom-shadow": (value) => ({
+            filter: `drop-shadow(0 0.25rem 0${value})`,
+          }),
+        },
+        {
+          values: flattenColorPalette(theme("colors")),
+          type: "color",
+        },
+      );
+    }),
+  ],
 };

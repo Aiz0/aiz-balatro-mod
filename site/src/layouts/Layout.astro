@@ -5,7 +5,7 @@ interface Props {
 
 const { title } = Astro.props;
 
-import fragment from '../glsl/balatro.frag'
+import fragment from "../glsl/balatro.frag";
 ---
 
 <!doctype html>
@@ -19,25 +19,30 @@ import fragment from '../glsl/balatro.frag'
     <title>{title}</title>
 
     <script src="libraries/shader-web-background.min.js" is:inline></script>
-    <script id="balatro" type="x-shader/x-fragment" is:inline set:html={fragment}>
-    </script>
+    <script
+      id="balatro"
+      type="x-shader/x-fragment"
+      is:inline
+      set:html={fragment}
+    />
   </head>
   <body>
     <script is:inline>
       let t = 0;
       requestAnimationFrame(function update() {
-        t += 1/120;
+        t += 1 / 120;
         requestAnimationFrame(update);
       });
       shaderWebBackground.shade({
         shaders: {
           balatro: {
             uniforms: {
-              iResolution: (gl, loc, ctx) => gl.uniform2f(loc, ctx.width, ctx.height),
-              iTime: (gl, loc, ctx) => gl.uniform1f(loc, t)
-            }
-          }
-        }
+              iResolution: (gl, loc, ctx) =>
+                gl.uniform2f(loc, ctx.width, ctx.height),
+              iTime: (gl, loc, ctx) => gl.uniform1f(loc, t),
+            },
+          },
+        },
       });
     </script>
     <slot />
@@ -70,6 +75,62 @@ import fragment from '../glsl/balatro.frag'
     }
     .text-shadow-2xl {
       text-shadow: 0 0.5rem 0 rgba(0, 0, 0, 0.25);
+    }
+    .pixel-corners {
+      clip-path: polygon(
+        0px calc(100% - 16px),
+        4px calc(100% - 16px),
+        4px calc(100% - 8px),
+        8px calc(100% - 8px),
+        8px calc(100% - 4px),
+        16px calc(100% - 4px),
+        16px 100%,
+        calc(100% - 16px) 100%,
+        calc(100% - 16px) calc(100% - 4px),
+        calc(100% - 8px) calc(100% - 4px),
+        calc(100% - 8px) calc(100% - 8px),
+        calc(100% - 4px) calc(100% - 8px),
+        calc(100% - 4px) calc(100% - 16px),
+        100% calc(100% - 16px),
+        100% 16px,
+        calc(100% - 4px) 16px,
+        calc(100% - 4px) 8px,
+        calc(100% - 8px) 8px,
+        calc(100% - 8px) 4px,
+        calc(100% - 16px) 4px,
+        calc(100% - 16px) 0px,
+        16px 0px,
+        16px 4px,
+        8px 4px,
+        8px 8px,
+        4px 8px,
+        4px 16px,
+        0px 16px
+      );
+    }
+    .pixel-corners-sm {
+      clip-path: polygon(
+        0px calc(100% - 8px),
+        4px calc(100% - 8px),
+        4px calc(100% - 4px),
+        8px calc(100% - 4px),
+        8px 100%,
+        calc(100% - 8px) 100%,
+        calc(100% - 8px) calc(100% - 4px),
+        calc(100% - 4px) calc(100% - 4px),
+        calc(100% - 4px) calc(100% - 8px),
+        100% calc(100% - 8px),
+        100% 8px,
+        calc(100% - 4px) 8px,
+        calc(100% - 4px) 4px,
+        calc(100% - 8px) 4px,
+        calc(100% - 8px) 0px,
+        8px 0px,
+        8px 4px,
+        4px 4px,
+        4px 8px,
+        0px 8px
+      );
     }
   }
 </style>
