@@ -77,6 +77,8 @@ SMODS.Joker({
 					delay = 0.15,
 					trigger = "after",
 					func = function()
+						-- Set to false here again to handle multiple knights
+						playing_card.ability.played_this_ante = false
 						playing_card:change_suit(new_suit)
 						-- set to true again after suit change because of call to blind:debuff_card()
 						playing_card.ability.played_this_ante = true
