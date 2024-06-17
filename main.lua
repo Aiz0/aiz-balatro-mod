@@ -33,6 +33,7 @@ local modules = {
 		"chess_king",
 		"jay_z",
 		"chaos",
+		"tinkerer",
 	},
 }
 

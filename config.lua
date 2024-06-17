@@ -18,6 +18,7 @@ Aiz.config = {
 		antibubzia = true,
 		hand_size = true,
 		chaos = true,
+		tinkerer = true,
 	},
 
 	suits = {
