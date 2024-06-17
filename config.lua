@@ -19,6 +19,7 @@ Aiz.config = {
 		hand_size = true,
 		chaos = true,
 		tinkerer = true,
+		gamer = true,
 	},
 
 	suits = {

@@ -34,6 +34,7 @@ local modules = {
 		"jay_z",
 		"chaos",
 		"tinkerer",
+		"gamer",
 	},
 }
 
