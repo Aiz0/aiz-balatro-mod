@@ -17,7 +17,7 @@ SMODS.Joker({
 	--atlas = "jokers_soul",
 	pos = { y = 0, x = 0 },
 	rarity = 1,
-	cost = 5,
+	cost = 2,
 	blueprint_compat = true,
 
 	calculate = function(self, card, context)
