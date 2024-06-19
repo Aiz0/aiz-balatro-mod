@@ -21,18 +21,48 @@ import { jokers } from "../jokers.ts";
       >
     </div>
     <h2 class="text-shadow-xl text-6xl">Jokers</h2>
-    <div class="flex w-fit flex-wrap place-content-center gap-8 px-8">
+    <button id="sort_jokers">Sort ID</button>
+    <button id="sort_jokers_rarity">Sort Rarity</button>
+    <div
+      id="jokers"
+      class="flex w-fit flex-wrap place-content-center gap-8 px-8"
+    >
       {
-        jokers.map((joker) => (
+        jokers.map((joker, index) => (
           <Joker
             name={joker.name}
             badge={joker.badge}
             text={joker.text}
             image={joker.image}
             soul={joker.soul}
+            index={index}
           />
         ))
       }
     </div>
   </main>
 </Layout>
+
+<script>
+  function comparator(a, b) {
+    return a.dataset.badge - b.dataset.badge;
+  }
+
+  // Function to sort Data
+  document
+    .getElementById("sort_jokers_rarity")
+    .addEventListener("click", () => {
+      var subjects = document.querySelectorAll("[data-badge]");
+      var subjectsArray = Array.from(subjects);
+      let sorted = subjectsArray.sort(comparator);
+      sorted.forEach((e) => document.getElementById("jokers").appendChild(e));
+    });
+  document.getElementById("sort_jokers").addEventListener("click", () => {
+    var subjects = document.querySelectorAll("[data-badge]");
+    var subjectsArray = Array.from(subjects);
+    let sorted = subjectsArray.sort(
+      (a, b) => a.dataset.index - b.dataset.index
+    );
+    sorted.forEach((e) => document.getElementById("jokers").appendChild(e));
+  });
+</script>
