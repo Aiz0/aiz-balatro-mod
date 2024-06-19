@@ -13,6 +13,7 @@ SMODS.Joker({
 		extra = {
 			chips_mod = 10,
 			chips = 1,
+			cost_mod = 1 / 3,
 		},
 	},
 	--TODO add sprite
@@ -20,7 +21,7 @@ SMODS.Joker({
 	pos = { y = 1, x = 0 },
 	soul_pos = { y = 1, x = 1 },
 	rarity = 2,
-	cost = 7,
+	cost = 1,
 	blueprint_compat = true,
 
 	loc_vars = function(self, info_queue, card)
@@ -28,7 +29,12 @@ SMODS.Joker({
 	end,
 
 	set_ability = function(self, card)
-		card.ability.extra.chips = G.PROGRESS and G.PROGRESS.challenges.tally * card.ability.extra.chips_mod
+		local multiplier = G.PROGRESS and G.PROGRESS.challenges.tally
+		multiplier = 20
+		card.ability.extra.chips = card.ability.extra.chips_mod * multiplier
+		-- cost is based on how powerful it is
+		card.base_cost = card.base_cost + card.ability.extra.cost_mod * multiplier
+		card:set_cost()
 	end,
 
 	calculate = function(self, card, context)
