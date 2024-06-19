@@ -20,6 +20,7 @@ Aiz.config = {
 		chaos = true,
 		tinkerer = true,
 		gamer = true,
+		skipper = true,
 	},
 
 	suits = {

@@ -35,6 +35,7 @@ local modules = {
 		"chaos",
 		"tinkerer",
 		"gamer",
+		"skipper",
 	},
 }
 
