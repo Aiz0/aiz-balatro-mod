@@ -14,9 +14,8 @@ SMODS.Joker({
 			Xmult = 1,
 		},
 	},
-	--TODO add sprite
-	--atlas = "jokers",
-	pos = { y = 0, x = 0 },
+	atlas = "jokers",
+	pos = { y = 2, x = 2 },
 	rarity = 2,
 	cost = 7,
 	blueprint_compat = true,
