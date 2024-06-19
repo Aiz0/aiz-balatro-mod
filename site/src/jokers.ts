@@ -196,5 +196,27 @@ const jokers = [
     badge: "uncommon",
     image: "j_chaos",
   },
+  {
+    name: "Tinkerer",
+    text: [
+      "{X:mult,C:white}X0.1{} Mult for each",
+      "{C:attention}Mod{} you have {C:attention}Active{}",
+      "{C:inactive}(Currently {X:mult,C:white}X1.1{C:inactive} Mult)",
+    ],
+    badge: "uncommon",
+    image: "j_tinkerer",
+  },
+  {
+    name: "Ultimate Gamer",
+    text: [
+      "{C:chips}+10{} Chips for each",
+      "{C:attention}Challenge{} you have",
+      "{C:attention}Completed{}",
+      "{C:inactive}(Currently {C:chips}+0{C:inactive} Chips)",
+    ],
+    badge: "uncommon",
+    image: "j_s_gamer",
+    soul: true,
+  },
 ];
 export { jokers };
