@@ -1,3 +1,11 @@
+--TODO
+-- random sounds during play
+-- mess with speed
+-- change sprite
+-- force card to be selected
+-- spawn blocking cards
+-- shuffle scoring cards
+
 SMODS.Joker({
 	key = "Chaos",
 	loc_txt = {
