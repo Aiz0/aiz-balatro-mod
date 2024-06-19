@@ -16,8 +16,9 @@ SMODS.Joker({
 		},
 	},
 	--TODO add sprite
-	--atlas = "jokers",
-	pos = { y = 0, x = 0 },
+	atlas = "jokers_soul",
+	pos = { y = 1, x = 0 },
+	soul_pos = { y = 1, x = 1 },
 	rarity = 2,
 	cost = 7,
 	blueprint_compat = true,
