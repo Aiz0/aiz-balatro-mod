@@ -68,8 +68,9 @@ SMODS.Atlas({
 
 local mod_path = SMODS.current_mod.path
 -- load config & utils
-require(mod_path .. "utils")
-require(mod_path .. "config")
+-- NFS.load is a love2D function
+NFS.load(mod_path .. "utils.lua")()
+NFS.load(mod_path .. "config.lua")()
 
 -- load all enabled jokers
 -- only explicitly disabled jokers are disabled
@@ -77,6 +78,6 @@ require(mod_path .. "config")
 for _, joker in ipairs(modules.jokers) do
 	local enabled = Aiz.config.jokers[joker] == nil or Aiz.config.jokers[joker]
 	if enabled then
-		require(mod_path .. "jokers/" .. joker)
+		NFS.load(mod_path .. "jokers/" .. joker .. ".lua")()
 	end
 end
