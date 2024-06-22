@@ -218,5 +218,16 @@ const jokers = [
     image: "j_s_gamer",
     soul: true,
   },
+  {
+    name: "Skipper",
+    text: [
+      "Upgrade the level of",
+      "your {C:attention}most played{}",
+      "poker hand",
+      "when skipping a {C:attention}Blind",
+    ],
+    badge: "common",
+    image: "j_skipper",
+  },
 ];
 export { jokers };
