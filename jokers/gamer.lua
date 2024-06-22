@@ -30,7 +30,6 @@ SMODS.Joker({
 
 	set_ability = function(self, card)
 		local multiplier = G.PROGRESS and G.PROGRESS.challenges.tally
-		multiplier = 20
 		card.ability.extra.chips = card.ability.extra.chips_mod * multiplier
 		-- cost is based on how powerful it is
 		card.base_cost = card.base_cost + card.ability.extra.cost_mod * multiplier
