@@ -229,5 +229,11 @@ const jokers = [
     badge: "common",
     image: "j_skipper",
   },
+  {
+    name: "Banana Farm",
+    text: ["New {C:attention}Jokers{} appear as", "{C:attention}Gros Michel{}"],
+    badge: "uncommon",
+    image: "j_banana_farm",
+  },
 ];
 export { jokers };
