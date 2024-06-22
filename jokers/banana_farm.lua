@@ -7,8 +7,8 @@ SMODS.Joker({
 			"{C:attention}Gros Michel{}",
 		},
 	},
-	--atlas = "jokers",
-	pos = { y = 0, x = 0 },
+	atlas = "jokers",
+	pos = { y = 2, x = 4 },
 	rarity = 2,
-	cost = 10,
+	cost = 5,
 })
