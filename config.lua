@@ -21,6 +21,7 @@ Aiz.config = {
 		tinkerer = true,
 		gamer = true,
 		skipper = true,
+		banana_farm = true,
 	},
 
 	suits = {

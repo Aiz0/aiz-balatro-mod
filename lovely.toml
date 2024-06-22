@@ -11,7 +11,7 @@ pattern = "if self.name == 'Plasma Deck' and args.context == 'final_scoring_step
 position = 'before'
 payload = '''
 if args.context == "final_scoring_step" then
-	for i = 1, #G.jokers.cards do 
+	for i = 1, #G.jokers.cards do
         local card = G.jokers.cards[i]
         local obj = card.config.center
         if obj.final_scoring_step and type(obj.final_scoring_step) == 'function' then
@@ -35,3 +35,19 @@ end
 '''
 match_indent = true
 
+# Patch to make banana farm work
+# forces key to be j_gros_michel if banana farm is found
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = 'function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)'
+position = 'after'
+payload = '''
+print("creating_card-------")
+
+print(tprint(SMODS.find_card('j_aiz_banana_farm')))
+if _type == 'Joker' and next(SMODS.find_card('j_aiz_banana_farm')) then
+    forced_key = 'j_gros_michel'
+end
+'''
+match_indent = true

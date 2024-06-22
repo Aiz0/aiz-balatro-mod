@@ -36,6 +36,7 @@ local modules = {
 		"tinkerer",
 		"gamer",
 		"skipper",
+		"banana_farm",
 	},
 }
 
