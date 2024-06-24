@@ -44,25 +44,22 @@ import { jokers } from "../jokers.ts";
 </Layout>
 
 <script>
-  function comparator(a, b) {
-    return a.dataset.badge - b.dataset.badge;
-  }
-
   // Function to sort Data
-  document
-    .getElementById("sort_jokers_rarity")
-    .addEventListener("click", () => {
-      var subjects = document.querySelectorAll("[data-badge]");
-      var subjectsArray = Array.from(subjects);
-      let sorted = subjectsArray.sort(comparator);
-      sorted.forEach((e) => document.getElementById("jokers").appendChild(e));
-    });
-  document.getElementById("sort_jokers").addEventListener("click", () => {
-    var subjects = document.querySelectorAll("[data-badge]");
-    var subjectsArray = Array.from(subjects);
-    let sorted = subjectsArray.sort(
-      (a, b) => a.dataset.index - b.dataset.index
-    );
-    sorted.forEach((e) => document.getElementById("jokers").appendChild(e));
-  });
+  document.getElementById("sort_jokers_rarity").addEventListener("click", () =>
+    sort_elements("[data-badge]", (a, b) => {
+      return a.dataset.badge - b.dataset.badge;
+    }),
+  );
+
+  document.getElementById("sort_jokers").addEventListener("click", () =>
+    sort_elements("[data-index]", (a, b) => {
+      return a.dataset.index - b.dataset.index;
+    }),
+  );
+
+  function sort_elements(selector, comparator) {
+    Array.from(document.querySelectorAll(selector))
+      .sort(comparator)
+      .forEach((e) => document.getElementById("jokers").appendChild(e));
+  }
 </script>
