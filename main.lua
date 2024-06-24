@@ -37,6 +37,7 @@ local modules = {
 		"gamer",
 		"skipper",
 		"banana_farm",
+		"kiki_bouba",
 	},
 }
 
@@ -55,6 +56,8 @@ function SMODS.current_mod.process_loc_text()
 	G.localization.misc.dictionary.k_aiz_new_hand = "New Hand!"
 	G.localization.misc.dictionary.k_aiz_odds_increased = "Odds Increased!"
 	G.localization.misc.dictionary.k_aiz_odds_doubled = "Odds Doubled!"
+	G.localization.misc.dictionary.k_aiz_kiki = "Kiki!"
+	G.localization.misc.dictionary.k_aiz_bouba = "Bouba!"
 end
 
 SMODS.Atlas({
