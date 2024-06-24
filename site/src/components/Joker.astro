@@ -7,8 +7,9 @@ interface Props {
   badge: string;
   image: string;
   soul: boolean | undefined;
+  index: number;
 }
-const { name, text, badge, image, soul } = Astro.props;
+const { name, text, badge, image, soul, index } = Astro.props;
 
 const base_path = "/src/assets";
 const images = import.meta.glob<{ default: ImageMetadata }>(
@@ -74,27 +75,36 @@ const modifiedText = text.map((line) => {
 
 let badgeColor = "bg-balatro-inactive";
 let badgeShadowColor = "shadow-black";
+let badgeIndex = 0;
 switch (badge.toLowerCase()) {
   case "common":
     badgeColor = "bg-balatro-blue";
     badgeShadowColor = "custom-shadow-balatro-blue-dark";
+    badgeIndex = 1;
     break;
   case "uncommon":
     badgeColor = "bg-balatro-green";
     badgeShadowColor = "custom-shadow-balatro-green-dark";
+    badgeIndex = 2;
     break;
   case "rare":
     badgeColor = "bg-balatro-red";
     badgeShadowColor = "custom-shadow-balatro-red-dark";
+    badgeIndex = 3;
     break;
   case "legendary":
     badgeColor = "bg-balatro-purple";
     badgeShadowColor = "custom-shadow-balatro-purple-dark";
+    badgeIndex = 4;
     break;
 }
 ---
 
-<div class="flex custom-shadow-balatro-grey-dark">
+<div
+  data-badge={badgeIndex}
+  data-index={index}
+  class="flex custom-shadow-balatro-grey-dark"
+>
   <div class="pixel-corners flex border-4 border-balatro-grey bg-balatro-grey">
     <div
       class="pixel-corners flex w-96 flex-col items-center gap-3 bg-balatro-black p-4 text-2xl"
