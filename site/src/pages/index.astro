@@ -25,6 +25,7 @@ import { jokers } from "../jokers.ts";
     <button id="sort_jokers_rarity">Sort Rarity</button>
     <div
       id="jokers"
+      data-sorted="index"
       class="flex w-fit flex-wrap place-content-center gap-8 px-8"
     >
       {
@@ -46,20 +47,32 @@ import { jokers } from "../jokers.ts";
 <script>
   // Function to sort Data
   document.getElementById("sort_jokers_rarity").addEventListener("click", () =>
-    sort_elements("[data-badge]", (a, b) => {
-      return a.dataset.badge - b.dataset.badge;
+    sort_elements("badge", (a, b) => {
+      const compare = a.dataset.badge - b.dataset.badge;
+      if (compare == 0) {
+        return a.dataset.index - b.dataset.index;
+      }
+      return compare;
     }),
   );
 
   document.getElementById("sort_jokers").addEventListener("click", () =>
-    sort_elements("[data-index]", (a, b) => {
+    sort_elements("index", (a, b) => {
       return a.dataset.index - b.dataset.index;
     }),
   );
 
   function sort_elements(selector, comparator) {
-    Array.from(document.querySelectorAll(selector))
-      .sort(comparator)
-      .forEach((e) => document.getElementById("jokers").appendChild(e));
+    const parent = document.getElementById("jokers");
+    if (parent.dataset.sorted == selector) {
+      Array.from(document.querySelectorAll(`[data-${selector}]`))
+        .reverse()
+        .forEach((e) => document.getElementById("jokers").appendChild(e));
+    } else {
+      parent.dataset.sorted = selector;
+      Array.from(document.querySelectorAll(`[data-${selector}]`))
+        .sort(comparator)
+        .forEach((e) => document.getElementById("jokers").appendChild(e));
+    }
   }
 </script>
