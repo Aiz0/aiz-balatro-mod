@@ -38,6 +38,7 @@ local modules = {
 		"skipper",
 		"banana_farm",
 		"kiki_bouba",
+		"slightly_cooler_joker",
 	},
 }
 

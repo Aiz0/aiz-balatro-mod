@@ -23,6 +23,7 @@ Aiz.config = {
 		skipper = true,
 		banana_farm = true,
 		kiki_bouba = true,
+		slightly_cooler_joker = true,
 	},
 
 	suits = {
@@ -226,5 +227,6 @@ Aiz.config = {
 		j_aiz_gamer = false,
 		j_aiz_skipper = false,
 		j_aiz_banana_farm = false,
+		j_aiz_slightly_cooler_joker = true,
 	},
 }

@@ -246,5 +246,11 @@ const jokers = [
     badge: "uncommon",
     image: "j_kiki_bouba",
   },
+  {
+    name: "Slightly Cooler Joker",
+    text: ["{C:mult}+5{} Mult"],
+    badge: "common",
+    image: "j_slightly_cooler_joker",
+  },
 ];
 export { jokers };
