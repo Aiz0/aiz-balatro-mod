@@ -66,34 +66,47 @@ import { jokers } from "../jokers.ts";
   <script>
     // Function to sort Data
     document
-      .getElementById("sort_jokers_rarity")
+      .getElementById("sort_jokers_rarity")!
       .addEventListener("click", () =>
-        sort_elements("badge", (a, b) => {
-          const compare = a.dataset.badge - b.dataset.badge;
-          if (compare == 0) {
-            return a.dataset.index - b.dataset.index;
+        sort_elements("badge", (a: HTMLElement, b: HTMLElement) => {
+          if (a.dataset.badge === undefined || b.dataset.badge === undefined) {
+            return 0;
+          }
+          const compare = parseInt(a.dataset.badge) - parseInt(b.dataset.badge);
+          if (
+            compare == 0 &&
+            a.dataset.index !== undefined &&
+            b.dataset.index !== undefined
+          ) {
+            return parseInt(a.dataset.index) - parseInt(b.dataset.index);
           }
           return compare;
         }),
       );
 
-    document.getElementById("sort_jokers").addEventListener("click", () =>
-      sort_elements("index", (a, b) => {
-        return a.dataset.index - b.dataset.index;
+    document.getElementById("sort_jokers")!.addEventListener("click", () =>
+      sort_elements("index", (a: HTMLElement, b: HTMLElement) => {
+        if (a.dataset.index !== undefined && b.dataset.index !== undefined) {
+          return parseInt(a.dataset.index) - parseInt(b.dataset.index);
+        }
+        return 0;
       }),
     );
 
-    function sort_elements(selector, comparator) {
-      const parent = document.getElementById("jokers");
+    function sort_elements(
+      selector: string,
+      comparator: (a: any, b: any) => number,
+    ) {
+      const parent = document.getElementById("jokers")!;
       if (parent.dataset.sorted == selector) {
         Array.from(document.querySelectorAll(`[data-${selector}]`))
           .reverse()
-          .forEach((e) => document.getElementById("jokers").appendChild(e));
+          .forEach((e) => parent.appendChild(e));
       } else {
         parent.dataset.sorted = selector;
         Array.from(document.querySelectorAll(`[data-${selector}]`))
           .sort(comparator)
-          .forEach((e) => document.getElementById("jokers").appendChild(e));
+          .forEach((e) => parent.appendChild(e));
       }
     }
   </script>
