@@ -43,9 +43,6 @@ target = 'functions/common_events.lua'
 pattern = 'function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)'
 position = 'after'
 payload = '''
-print("creating_card-------")
-
-print(tprint(SMODS.find_card('j_aiz_banana_farm')))
 if _type == 'Joker' and next(SMODS.find_card('j_aiz_banana_farm')) then
     forced_key = 'j_gros_michel'
 end
