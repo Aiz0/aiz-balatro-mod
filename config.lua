@@ -24,6 +24,7 @@ Aiz.config = {
 		banana_farm = true,
 		kiki_bouba = true,
 		slightly_cooler_joker = true,
+		ultimate_unknown = true,
 	},
 
 	suits = {
@@ -228,5 +229,6 @@ Aiz.config = {
 		j_aiz_skipper = false,
 		j_aiz_banana_farm = false,
 		j_aiz_slightly_cooler_joker = true,
+		j_aiz_ultimate_unkown = true,
 	},
 }

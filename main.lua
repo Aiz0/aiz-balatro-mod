@@ -39,6 +39,7 @@ local modules = {
 		"banana_farm",
 		"kiki_bouba",
 		"slightly_cooler_joker",
+		"ultimate_unknown",
 	},
 }
 

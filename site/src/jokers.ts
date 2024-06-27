@@ -252,5 +252,17 @@ const jokers = [
     badge: "common",
     image: "j_slightly_cooler_joker",
   },
+  {
+    name: "Ultimate ???",
+    text: [
+      "{C:mult}+5{} Mult for each unique enhancement",
+      "{X:mult,C:white}X0.2{} Mult for each unique edition",
+      "{C:chips}+25{} Chips for each unique seal",
+      "In your Full Deck",
+    ],
+    badge: "common",
+    image: "j_s_ultimate_unknown",
+    soul: true,
+  },
 ];
 export { jokers };
