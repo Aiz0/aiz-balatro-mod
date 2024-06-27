@@ -60,6 +60,7 @@ function SMODS.current_mod.process_loc_text()
 	G.localization.misc.dictionary.k_aiz_odds_doubled = "Odds Doubled!"
 	G.localization.misc.dictionary.k_aiz_kiki = "Kiki!"
 	G.localization.misc.dictionary.k_aiz_bouba = "Bouba!"
+	G.localization.misc.challenge_names.c_aiz_penny = "In For a Penny..."
 end
 
 SMODS.Atlas({
