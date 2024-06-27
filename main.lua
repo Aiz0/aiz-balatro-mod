@@ -2,9 +2,9 @@
 --- MOD_NAME: Aiz Jokers
 --- MOD_ID: AIZ
 --- MOD_AUTHOR: [Aiz]
---- MOD_DESCRIPTION: jank jokers
+--- MOD_DESCRIPTION: A mod adding Jokers I thought would be funny, cool or just felt like making. Has not been balance tested.
 --- BADGE_COLOUR: 0ea5e9
---- VERSION: 0.5.0
+--- VERSION: 0.6.0
 --- LOADER_VERSION_GEQ: 1.0.0
 
 ----------------------------------------------
