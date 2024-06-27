@@ -248,7 +248,7 @@ const jokers = [
       "{C:chips}+25{} Chips for each unique seal",
       "In your Full Deck",
     ],
-    badge: "common",
+    badge: "uncommon",
     image: "j_s_ultimate_unknown",
     soul: true,
   },
