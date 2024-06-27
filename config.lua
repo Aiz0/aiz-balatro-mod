@@ -19,12 +19,12 @@ Aiz.config = {
 		hand_size = true,
 		chaos = true,
 		tinkerer = true,
-		gamer = true,
 		skipper = true,
 		banana_farm = true,
 		kiki_bouba = true,
 		slightly_cooler_joker = true,
 		ultimate_unknown = true,
+		ultimate_gamer = true,
 	},
 
 	suits = {
@@ -225,7 +225,7 @@ Aiz.config = {
 		j_aiz_hand_size = true,
 		j_aiz_chaos = true,
 		j_aiz_tinkerer = true,
-		j_aiz_gamer = false,
+		j_aiz_ultimate_gamer = false,
 		j_aiz_skipper = false,
 		j_aiz_banana_farm = false,
 		j_aiz_slightly_cooler_joker = true,

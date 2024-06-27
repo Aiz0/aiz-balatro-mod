@@ -34,12 +34,12 @@ local modules = {
 		"jay_z",
 		"chaos",
 		"tinkerer",
-		"gamer",
 		"skipper",
 		"banana_farm",
 		"kiki_bouba",
 		"slightly_cooler_joker",
 		"ultimate_unknown",
+		"ultimate_gamer",
 	},
 }
 

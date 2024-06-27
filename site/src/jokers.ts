@@ -207,18 +207,6 @@ const jokers = [
     image: "j_tinkerer",
   },
   {
-    name: "Ultimate Gamer",
-    text: [
-      "{C:chips}+10{} Chips for each",
-      "{C:attention}Challenge{} you have",
-      "{C:attention}Completed{}",
-      "{C:inactive}(Currently {C:chips}+0{C:inactive} Chips)",
-    ],
-    badge: "uncommon",
-    image: "j_s_gamer",
-    soul: true,
-  },
-  {
     name: "Skipper",
     text: [
       "Upgrade the level of",
@@ -262,6 +250,18 @@ const jokers = [
     ],
     badge: "common",
     image: "j_s_ultimate_unknown",
+    soul: true,
+  },
+  {
+    name: "Ultimate Gamer",
+    text: [
+      "{C:chips}+10{} Chips for each",
+      "{C:attention}Challenge{} you have",
+      "{C:attention}Completed{}",
+      "{C:inactive}(Currently {C:chips}+0{C:inactive} Chips)",
+    ],
+    badge: "uncommon",
+    image: "j_s_ultimate_gamer",
     soul: true,
   },
 ];
