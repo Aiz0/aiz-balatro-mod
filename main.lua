@@ -40,6 +40,7 @@ local modules = {
 		"slightly_cooler_joker",
 		"ultimate_unknown",
 		"ultimate_gamer",
+		"skipper_old",
 	},
 }
 
