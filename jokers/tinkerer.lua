@@ -12,13 +12,13 @@ SMODS.Joker({
 		extra = {
 			Xmult_mod = 0.1,
 			Xmult = 1,
-			cost_mod = 2,
+			cost_mod = 4,
 		},
 	},
 	atlas = "jokers",
 	pos = { y = 2, x = 2 },
 	rarity = 2,
-	cost = 4,
+	cost = 0,
 	blueprint_compat = true,
 
 	loc_vars = function(self, info_queue, card)
