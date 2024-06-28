@@ -4,7 +4,7 @@ SMODS.Joker({
 		name = "Ultimate ???",
 		text = {
 			"{C:mult}+#1#{} Mult for each unique enhancement",
-			"{X:mult,C:white}#2#{} Mult for each unique edition",
+			"{X:mult,C:white}X#2#{} Mult for each unique edition",
 			"{C:chips}+#3#{} Chips for each unique seal",
 			"In your Full Deck",
 			"{C:inactive}(Currently {C:mult}+#4#{C:inactive}, {X:mult,C:white}X#5#{C:inactive}, {C:chips}+#6#{C:inactive})",
