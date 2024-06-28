@@ -3,45 +3,68 @@ SMODS.Joker({
 	loc_txt = {
 		name = "Skipper",
 		text = {
-			"Upgrade the level of",
-			"your {C:attention}most played{}",
-			"poker hand",
-			"when skipping a {C:attention}Blind",
+			"Gain {X:mult,C:white}X#1#{} when",
+			"{C:attention}Boss Blind{} is defeated",
+			"Lose {X:mult,C:white}X#2#{} when",
+			"{C:attention}Small Blind{} or {C:attention}Big Blind{}",
+			"is defeated",
+			"{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)",
 		},
 	},
 	config = {
 		extra = {
-			levels = 1,
+			Xmult_mod_positive = 1,
+			Xmult_mod_negative = 0.5,
+			Xmult = 1,
 		},
 	},
 	atlas = "jokers",
 	pos = { y = 2, x = 3 },
-	rarity = 1,
-	cost = 2,
+	rarity = 2,
+	cost = 6,
 	blueprint_compat = true,
 
+	loc_vars = function(self, info_queue, card)
+		return {
+			vars = {
+				card.ability.extra.Xmult_mod_positive,
+				card.ability.extra.Xmult_mod_negative,
+				card.ability.extra.Xmult,
+			},
+		}
+	end,
+
 	calculate = function(self, card, context)
-		if context.skip_blind then
-			local _hand, _tally = nil, 0
-			for k, v in ipairs(G.handlist) do
-				if G.GAME.hands[v].visible and G.GAME.hands[v].played > _tally then
-					_hand = v
-					_tally = G.GAME.hands[v].played
-				end
-			end
-			if _hand then
-				update_hand_text({ sound = "button", volume = 0.7, pitch = 0.8, delay = 0.3 }, {
-					handname = _hand,
-					chips = G.GAME.hands[_hand].chips,
-					mult = G.GAME.hands[_hand].mult,
-					level = G.GAME.hands[_hand].level,
+		if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+			if G.GAME.blind.boss then
+				card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod_positive
+				card_eval_status_text(card, "extra", nil, nil, nil, {
+					message = localize({
+						type = "variable",
+						key = "a_xmult",
+						vars = { card.ability.extra.Xmult },
+					}),
 				})
-				level_up_hand(card, _hand, nil, card.ability.extra.levels)
-				update_hand_text(
-					{ sound = "button", volume = 0.7, pitch = 1.1, delay = 0 },
-					{ mult = 0, chips = 0, handname = "", level = "" }
-				)
+			elseif card.ability.extra.Xmult > 1 then
+				card.ability.extra.Xmult = card.ability.extra.Xmult - card.ability.extra.Xmult_mod_negative
+				card_eval_status_text(card, "extra", nil, nil, nil, {
+					message = localize({
+						type = "variable",
+						key = "a_xmult",
+						vars = { card.ability.extra.Xmult },
+					}),
+				})
 			end
+		end
+		if context.joker_main and card.ability.extra.Xmult > 1 then
+			return {
+				message = localize({
+					type = "variable",
+					key = "a_xmult",
+					vars = { card.ability.extra.Xmult },
+				}),
+				Xmult_mod = card.ability.extra.Xmult,
+			}
 		end
 	end,
 })
