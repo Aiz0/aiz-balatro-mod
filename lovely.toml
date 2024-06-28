@@ -48,3 +48,20 @@ if _type == 'Joker' and next(SMODS.find_card('j_aiz_banana_farm')) then
 end
 '''
 match_indent = true
+
+
+# Patch to make battle pass work
+# Don't know if i can target the level up function directly
+# instead of this vague amount that only it has.
+
+[[patches]]
+[patches.pattern]
+target = 'functions/common_events.lua'
+pattern = 'amount = amount or 1'
+position = 'after'
+payload = '''
+if next(SMODS.find_card('j_aiz_battle_pass')) and amount >= 1 and card.ability.consumeable == nil then
+    amount = amount + 1
+end
+'''
+match_indent = true

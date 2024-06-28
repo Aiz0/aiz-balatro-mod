@@ -41,6 +41,7 @@ local modules = {
 		"ultimate_unknown",
 		"ultimate_gamer",
 		"skipper_old",
+		"battle_pass",
 	},
 }
 
