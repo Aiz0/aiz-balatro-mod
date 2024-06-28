@@ -7,6 +7,7 @@ SMODS.Joker({
 		name = "Pawn",
 		text = {
 			"Advances at end of round",
+			"or when skipping a {C:attention}Blind",
 			"Adds current rank to mult",
 			"{C:inactive}(Currently on rank {C:attention}#1#{C:inactive})",
 		},
@@ -66,8 +67,11 @@ SMODS.Joker({
 			}
 		end
 
-		-- should increment rank and show appropate message
-		if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+		-- should increment rank and show appropate message after round or skip
+		if
+			(context.end_of_round and not context.individual and not context.repetition and not context.blueprint)
+			or context.skip_blind
+		then
 			-- This should simulate advancing 2 ranks on first move
 			local advances = (card.ability.extra.rank == 2) and 2 or 1
 			card.ability.extra.rank = card.ability.extra.rank + advances
