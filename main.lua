@@ -42,6 +42,7 @@ local modules = {
 		"ultimate_gamer",
 		"skipper_old",
 		"battle_pass",
+		"chess_pawn_storm",
 	},
 }
 
