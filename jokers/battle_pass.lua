@@ -9,8 +9,8 @@ SMODS.Joker({
 			"{C:attention}Planet cards",
 		},
 	},
-	--atlas = "jokers",
-	--pos = { y = 2, x = 4 },
+	atlas = "jokers",
+	pos = { y = 3, x = 1 },
 	rarity = 2,
 	cost = 6,
 })
