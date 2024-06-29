@@ -61,7 +61,7 @@ pattern = 'amount = amount or 1'
 position = 'after'
 payload = '''
 if next(SMODS.find_card('j_aiz_battle_pass')) and amount >= 1 and card.ability.consumeable == nil then
-    amount = amount + 1
+    amount = amount + 2 * #SMODS.find_card('j_aiz_battle_pass')
 end
 '''
 match_indent = true

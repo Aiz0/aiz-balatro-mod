@@ -3,7 +3,7 @@ SMODS.Joker({
 	loc_txt = {
 		name = "Battle Pass",
 		text = {
-			"{C:attention}+1{} levels when a",
+			"{C:attention}+2{} levels when a",
 			"poker hand is upgraded",
 			"Does not apply to",
 			"{C:attention}Planet cards",
