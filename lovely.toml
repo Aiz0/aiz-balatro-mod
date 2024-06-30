@@ -36,15 +36,16 @@ end
 match_indent = true
 
 # Patch to make banana farm work
-# forces key to be j_gros_michel if banana farm is found
+# sets forced_key to to forced_key of first banana farm
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
 pattern = 'function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)'
 position = 'after'
 payload = '''
-if _type == 'Joker' and next(SMODS.find_card('j_aiz_banana_farm')) then
-    forced_key = 'j_gros_michel'
+local aiz_banana_farm_array = SMODS.find_card('j_aiz_banana_farm')
+if _type == 'Joker' and next(aiz_banana_farm_array) then
+    forced_key = aiz_banana_farm_array[1].ability.extra.forced_key
 end
 '''
 match_indent = true
@@ -60,8 +61,11 @@ target = 'functions/common_events.lua'
 pattern = 'amount = amount or 1'
 position = 'after'
 payload = '''
-if next(SMODS.find_card('j_aiz_battle_pass')) and amount >= 1 and card.ability.consumeable == nil then
-    amount = amount + 2 * #SMODS.find_card('j_aiz_battle_pass')
+local aiz_battle_pass_array = SMODS.find_card('j_aiz_battle_pass')
+if next(aiz_battle_pass_array) and amount >= 1 and card.ability.consumeable == nil then
+    for _, other_card in ipairs(aiz_battle_pass_array) do
+        amount = amount + other_card.ability.extra.levels
+    end
 end
 '''
 match_indent = true

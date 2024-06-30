@@ -7,6 +7,11 @@ SMODS.Joker({
 			"{C:attention}Gros Michel{}",
 		},
 	},
+	config = {
+		extra = {
+			forced_key = "j_gros_michel",
+		},
+	},
 	atlas = "jokers",
 	pos = { y = 2, x = 4 },
 	rarity = 2,
