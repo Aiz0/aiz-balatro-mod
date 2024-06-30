@@ -39,7 +39,7 @@ Aiz.config = {
 		},
 	},
 
-	-- slug and probability
+	-- joker key and probability
 	pawn = {
 		promotion = {
 			j_aiz_chess_knight = 10,
