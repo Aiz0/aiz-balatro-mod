@@ -73,5 +73,5 @@ match_indent = true
 target = "functions/button_callbacks.lua"
 pattern = "not (card.ability.set == 'Joker' and #G.jokers.cards < G.jokers.config.card_limit + ((card.edition and card.edition.negative) and 1 or 0)) and"
 position = 'after'
-payload = "not (card.ability.set == 'Joker' and #G.jokers.cards < G.jokers.config.card_limit + ((card.config.center_key == 'j_aiz_blåhaj') and 1 or 0)) and"
+payload = "not (card.ability.set == 'Joker' and #G.jokers.cards < G.jokers.config.card_limit + ((card.config.center_key == 'j_aiz_blåhaj') and (card.ability.extra.joker_slots + ((card.edition and card.edition.negative) and 1 or 0)) or 0)) and"
 match_indent = true
