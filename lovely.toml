@@ -3,6 +3,12 @@ version = "1.0.0"
 dump_lua = true
 priority = 0
 
+# Joker keys
+[vars]
+banana_farm = "j_aiz_banana_farm"
+battle_pass = "j_aiz_battle_pass"
+blahaj = "j_aiz_blåhaj"
+
 # Back:trigger_effect
 [[patches]]
 [patches.pattern]
@@ -43,7 +49,7 @@ target = 'functions/common_events.lua'
 pattern = 'function create_card(_type, area, legendary, _rarity, skip_materialize, soulable, forced_key, key_append)'
 position = 'after'
 payload = '''
-local aiz_banana_farm_array = SMODS.find_card('j_aiz_banana_farm')
+local aiz_banana_farm_array = SMODS.find_card('{{lovely:banana_farm}}')
 if _type == 'Joker' and next(aiz_banana_farm_array) then
     forced_key = aiz_banana_farm_array[1].ability.extra.forced_key
 end
@@ -61,7 +67,7 @@ target = 'functions/common_events.lua'
 pattern = 'amount = amount or 1'
 position = 'after'
 payload = '''
-local aiz_battle_pass_array = SMODS.find_card('j_aiz_battle_pass')
+local aiz_battle_pass_array = SMODS.find_card('{{lovely:battle_pass}}')
 if next(aiz_battle_pass_array) and amount >= 1 and card.ability.consumeable == nil then
     for _, other_card in ipairs(aiz_battle_pass_array) do
         amount = amount + other_card.ability.extra.levels
@@ -77,5 +83,5 @@ match_indent = true
 target = "functions/button_callbacks.lua"
 pattern = "not (card.ability.set == 'Joker' and #G.jokers.cards < G.jokers.config.card_limit + ((card.edition and card.edition.negative) and 1 or 0)) and"
 position = 'after'
-payload = "not (card.ability.set == 'Joker' and #G.jokers.cards < G.jokers.config.card_limit + ((card.config.center_key == 'j_aiz_blåhaj') and (card.ability.extra.joker_slots + ((card.edition and card.edition.negative) and 1 or 0)) or 0)) and"
+payload = "not (card.ability.set == 'Joker' and #G.jokers.cards < G.jokers.config.card_limit + ((card.config.center_key == '{{lovely:blahaj}}') and (card.ability.extra.joker_slots + ((card.edition and card.edition.negative) and 1 or 0)) or 0)) and"
 match_indent = true
