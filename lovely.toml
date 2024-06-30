@@ -65,3 +65,13 @@ if next(SMODS.find_card('j_aiz_battle_pass')) and amount >= 1 and card.ability.c
 end
 '''
 match_indent = true
+
+
+# Patch to allow blåhaj to be bought when all joker slots are full.
+[[patches]]
+[patches.pattern]
+target = "functions/button_callbacks.lua"
+pattern = "not (card.ability.set == 'Joker' and #G.jokers.cards < G.jokers.config.card_limit + ((card.edition and card.edition.negative) and 1 or 0)) and"
+position = 'after'
+payload = "not (card.ability.set == 'Joker' and #G.jokers.cards < G.jokers.config.card_limit + ((card.config.center_key == 'j_aiz_blåhaj') and 1 or 0)) and"
+match_indent = true
