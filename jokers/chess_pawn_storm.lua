@@ -14,9 +14,8 @@ SMODS.Joker({
 			pawns = 2,
 		},
 	},
-	-- TODO: add texture
-	--atlas = "jokers",
-	--pos = { y = 2, x = 0 },
+	atlas = "jokers",
+	pos = { y = 3, x = 2 },
 	rarity = 2,
 	cost = 9,
 	blueprint_compat = false,
