@@ -18,8 +18,8 @@ SMODS.Joker({
 	atlas = "jokers_soul",
 	pos = { y = 1, x = 2 },
 	soul_pos = { y = 1, x = 3 },
-	rarity = 1,
-	cost = 5,
+	rarity = 2,
+	cost = 6,
 	blueprint_compat = true,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.amount } }
