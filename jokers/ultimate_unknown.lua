@@ -3,76 +3,58 @@ SMODS.Joker({
 	loc_txt = {
 		name = "Ultimate ???",
 		text = {
-			"{C:mult}+#1#{} Mult for each unique enhancement",
-			"{X:mult,C:white}X#2#{} Mult for each unique edition",
-			"{C:chips}+#3#{} Chips for each unique seal",
-			"In your Full Deck",
-			"{C:inactive}(Currently {C:mult}+#4#{C:inactive}, {X:mult,C:white}X#5#{C:inactive}, {C:chips}+#6#{C:inactive})",
+			"Upgrade the level of",
+			"up to {C:attention}#1#{} of your",
+			"{C:attention}least played{} poker hands",
+			"when skipping a {C:attention}Blind",
 		},
 	},
 	config = {
 		extra = {
-			chip_mod = 25,
-			mult_mod = 5,
-			Xmult_mod = 0.2,
+			amount = 3,
+			levels = 1,
 		},
 	},
 	atlas = "jokers_soul",
 	pos = { y = 1, x = 2 },
 	soul_pos = { y = 1, x = 3 },
-	rarity = 2,
-	cost = 6,
+	rarity = 1,
+	cost = 5,
 	blueprint_compat = true,
-	---returns mult xmult and chips joker should give
-	---@param self any
-	---@param card any
-	---@return integer enhancement * mult
-	---@return integer editions * xmult
-	---@return integer
-	get_evals = function(self, card)
-		local enhancement_count, edition_count, seal_count = 0, 0, 0
-		if G.playing_cards ~= nil then
-			local enhancements, editions, seals = {}, {}, {}
-			for i, playing_card in ipairs(G.playing_cards) do
-				if playing_card.edition and editions[playing_card.edition.type] == nil then
-					editions[playing_card.edition.type] = true
-					edition_count = edition_count + 1
-				end
-				if
-					playing_card.config.center ~= G.P_CENTERS.c_base
-					and enhancements[playing_card.config.center] == nil
-				then
-					enhancements[playing_card.config.center] = true
-					enhancement_count = enhancement_count + 1
-				end
-				if playing_card.seal ~= nil and seals[playing_card.seal] == nil then
-					seals[playing_card.seal] = true
-					seal_count = seal_count + 1
-				end
-			end
-		end
-		return enhancement_count * card.ability.extra.mult_mod,
-			edition_count * card.ability.extra.Xmult_mod + 1,
-			seal_count * card.ability.extra.chip_mod
-	end,
-
 	loc_vars = function(self, info_queue, card)
-		return {
-			vars = {
-				card.ability.extra.mult_mod,
-				card.ability.extra.Xmult_mod,
-				card.ability.extra.chip_mod,
-				self:get_evals(card),
-			},
-		}
+		return { vars = { card.ability.extra.amount } }
 	end,
 
 	calculate = function(self, card, context)
-		if context.joker_main then
-			local mult_mod, Xmult_mod, chip_mod = self:get_evals(card)
-			Aiz.utils.eval_this(context.blueprint_card or card, "mult", mult_mod)
-			Aiz.utils.eval_this(context.blueprint_card or card, "x_mult", Xmult_mod)
-			Aiz.utils.eval_this(context.blueprint_card or card, "chips", chip_mod)
+		if context.skip_blind then
+			local _hands, _tally = {}, math.huge
+			for k, hand in ipairs(G.handlist) do
+				if G.GAME.hands[hand].visible and G.GAME.hands[hand].played <= _tally then
+					-- Reset table if new least played hand is found
+					if G.GAME.hands[hand].played < _tally then
+						_hands = {}
+					end
+					table.insert(_hands, hand)
+					_tally = G.GAME.hands[hand].played
+				end
+			end
+			while #_hands > card.ability.extra.amount do
+				local _, key = pseudorandom_element(_hands, pseudoseed("remove_hand"))
+				table.remove(_hands, key)
+			end
+			for k, hand in ipairs(_hands) do
+				update_hand_text({ sound = "button", volume = 0.7, pitch = 0.8, delay = 0.3 }, {
+					handname = hand,
+					chips = G.GAME.hands[hand].chips,
+					mult = G.GAME.hands[hand].mult,
+					level = G.GAME.hands[hand].level,
+				})
+				level_up_hand(card, hand, nil, card.ability.extra.levels)
+				update_hand_text(
+					{ sound = "button", volume = 0.7, pitch = 1.1, delay = 0 },
+					{ mult = 0, chips = 0, handname = "", level = "" }
+				)
+			end
 		end
 	end,
 })
