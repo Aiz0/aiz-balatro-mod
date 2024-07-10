@@ -230,7 +230,7 @@ Aiz.config = {
 		j_aiz_skipper = false,
 		j_aiz_banana_farm = false,
 		j_aiz_slightly_cooler_joker = true,
-		j_aiz_ultimate_unkown = true,
+		j_aiz_ultimate_unknown = true,
 		j_aiz_battle_pass = true,
 	},
 }
