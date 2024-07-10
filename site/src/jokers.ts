@@ -194,12 +194,13 @@ const jokers = [
   {
     name: "Skipper",
     text: [
-      "Upgrade the level of",
-      "your {C:attention}most played{}",
-      "poker hand",
-      "when skipping a {C:attention}Blind",
+      "Gain {X:mult,C:white}X1{} when",
+      "{C:attention}Boss Blind{} is defeated",
+      "Lose {X:mult,C:white}X0.75{} when",
+      "{C:attention}Small Blind{} or {C:attention}Big Blind{}",
+      "is defeated",
     ],
-    badge: "common",
+    badge: "uncommon",
     image: "j_skipper",
   },
   {
@@ -228,10 +229,10 @@ const jokers = [
   {
     name: "Ultimate ???",
     text: [
-      "{C:mult}+5{} Mult for each unique enhancement",
-      "{X:mult,C:white}X0.2{} Mult for each unique edition",
-      "{C:chips}+25{} Chips for each unique seal",
-      "In your Full Deck",
+      "Upgrade the level of",
+      "up to {C:attention}3{} of your",
+      "{C:attention}least played{} poker hands",
+      "when skipping a {C:attention}Blind",
     ],
     badge: "uncommon",
     image: "j_s_ultimate_unknown",
@@ -247,6 +248,28 @@ const jokers = [
     badge: "uncommon",
     image: "j_s_ultimate_gamer",
     soul: true,
+  },
+  {
+    name: "Battle Pass",
+    text: [
+      "{C:attention}+2{} levels when a",
+      "poker hand is upgraded",
+      "Does not apply to",
+      "{C:attention}Planet cards",
+    ],
+    badge: "uncommon",
+    image: "j_battle_pass",
+  },
+  {
+    name: "Pawn Storm",
+    text: [
+      "When blind is selected,",
+      "if you have no Pawns",
+      "create {C:attention}2 Pawns",
+      "{C:inactive}(Must have room){}",
+    ],
+    badge: "uncommon",
+    image: "j_pawn_storm",
   },
 ];
 export { jokers };
