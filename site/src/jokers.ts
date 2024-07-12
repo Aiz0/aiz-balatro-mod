@@ -215,7 +215,7 @@ const jokers = [
       "{C:attention}Kiki{} Jokers",
       "each give {C:mult}+6{} Mult",
       "{C:attention}Bouba{} Jokers",
-      "each give {C:chips}+25{} Chips",
+      "each give {C:chips}+30{} Chips",
     ],
     badge: "uncommon",
     image: "j_kiki_bouba",

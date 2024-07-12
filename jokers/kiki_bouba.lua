@@ -11,14 +11,14 @@ SMODS.Joker({
 	},
 	config = {
 		extra = {
-			mult = 10,
-			chips = 50,
+			mult = 6,
+			chips = 30,
 		},
 	},
 	atlas = "jokers",
 	pos = { y = 2, x = 5 },
 	rarity = 2,
-	cost = 7,
+	cost = 6,
 	blueprint_compat = true,
 	loc_vars = function(self, info_queue, card)
 		return { vars = { card.ability.extra.mult, card.ability.extra.chips } }
