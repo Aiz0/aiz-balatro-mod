@@ -11,6 +11,7 @@ SMODS.Joker({
 	loc_txt = {
 		name = "Chaos",
 		text = {
+			"Cards are scored in random order",
 			"{C:green}#1# in #2#{} for {C:chips}+100{} Chips",
 			"{C:green}#1# in #3#{} for {C:mult}+20{} Mult",
 			"{C:green}#1# in #4#{} for {X:mult,C:white}X3{} Mult",

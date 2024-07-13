@@ -8,6 +8,8 @@ priority = 0
 banana_farm = "j_aiz_banana_farm"
 battle_pass = "j_aiz_battle_pass"
 blahaj = "j_aiz_blåhaj"
+chaos = "j_aiz_chaos"
+chaos_seed = "aiz_chaos"
 
 # Back:trigger_effect
 [[patches]]
@@ -84,4 +86,23 @@ target = "functions/button_callbacks.lua"
 pattern = "not (card.ability.set == 'Joker' and #G.jokers.cards < G.jokers.config.card_limit + ((card.edition and card.edition.negative) and 1 or 0)) and"
 position = 'after'
 payload = "not (card.ability.set == 'Joker' and #G.jokers.cards < G.jokers.config.card_limit + ((card.config.center_key == '{{lovely:blahaj}}') and (card.ability.extra.joker_slots + ((card.edition and card.edition.negative) and 1 or 0)) or 0)) and"
+match_indent = true
+
+
+# chaos
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = "local percent_delta = 0.08"
+position = 'after'
+payload = '''
+for index, chaos_joker in ipairs(SMODS.find_card('{{lovely:chaos}}')) do
+	local shuffled = {}
+	while #scoring_hand >= 1 do
+		local _, key = pseudorandom_element(scoring_hand, pseudoseed('{{lovely:chaos_seed}}'))
+		table.insert(shuffled, table.remove(scoring_hand, key))
+	end
+	scoring_hand = shuffled
+end
+'''
 match_indent = true
