@@ -7,7 +7,7 @@
 -- shuffle scoring cards
 
 SMODS.Joker({
-	key = "Chaos",
+	key = "chaos",
 	loc_txt = {
 		name = "Chaos",
 		text = {
