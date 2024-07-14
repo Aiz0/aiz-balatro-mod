@@ -16,9 +16,10 @@ SMODS.Joker({
 			"{C:green}#1# in #3#{} for {C:mult}+20{} Mult",
 			"{C:green}#1# in #4#{} for {X:mult,C:white}X3{} Mult",
 			"At start of round:",
-			"{C:green}#1# in #5#{} to flip and shuffle Jokers",
-			"{C:green}#1# in #6#{} to increase this Jokers {C:green,E:1,S:1.1}Probabilities",
-			"{C:green}#1# in #7#{} to {C:attention}Double{} all listed {C:green,E:1,S:1.1}Probabilities",
+			"{C:green}#1# in #5#{} to flip Jokers",
+			"{C:green}#1# in #6#{} to shuffle Jokers",
+			"{C:green}#1# in #7#{} to increase this Jokers {C:green,E:1,S:1.1}Probabilities",
+			"{C:green}#1# in #8#{} to {C:attention}Double{} all listed {C:green,E:1,S:1.1}Probabilities",
 		},
 	},
 	config = {
@@ -28,6 +29,7 @@ SMODS.Joker({
 				chips = 2,
 				mult = 4,
 				Xmult = 8,
+				flip = 5,
 				shuffle = 10,
 				increase_odds = 50,
 				double_all_odds = 1000,
@@ -47,6 +49,7 @@ SMODS.Joker({
 				card.ability.extra.odds.chips,
 				card.ability.extra.odds.mult,
 				card.ability.extra.odds.Xmult,
+				card.ability.extra.odds.flip,
 				card.ability.extra.odds.shuffle,
 				card.ability.extra.odds.increase_odds,
 				card.ability.extra.odds.double_all_odds,
@@ -71,8 +74,11 @@ SMODS.Joker({
 				Aiz.utils.status_text(context.blueprint_card or card, "k_aiz_odds_doubled")
 			end
 
+			if chaos_random(card.ability.extra.odds.flip) then
+				Aiz.utils:flip_jokers()
+			end
 			if chaos_random(card.ability.extra.odds.shuffle) then
-				Aiz.utils:shuffle_jokers(true, true)
+				Aiz.utils:shuffle_jokers(false, true)
 			end
 		end
 
