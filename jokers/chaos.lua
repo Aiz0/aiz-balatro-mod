@@ -12,6 +12,7 @@ SMODS.Joker({
 		name = "Chaos",
 		text = {
 			"Cards are scored in random order",
+			"{C:green}#1# in #9#{} to force 1 card to be selected",
 			"{C:green}#1# in #2#{} for {C:chips}+100{} Chips",
 			"{C:green}#1# in #3#{} for {C:mult}+20{} Mult",
 			"{C:green}#1# in #4#{} for {X:mult,C:white}X3{} Mult",
@@ -31,6 +32,7 @@ SMODS.Joker({
 				Xmult = 8,
 				flip = 5,
 				shuffle = 10,
+				forced_card = 10,
 				increase_odds = 50,
 				double_all_odds = 1000,
 			},
@@ -53,6 +55,7 @@ SMODS.Joker({
 				card.ability.extra.odds.shuffle,
 				card.ability.extra.odds.increase_odds,
 				card.ability.extra.odds.double_all_odds,
+				card.ability.extra.odds.forced_card,
 			},
 		}
 	end,
@@ -95,6 +98,27 @@ SMODS.Joker({
 			-- Xmult
 			if chaos_random(card.ability.extra.odds.Xmult) then
 				Aiz.utils.eval_this(context.blueprint_card or card, "x_mult", 3)
+			end
+		end
+	end,
+
+	-- custom function called by code injected at Game:update_draw_to_hand
+	drawn_to_hand = function(self, card)
+		if
+			pseudorandom("aiz_chaos")
+			< (G.GAME.probabilities.normal * card.ability.extra.probability) / card.ability.extra.odds.forced_card
+		then
+			local any_forced = nil
+			for k, v in ipairs(G.hand.cards) do
+				if v.ability.forced_selection then
+					any_forced = true
+				end
+			end
+			if not any_forced then
+				G.hand:unhighlight_all()
+				local forced_card = pseudorandom_element(G.hand.cards, pseudoseed("aiz_chaos"))
+				forced_card.ability.forced_selection = true
+				G.hand:add_to_highlighted(forced_card)
 			end
 		end
 	end,
