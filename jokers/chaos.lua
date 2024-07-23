@@ -31,7 +31,7 @@ SMODS.Joker({
 				flip = 5,
 				shuffle = 10,
 				forced_card = 10,
-				increase_odds = 50,
+				increase_odds = 15,
 				double_all_odds = 1000,
 				blocking = 10,
 			},
