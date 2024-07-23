@@ -15,8 +15,7 @@ SMODS.Joker({
 			Xmult = 1,
 			Xmult_mod = 1,
 			cards_per_mult = 3,
-			cards = {},
-			card_positions = {},
+			blocking = { cards = {}, positions = {} },
 		},
 	},
 	atlas = "jokers",
@@ -36,11 +35,11 @@ SMODS.Joker({
 			Aiz.utils.status_text(card, "k_upgrade_ex")
 			card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod
 			-- TODO move this logic to blocking cards themselves
-			for i, blocking_card in ipairs(card.ability.extra.cards) do
-				blocking_card:start_dissolve(nil, i ~= #card.ability.extra.cards)
+			for i, blocking_card in ipairs(card.ability.extra.blocking.cards) do
+				blocking_card:start_dissolve(nil, i ~= #card.ability.extra.blocking.cards)
 			end
 			-- needs to be reset manually
-			card.ability.extra.card_positions = {}
+			card.ability.extra.blocking.positions = {}
 		end
 		-- Give Xmult when scored
 		if context.joker_main then
@@ -75,12 +74,6 @@ SMODS.Joker({
 		end
 	end,
 	load = function(self, card, card_table, other_card)
-		card.ability = card_table.ability
-		-- These cards don't exist anymore
-		card.ability.extra.cards = {}
-		-- Create new ones with same positions
-		for i, position in ipairs(card.ability.extra.card_positions) do
-			Aiz.utils.Create_blocking_card(card, position, i ~= 1)
-		end
+		Aiz.utils.load_blocking_cards(card, card_table)
 	end,
 })

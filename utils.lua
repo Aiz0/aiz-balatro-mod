@@ -20,11 +20,24 @@ Aiz.utils = {
 				-- major needs to be set for start_materialize to work correctly
 				blocking_card:set_role({ major = blocking_card, role_type = "Glued" })
 				blocking_card:start_materialize(nil, silent)
-				table.insert(card.ability.extra.cards, blocking_card)
-				table.insert(card.ability.extra.card_positions, position)
+				table.insert(card.ability.extra.blocking.cards, blocking_card)
+				table.insert(card.ability.extra.blocking.positions, position)
 				return true
 			end,
 		}))
+	end,
+
+	---creates blocking cards on load.
+	---@param card any card needs to have extra.blocking.cards and extra.blocking.positions
+	---@param card_table table table
+	load_blocking_cards = function(card, card_table)
+		card.ability = card_table.ability
+		-- These cards don't exist anymore
+		card.ability.extra.blocking.cards = {}
+		-- Create new ones with same positions
+		for i, position in ipairs(card.ability.extra.blocking.positions) do
+			Aiz.utils.create_blocking_card(card, position, i ~= 1)
+		end
 	end,
 
 	-- Makes card polychrome and lowers card limit for any negatives

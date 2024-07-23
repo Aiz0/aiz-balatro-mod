@@ -2,9 +2,6 @@
 -- random sounds during play
 -- mess with speed
 -- change sprite
--- force card to be selected
--- spawn blocking cards
--- shuffle scoring cards
 
 SMODS.Joker({
 	key = "chaos",
@@ -21,6 +18,7 @@ SMODS.Joker({
 			"{C:green}#1# in #6#{} to shuffle Jokers",
 			"{C:green}#1# in #7#{} to increase this Jokers {C:green,E:1,S:1.1}Probabilities",
 			"{C:green}#1# in #8#{} to {C:attention}Double{} all listed {C:green,E:1,S:1.1}Probabilities",
+			"{C:green}#1# in #9#{} to {C:attention}Block{} Run Info",
 		},
 	},
 	config = {
@@ -35,7 +33,9 @@ SMODS.Joker({
 				forced_card = 10,
 				increase_odds = 50,
 				double_all_odds = 1000,
+				blocking = 10,
 			},
+			blocking = { cards = {}, positions = {} },
 		},
 	},
 	atlas = "jokers",
@@ -56,6 +56,7 @@ SMODS.Joker({
 				card.ability.extra.odds.increase_odds,
 				card.ability.extra.odds.double_all_odds,
 				card.ability.extra.odds.forced_card,
+				card.ability.extra.odds.blocking,
 			},
 		}
 	end,
@@ -83,6 +84,9 @@ SMODS.Joker({
 			if chaos_random(card.ability.extra.odds.shuffle) then
 				Aiz.utils:shuffle_jokers(false, true)
 			end
+			if chaos_random(card.ability.extra.odds.blocking) then
+				Aiz.utils.create_blocking_card(card, { x = -0.5, y = 7 }, false)
+			end
 		end
 
 		-- At Scoring
@@ -99,6 +103,16 @@ SMODS.Joker({
 			if chaos_random(card.ability.extra.odds.Xmult) then
 				Aiz.utils.eval_this(context.blueprint_card or card, "x_mult", 3)
 			end
+		end
+
+		-- end of round remove blocking cards
+		if context.end_of_round and not context.individual and not context.repetition and not context.blueprint then
+			-- TODO move this logic to blocking cards themselves or something
+			for i, blocking_card in ipairs(card.ability.extra.blocking.cards) do
+				blocking_card:start_dissolve(nil, i ~= #card.ability.extra.blocking.cards)
+			end
+			-- needs to be reset manually
+			card.ability.extra.blocking.positions = {}
 		end
 	end,
 
@@ -121,5 +135,9 @@ SMODS.Joker({
 				G.hand:add_to_highlighted(forced_card)
 			end
 		end
+	end,
+
+	load = function(self, card, card_table, other_card)
+		Aiz.utils.load_blocking_cards(card, card_table)
 	end,
 })
