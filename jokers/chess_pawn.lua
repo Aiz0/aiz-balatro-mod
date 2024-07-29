@@ -1,6 +1,6 @@
 -- Chess pawn
 -- After a few rounds it promotes to a different chess joker
-
+local config = SMODS.current_mod.config
 SMODS.Joker({
 	key = "chess_pawn",
 	loc_txt = {
@@ -28,13 +28,13 @@ SMODS.Joker({
 		return { vars = { card.ability.extra.rank } }
 	end,
 
-	---Returns key of a random joker from table **Aiz.config.pawn_promotion**
+	---Returns key of a random joker from table **config.pawn_promotion**
 	---@return string
 	get_promotion_joker = function()
 		-- Remove any jokers that aren't registered
 		-- Prevents crash from trying to create non existent jokers
 		local available_jokers = {}
-		for k, v in pairs(Aiz.config.pawn.promotion) do
+		for k, v in pairs(config.pawn.promotion) do
 			for _, center in pairs(G.P_CENTERS) do
 				if center.set == "Joker" then
 					if k == center.key then
@@ -47,7 +47,7 @@ SMODS.Joker({
 		-- Check owned jokers and reduce weight to prevent duplicates
 		for key, probability in pairs(available_jokers) do
 			if #SMODS.find_card(key, true) > 0 then
-				available_jokers[key] = probability * Aiz.config.pawn.duplicate_chance_reduction
+				available_jokers[key] = probability * config.pawn.duplicate_chance_reduction
 			end
 		end
 

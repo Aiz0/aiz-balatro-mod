@@ -1,4 +1,5 @@
-Aiz.config = {
+-- TODO: rework this later and do an actual config.
+return {
 	-- jokers not listed here will still be enabled
 	jokers = {
 		blåhaj = true,

@@ -9,9 +9,11 @@
 
 ----------------------------------------------
 ------------MOD CODE -------------------------
-
--- Global Table for mod utils and config
+-- Global table for mod utils
 Aiz = {}
+local current_mod = SMODS.current_mod
+local mod_path = SMODS.current_mod.path
+local config = SMODS.current_mod.config
 
 -- contains filenames of modules that can be enabled disabled
 local modules = {
@@ -78,19 +80,16 @@ SMODS.Atlas({
 	py = 95,
 })
 
-local mod_path = SMODS.current_mod.path
--- load config & utils
--- NFS.load is a love2D function
-NFS.load(mod_path .. "utils.lua")()
-NFS.load(mod_path .. "config.lua")()
+-- load utils
+assert(SMODS.load_file("utils.lua"))()
 
 -- load all enabled jokers
 -- only explicitly disabled jokers are disabled
 -- jokers not listed are still enabled
 for _, joker in ipairs(modules.jokers) do
-	local enabled = Aiz.config.jokers[joker] == nil or Aiz.config.jokers[joker]
+	local enabled = config.jokers[joker] == nil or config.jokers[joker]
 	if enabled then
-		NFS.load(mod_path .. "jokers/" .. joker .. ".lua")()
+		assert(SMODS.load_file("jokers/" .. joker .. ".lua"))()
 	end
 end
 
