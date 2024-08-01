@@ -249,7 +249,7 @@ const jokers = [
       "Does not apply to",
       "{C:attention}Planet cards",
     ],
-    badge: "uncommon",
+    badge: "common",
     image: "j_battle_pass",
   },
   {

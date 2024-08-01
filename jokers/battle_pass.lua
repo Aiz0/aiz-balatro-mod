@@ -16,8 +16,8 @@ SMODS.Joker({
     },
     atlas = "jokers",
     pos = { y = 3, x = 1 },
-    rarity = 2,
-    cost = 6,
+    rarity = 1,
+    cost = 5,
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.levels } }
     end,
