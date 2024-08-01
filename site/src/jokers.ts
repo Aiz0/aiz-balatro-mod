@@ -167,10 +167,10 @@ const jokers = [
       "Cards are scored",
       "in a {C:green,E:2}random{} order",
       "Played cards give",
-      "{C:chips}+#1#{} chips",
+      "{C:chips}+20{} chips",
       "when scored",
     ],
-    badge: "uncommon",
+    badge: "common",
     image: "j_randomizer",
   },
   {
