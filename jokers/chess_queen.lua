@@ -43,19 +43,17 @@ SMODS.Joker({
             -- Find out what smallest id in deck is
             local min = math.huge
             for _, playing_card in ipairs(G.playing_cards) do
-                min = min < playing_card:get_id() and min
-                    or playing_card:get_id()
-            end
-            -- stone cards don't have set id
-            -- but it's always less than 1
-            if min < 1 then
-                min = 1
+                -- ignore cards without ranks
+                if playing_card:get_id() >= -100 then
+                    min = min < playing_card:get_id() and min
+                        or playing_card:get_id()
+                end
             end
 
             -- keep track of xmult
             local mult_mod = 0
             for i, playing_card in ipairs(G.playing_cards) do
-                if playing_card:get_id() <= min then
+                if playing_card:get_id() == min then
                     mult_mod = mult_mod + card.ability.extra.Xmult_mod
                     -- Destroy card
                     playing_card:start_dissolve(nil, i ~= 1)
