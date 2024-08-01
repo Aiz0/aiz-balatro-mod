@@ -50,12 +50,11 @@ SMODS.Joker({
                 end
             end
 
-            local exact_mult = card.ability.extra.base
+            return card.ability.extra.base
                 ^ (
                     (stone_tally / #G.playing_cards)
                     ^ card.ability.extra.exponent
                 )
-            return Aiz.utils.round_2d(exact_mult)
         end
     end,
 
