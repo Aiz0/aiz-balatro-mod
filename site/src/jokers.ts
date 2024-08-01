@@ -87,6 +87,7 @@ const jokers = [
     name: "Pawn",
     text: [
       "Advances at end of round",
+      "or when skipping a {C:attention}Blind",
       "Adds current rank to mult",
       "{C:inactive}(Currently on rank {C:attention}2{C:inactive})",
     ],
