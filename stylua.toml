@@ -1,0 +1,4 @@
+column_width = 80
+indent_type = "Spaces"
+call_parentheses = "Always"
+collapse_simple_statement = "Never"
