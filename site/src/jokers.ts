@@ -209,7 +209,7 @@ const jokers = [
       "{C:attention}Bouba{} Jokers",
       "each give {C:chips}+30{} Chips",
     ],
-    badge: "uncommon",
+    badge: "common",
     image: "j_kiki_bouba",
   },
   {
