@@ -8,8 +8,8 @@ priority = 0
 banana_farm = "j_aiz_banana_farm"
 battle_pass = "j_aiz_battle_pass"
 blahaj = "j_aiz_blåhaj"
-chaos = "j_aiz_chaos"
-chaos_seed = "aiz_chaos"
+randomizer = "j_aiz_randomizer"
+randomizer_seed = "aiz_randomizer"
 
 # Back:trigger_effect
 [[patches]]
@@ -89,7 +89,7 @@ payload = "not (card.ability.set == 'Joker' and #G.jokers.cards < G.jokers.confi
 match_indent = true
 
 
-## chaos
+## randomizer
 # Randomize scoring hand
 [[patches]]
 [patches.pattern]
@@ -97,32 +97,13 @@ target = "functions/state_events.lua"
 pattern = "local percent_delta = 0.08"
 position = 'after'
 payload = '''
-for index, chaos_joker in ipairs(SMODS.find_card('{{lovely:chaos}}')) do
+for index, randomizer_joker in ipairs(SMODS.find_card('{{lovely:randomizer}}')) do
 	local shuffled = {}
 	while #scoring_hand >= 1 do
-		local _, key = pseudorandom_element(scoring_hand, pseudoseed('{{lovely:chaos_seed}}'))
+		local _, key = pseudorandom_element(scoring_hand, pseudoseed('{{lovely:randomizer_seed}}'))
 		table.insert(shuffled, table.remove(scoring_hand, key))
 	end
 	scoring_hand = shuffled
-end
-'''
-match_indent = true
-
-# call drawn_to_hand in chaos joker.
-[[patches]]
-[patches.pattern]
-target = "game.lua"
-pattern = "if G.GAME.current_round.hands_played == 0 and"
-position = 'before'
-payload = '''
-for index, chaos_joker in ipairs(SMODS.find_card('{{lovely:chaos}}')) do
-    G.E_MANAGER:add_event(Event({
-        trigger = 'immediate',
-        func = function()
-            chaos_joker.config.center:drawn_to_hand(chaos_joker)
-            return true
-        end
-    }))
 end
 '''
 match_indent = true

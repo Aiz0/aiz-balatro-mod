@@ -34,7 +34,7 @@ local modules = {
 		"chess_queen",
 		"chess_king",
 		"jay_z",
-		"chaos",
+		"randomizer",
 		"tinkerer",
 		"skipper",
 		"banana_farm",

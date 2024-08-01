@@ -1,5 +1,5 @@
 SMODS.Joker({
-	key = "chaos",
+	key = "randomizer",
 	loc_txt = {
 		name = "Randomizer",
 		text = {
