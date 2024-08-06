@@ -1,4 +1,3 @@
-local config = SMODS.current_mod.config
 SMODS.Joker({
     key = "kiki_bouba",
     loc_txt = {
@@ -32,7 +31,7 @@ SMODS.Joker({
             and context.other_joker ~= card
         then
             local is_kiki =
-                config.is_kiki[context.other_joker.config.center_key]
+                Aiz.config.is_kiki[context.other_joker.config.center_key]
             local eval, text, color = nil, nil, nil
             if is_kiki == nil then
                 return

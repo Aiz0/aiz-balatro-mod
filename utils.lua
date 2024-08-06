@@ -1,4 +1,3 @@
-local config = SMODS.current_mod.config
 Aiz.utils = {
     create_blocking_card = function(card, position, silent)
         G.E_MANAGER:add_event(Event({
@@ -84,7 +83,7 @@ Aiz.utils = {
     ---@return boolean
     is_suit_type = function(playing_card, suit_type)
 		-- stylua: ignore
-		for suit, _ in pairs(config.suits[suit_type]) do
+		for suit, _ in pairs(Aiz.config.suits[suit_type]) do
 			if playing_card:is_suit(suit) then
 				return true
 			end
@@ -97,7 +96,7 @@ Aiz.utils = {
         return select(
             2,
             pseudorandom_element(
-                config.suits[suit_type],
+                Aiz.config.suits[suit_type],
                 pseudoseed("random_suit")
             )
         )

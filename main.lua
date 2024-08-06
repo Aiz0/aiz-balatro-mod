@@ -13,7 +13,6 @@
 Aiz = {}
 local current_mod = SMODS.current_mod
 local mod_path = SMODS.current_mod.path
-local config = SMODS.current_mod.config
 
 -- contains filenames of modules that can be enabled disabled
 local modules = {
@@ -82,12 +81,13 @@ SMODS.Atlas({
 
 -- load utils
 assert(SMODS.load_file("utils.lua"))()
+assert(SMODS.load_file("configuration.lua"))()
 
 -- load all enabled jokers
 -- only explicitly disabled jokers are disabled
 -- jokers not listed are still enabled
 for _, joker in ipairs(modules.jokers) do
-    local enabled = config.jokers[joker] == nil or config.jokers[joker]
+    local enabled = Aiz.config.jokers[joker] == nil or Aiz.config.jokers[joker]
     if enabled then
         assert(SMODS.load_file("jokers/" .. joker .. ".lua"))()
     end
