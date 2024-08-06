@@ -4,7 +4,7 @@
 --- MOD_AUTHOR: [Aiz]
 --- MOD_DESCRIPTION: A mod adding Jokers I thought would be funny, cool or just felt like making. Has not been balance tested.
 --- BADGE_COLOUR: 0ea5e9
---- VERSION: 0.7.0
+--- VERSION: 0.8.0
 --- LOADER_VERSION_GEQ: 1.0.0
 
 ----------------------------------------------
