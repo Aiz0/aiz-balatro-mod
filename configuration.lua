@@ -27,6 +27,7 @@ Aiz.config = {
         ultimate_gamer = true,
         battle_pass = true,
         chess_pawn_storm = true,
+        schmeven = true,
     },
 
     suits = {
@@ -234,5 +235,6 @@ Aiz.config = {
         j_aiz_ultimate_unknown = true,
         j_aiz_battle_pass = true,
         j_aiz_chess_pawn_storm = true,
+        j_aiz_schmeven = false,
     },
 }

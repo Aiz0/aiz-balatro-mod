@@ -43,6 +43,7 @@ local modules = {
         "ultimate_gamer",
         "battle_pass",
         "chess_pawn_storm",
+        "schmeven"
     },
 }
 

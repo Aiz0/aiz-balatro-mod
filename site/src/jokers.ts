@@ -263,5 +263,15 @@ const jokers = [
     badge: "uncommon",
     image: "j_pawn_storm",
   },
+  {
+    name: "Schmeven",
+    text: [
+      "Played cards with",
+      "{C:attention}schmeven{} rank give",
+      "{X:mult,C:white}X1.5{} Mult when scored",
+    ],
+    badge: "uncommon",
+    image: "j_schmeven",
+  },
 ];
 export { jokers };
