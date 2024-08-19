@@ -267,8 +267,8 @@ const jokers = [
     name: "Schmeven",
     text: [
       "Played cards with",
-      "{C:attention}schmeven{} rank give",
-      "{X:mult,C:white}X1.5{} Mult when scored",
+      "{C:attention}schmeven{} rank does",
+      "{C:attention}something{} when scored",
     ],
     badge: "uncommon",
     image: "j_schmeven",
