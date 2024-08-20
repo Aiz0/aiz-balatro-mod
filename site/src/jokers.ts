@@ -273,5 +273,27 @@ const jokers = [
     badge: "uncommon",
     image: "j_schmeven",
   },
+  {
+    name: "Triangle factory",
+    text: [
+      "When Blind is selected,",
+      "create a",
+      "{C:dark_edition}negative{} {C:attention}Triangle",
+    ],
+    badge: "uncommon",
+    image: "j_factory_triangle_maker",
+  },
+  {
+    name: "Triangle",
+    text: ["{C:mult}+1{} mult"],
+    badge: "common",
+    image: "j_factory_triangle",
+  },
+  {
+    name: "Circle",
+    text: ["{C:chips}+10{} chips"],
+    badge: "common",
+    image: "j_factory_circle",
+  },
 ];
 export { jokers };

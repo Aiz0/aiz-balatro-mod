@@ -44,6 +44,9 @@ local modules = {
         "battle_pass",
         "chess_pawn_storm",
         "schmeven",
+        "factory_triangle_maker",
+        "factory_triangle",
+        "factory_circle",
     },
 }
 

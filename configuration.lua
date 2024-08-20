@@ -28,6 +28,9 @@ Aiz.config = {
         battle_pass = true,
         chess_pawn_storm = true,
         schmeven = true,
+        factory_triangle_maker = true,
+        factory_triangle = true,
+        factory_circle = true,
     },
 
     suits = {
@@ -236,5 +239,8 @@ Aiz.config = {
         j_aiz_battle_pass = true,
         j_aiz_chess_pawn_storm = true,
         j_aiz_schmeven = false,
+        factory_triangle_maker = true,
+        factory_triangle = true,
+        factory_circle = false,
     },
 }

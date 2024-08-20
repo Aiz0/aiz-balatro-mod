@@ -14,7 +14,7 @@ set textures $tmp_dir/*.png
 set jokers (string match -r -e 'j_\d\d?' $textures)
 set jokers_soul (string match -r -e 'j_s_\d\d?' $textures)
 # create the 2x atlases
-montage $jokers -tile 6x4 -geometry 100%x100% -background none $atlas_dir/jokers.png
+montage $jokers -tile 6x6 -geometry 100%x100% -background none $atlas_dir/jokers.png
 montage $jokers_soul -tile 3x2 -geometry 100%x100% -background none $atlas_dir/jokers_soul.png
 # create the 1x atlases
 for file in $atlas_dir/*.png
