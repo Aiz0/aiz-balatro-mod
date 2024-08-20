@@ -239,8 +239,8 @@ Aiz.config = {
         j_aiz_battle_pass = true,
         j_aiz_chess_pawn_storm = true,
         j_aiz_schmeven = false,
-        factory_triangle_maker = true,
-        factory_triangle = true,
-        factory_circle = false,
+        j_aiz_factory_triangle_maker = true,
+        j_aiz_factory_triangle = true,
+        j_aiz_factory_circle = false,
     },
 }
