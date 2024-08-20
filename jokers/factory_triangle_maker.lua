@@ -46,7 +46,8 @@ SMODS.Joker({
                     })
                     new_card:set_edition("e_negative")
                     new_card:add_to_deck()
-                    new_card.ability.extra_value = -3 --to make sell thingy zero by default
+                    new_card.base_cost = -99 --make cost 1 despite the edition
+                    new_card.ability.extra_value = -1 --make sell value 1 despite the max 1
                     new_card:set_cost()
                     G.jokers:emplace(new_card)
                     return true
