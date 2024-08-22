@@ -119,3 +119,73 @@ table.insert(G.CHALLENGES, 1, {
         banned_other = {},
     },
 })
+
+-- Booster packs
+
+SMODS.Atlas({
+    key = "booster",
+    path = "booster.png",
+    px = 71,
+    py = 95,
+})
+SMODS.Booster({
+    loc_txt = {
+        name = "Joker Pack",
+        text = {
+            "Choose {C:attention}1{} of up to",
+            "{C:attention}3{} {C:dark_edition}Aiz{} Joker Cards",
+        },
+    },
+    key = "joker_pack",
+    atlas = "booster",
+    pos = { x = 0, y = 0 },
+    group_name = "jokerpacks",
+    weight = 4,
+    cost = 6,
+    config = { extra = 3, choose = 1, name = "Common Buffoon Pack" },
+    loc_vars = function(self, info_queue, card)
+        return {
+            vars = { card.config.center.config.choose, card.ability.extra },
+        }
+    end,
+    create_card = function(self, card)
+        -- these numbers are made up
+        local weighted_table = {
+            chill_joker = 4,
+            loudspeaker = 4,
+            easy_mode = 4,
+            blåhaj = 5,
+            antibubzia = 3,
+            hand_size = 4,
+            tetris = 4,
+            penny = 4,
+            trollker = 4,
+            chess_pawn = 6,
+            chess_knight = 1,
+            chess_bishop = 1,
+            chess_rook = 1,
+            chess_queen = 1,
+            chess_king = 1,
+            jay_z = 2,
+            randomizer = 5,
+            tinkerer = 4,
+            skipper = 6,
+            banana_farm = 6,
+            kiki_bouba = 6,
+            slightly_cooler_joker = 6,
+            ultimate_unknown = 4,
+            ultimate_gamer = 4,
+            battle_pass = 4,
+            chess_pawn_storm = 4,
+            schmeven = 5,
+            factory_triangle_maker = 5,
+            factory_triangle = 1,
+            factory_circle = 1,
+        }
+        local joker =
+            Aiz.utils.get_weighted_random(weighted_table, "aiz_jokers")
+        return SMODS.create_card({
+            key = "j_" .. current_mod.prefix .. "_" .. joker,
+        })
+    end,
+})
