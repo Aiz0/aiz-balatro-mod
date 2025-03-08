@@ -62,6 +62,15 @@ return {
                     "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
                 },
             },
+            j_aiz_penny = {
+                name = "Penny",
+                text = {
+                    "At end of round,",
+                    "duplicate {C:attention}All{} cards",
+                    "in your deck",
+                    "{s:0.5}Consider selling when game starts to lag!",
+                },
+            },
         },
     },
     misc = {
