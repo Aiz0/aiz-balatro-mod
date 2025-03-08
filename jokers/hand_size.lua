@@ -1,14 +1,5 @@
 SMODS.Joker({
     key = "hand_size",
-    loc_txt = {
-        name = "Too Much To Handle",
-        text = {
-            "When blind is selected",
-            "set a random hand size",
-            "between {C:attention}#1#{} and {C:attention}#2#{}",
-            "{C:inactive}(Currently {C:attention}#3##4#{C:inactive} hand size)",
-        },
-    },
     config = {
         extra = {
             hand_size = {
@@ -23,7 +14,7 @@ SMODS.Joker({
     pos = { y = 0, x = 4 },
     rarity = 3,
     cost = 8,
-    blueprint_compat = true,
+    blueprint_compat = false,
 
     loc_vars = function(self, info_queue, card)
         local sign = ""
@@ -69,7 +60,9 @@ SMODS.Joker({
                 end,
             }))
 
-            Aiz.utils.status_text(card, "k_aiz_new_hand")
+            return {
+                message = localize("k_aiz_new_hand"),
+            }
         end
     end,
 

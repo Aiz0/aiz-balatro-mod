@@ -43,6 +43,15 @@ return {
                     "every {C:attention}freaking{} time",
                 },
             },
+            j_aiz_hand_size = {
+                name = "Too Much To Handle",
+                text = {
+                    "When blind is selected",
+                    "set a random hand size",
+                    "between {C:attention}#1#{} and {C:attention}#2#{}",
+                    "{C:inactive}(Currently {C:attention}#3##4#{C:inactive} hand size)",
+                },
+            },
         },
     },
     misc = {
