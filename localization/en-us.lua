@@ -1,4 +1,16 @@
 return {
+    descriptions = {
+        Joker = {
+            j_aiz_chill_joker = {
+                name = "Chill Joker",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult divided",
+                    "by game speed",
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
+                },
+            },
+        },
+    },
     misc = {
         dictionary = {
             k_aiz_advance = "Advance!",

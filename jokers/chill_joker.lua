@@ -1,13 +1,5 @@
 SMODS.Joker({
     key = "chill_joker",
-    loc_txt = {
-        name = "Chill Joker",
-        text = {
-            "{X:mult,C:white}X#1#{} Mult divided",
-            "by game speed",
-            "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
-        },
-    },
     config = {
         extra = {
             Xmult = 2,
@@ -20,7 +12,7 @@ SMODS.Joker({
     blueprint_compat = true,
 
     get_mult = function(card)
-        return card.ability.extra.Xmult / G.SETTINGS.GAMESPEED
+        return round_number(card.ability.extra.Xmult / G.SETTINGS.GAMESPEED, 1)
     end,
 
     loc_vars = function(self, info_queue, card)
@@ -30,12 +22,7 @@ SMODS.Joker({
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                message = localize({
-                    type = "variable",
-                    key = "a_xmult",
-                    vars = { self.get_mult(card) },
-                }),
-                Xmult_mod = self.get_mult(card),
+                xmult = self.get_mult(card),
             }
         end
     end,
