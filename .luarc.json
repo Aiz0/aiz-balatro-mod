@@ -1,4 +1,15 @@
 {
-  "diagnostics.disable": ["undefined-global"],
-  "runtime.unicodeName": true
+  "diagnostics.disable": [
+    "undefined-global",
+    "lowercase-global",
+    "need-check-nil",
+    "duplicate-set-field",
+    "inject-field",
+    "undefined-field"
+  ],
+  "runtime.version": "LuaJIT",
+  "type.weakUnionCheck": true,
+  "type.weakNilCheck": true,
+  "runtime.unicodeName": true,
+  "workspace.library": ["../Steamodded/lsp_def"]
 }
