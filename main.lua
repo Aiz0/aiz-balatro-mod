@@ -39,26 +39,6 @@ local modules = {
     },
 }
 
-function SMODS.current_mod.process_loc_text()
-    -- Localization
-    G.localization.misc.dictionary.k_aiz_advance = "Advance!"
-    G.localization.misc.dictionary.k_aiz_promoted = "Promoted!"
-    G.localization.misc.dictionary.k_aiz_trolled = "Trolled!"
-    G.localization.misc.dictionary.k_aiz_squared = "Squared!"
-    G.localization.misc.dictionary.k_aiz_cancelled = "Cancelled!"
-    G.localization.misc.dictionary.k_aiz_knowledge_gained = "Knowledge Gained!"
-    G.localization.misc.dictionary.k_aiz_dinner_postponed = "Dinner Postponed!"
-    G.localization.misc.dictionary.k_aiz_destroy = "Destroyed!"
-    G.localization.misc.dictionary.k_aiz_light = "Light"
-    G.localization.misc.dictionary.k_aiz_dark = "Dark"
-    G.localization.misc.dictionary.k_aiz_new_hand = "New Hand!"
-    G.localization.misc.dictionary.k_aiz_odds_increased = "Odds Increased!"
-    G.localization.misc.dictionary.k_aiz_odds_doubled = "Odds Doubled!"
-    G.localization.misc.dictionary.k_aiz_kiki = "Kiki!"
-    G.localization.misc.dictionary.k_aiz_bouba = "Bouba!"
-    G.localization.misc.challenge_names.c_aiz_penny = "In For a Penny..."
-end
-
 SMODS.Atlas({
     key = "jokers",
     path = "jokers.png",
