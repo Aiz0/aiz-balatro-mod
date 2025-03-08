@@ -27,6 +27,12 @@ return {
                     "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
                 },
             },
+            j_aiz_blåhaj = {
+                name = "Blåhaj",
+                text = {
+                    "{C:dark_edition}+#1#{} Joker slots",
+                },
+            },
         },
     },
     misc = {
