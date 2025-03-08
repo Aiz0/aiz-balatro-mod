@@ -1,15 +1,5 @@
 SMODS.Joker({
     key = "easy_mode",
-    loc_txt = {
-        name = "Easy Mode",
-        text = {
-            "Gives {C:mult}+1 mult{} for",
-            "every 2 jokers with",
-            "{C:attention}White stickers{}",
-            "in your collection",
-            "{C:inactive}(Currently {C:mult}+#1#{C:inactive} Mult)",
-        },
-    },
     config = {
         extra = {
             mult_mod = 0.5,
@@ -39,18 +29,15 @@ SMODS.Joker({
     end,
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { self.get_mult(card) } }
+        return {
+            vars = { 1 / card.ability.extra.mult_mod, self.get_mult(card) },
+        }
     end,
 
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                message = localize({
-                    type = "variable",
-                    key = "a_mult",
-                    vars = { self.get_mult(card) },
-                }),
-                mult_mod = self.get_mult(card),
+                mult = self.get_mult(card),
             }
         end
     end,

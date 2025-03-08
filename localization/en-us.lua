@@ -17,6 +17,16 @@ return {
                     "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)",
                 },
             },
+            j_aiz_easy_mode = {
+                name = "Easy Mode",
+                text = {
+                    "Gives {C:mult}+1 mult{} for",
+                    "every #1# jokers with",
+                    "{C:attention}White stickers{}",
+                    "in your collection",
+                    "{C:inactive}(Currently {C:mult}+#2#{C:inactive} Mult)",
+                },
+            },
         },
     },
     misc = {
