@@ -1,14 +1,3 @@
---- STEAMODDED HEADER
---- MOD_NAME: Aiz Jokers
---- MOD_ID: AIZ
---- MOD_AUTHOR: [Aiz]
---- MOD_DESCRIPTION: A mod adding Jokers I thought would be funny, cool or just felt like making.
---- BADGE_COLOUR: 0ea5e9
---- VERSION: 0.8.2
---- LOADER_VERSION_GEQ: 1.0.0-ALPHA-0731b-STEAMODDED
-
-----------------------------------------------
-------------MOD CODE -------------------------
 -- Global table for mod utils
 Aiz = {}
 local current_mod = SMODS.current_mod

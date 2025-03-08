@@ -1,0 +1,12 @@
+{
+  "id": "Aiz",
+  "name": "Aiz Jokers",
+  "author": ["Aiz"],
+  "description": "A mod adding Jokers I thought would be funny, cool or just felt like making.",
+  "prefix": "aiz",
+  "main_file": "main.lua",
+  "priority": 0,
+  "badge_colour": "0ea5e9",
+  "version": "0.8.2",
+  "dependencies": ["Steamodded (>=1.*)", "Lovely"]
+}
