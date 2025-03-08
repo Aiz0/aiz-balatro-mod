@@ -1,13 +1,5 @@
 SMODS.Joker({
     key = "loudspeaker",
-    loc_txt = {
-        name = "Loudspeaker",
-        text = {
-            "Gives {C:chips}Chips{} based",
-            "on {C:attention}Audio volume{}",
-            "{C:inactive}(Currently {C:chips}+#1#{C:inactive} Chips)",
-        },
-    },
     config = {},
     atlas = "jokers",
     pos = { y = 0, x = 1 },
@@ -33,12 +25,7 @@ SMODS.Joker({
     calculate = function(self, card, context)
         if context.joker_main then
             return {
-                message = localize({
-                    type = "variable",
-                    key = "a_chips",
-                    vars = { self.get_chips() },
-                }),
-                chip_mod = self.get_chips(),
+                chips = self.get_chips(),
             }
         end
     end,
