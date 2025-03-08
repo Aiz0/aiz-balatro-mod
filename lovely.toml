@@ -11,38 +11,6 @@ blahaj = "j_aiz_blåhaj"
 randomizer = "j_aiz_randomizer"
 randomizer_seed = "aiz_randomizer"
 
-# Back:trigger_effect
-[[patches]]
-[patches.pattern]
-target = 'back.lua'
-pattern = "if self.name == 'Plasma Deck' and args.context == 'final_scoring_step' then"
-position = 'before'
-payload = '''
-if args.context == "final_scoring_step" then
-	for i = 1, #G.jokers.cards do
-        local card = G.jokers.cards[i]
-        local obj = card.config.center
-        if obj.final_scoring_step and type(obj.final_scoring_step) == 'function' then
-	        local o = obj:final_scoring_step(card, args)
-	        if o then args = o end
-        end
-    end
-end
-'''
-match_indent = true
-
-[[patches]]
-[patches.pattern]
-target = 'back.lua'
-pattern = 'return args.chips, args.mult'
-position = 'after'
-payload = '''
-else if args.context == "final_scoring_step" then
-    return args.chips, args.mult
-end
-'''
-match_indent = true
-
 # Patch to make banana farm work
 # sets forced_key to to forced_key of first banana farm
 [[patches]]

@@ -33,6 +33,16 @@ return {
                     "{C:dark_edition}+#1#{} Joker slots",
                 },
             },
+            j_aiz_antibubzia = {
+                name = "AntiBubzia",
+                text = {
+                    "Plays the exact",
+                    "same hand backwards",
+                    "to cancel out",
+                    "your score",
+                    "every {C:attention}freaking{} time",
+                },
+            },
         },
     },
     misc = {
