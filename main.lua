@@ -66,25 +66,11 @@ for _, joker in ipairs(modules.jokers) do
     end
 end
 
---Challenge
-table.insert(G.CHALLENGES, 1, {
-    name = "Doubled",
-    id = "c_aiz_penny",
-    rules = {
-        custom = {},
-        modifiers = {},
-    },
+-- Challenge
+-- Since its only one right now i keep it here
+SMODS.Challenge({
+    key = "aiz_penny",
     jokers = {
         { id = "j_aiz_penny", eternal = true },
-    },
-    consumeables = {},
-    vouchers = {},
-    deck = {
-        type = "Challenge Deck",
-    },
-    restrictions = {
-        banned_cards = {},
-        banned_tags = {},
-        banned_other = {},
     },
 })
