@@ -1,17 +1,9 @@
 SMODS.Joker({
     key = "chess_bishop",
-    loc_txt = {
-        name = "Bishop",
-        text = {
-            "Scored Numbered cards",
-            "earn {C:money}$#1#{}",
-            "Scored Face cards",
-            "{C:attention}lose{} {C:money}$#1#{}",
-        },
-    },
     config = {
         extra = {
-            money = 1,
+            money_number = 1,
+            money_face = -1,
         },
     },
     atlas = "jokers",
@@ -28,30 +20,23 @@ SMODS.Joker({
     end,
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.money } }
+        return {
+            vars = {
+                card.ability.extra.money_number,
+                card.ability.extra.money_face * -1,
+            },
+        }
     end,
 
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-            local money = 0
             if context.other_card:is_face() then
-                money = card.ability.extra.money * -1
-            elseif context.other_card:get_id() >= 2 then
-                money = card.ability.extra.money
-            end
-            if money ~= 0 then
-                G.GAME.dollar_buffer = (G.GAME.dollar_buffer or 0)
-                    + card.ability.extra.money
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        G.GAME.dollar_buffer = 0
-                        return true
-                    end,
-                }))
-                return {
-                    dollars = money,
-                    card = card,
-                }
+                return { dollars = card.ability.extra.money_face }
+            elseif
+                context.other_card:get_id() >= 2.
+                and context.other_card:get_id() <= 10
+            then
+                return { dollars = card.ability.extra.money_number }
             end
         end
     end,

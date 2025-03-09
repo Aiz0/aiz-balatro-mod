@@ -100,6 +100,15 @@ return {
                     "{s:0.8}Flips order after conversion{}",
                 },
             },
+            j_aiz_chess_bishop = {
+                name = "Bishop",
+                text = {
+                    "Scored Numbered cards",
+                    "earn {C:money}$#1#{}",
+                    "Scored Face cards",
+                    "{C:attention}lose{} {C:money}$#2#{}",
+                },
+            },
         },
     },
     misc = {
