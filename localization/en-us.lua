@@ -90,6 +90,16 @@ return {
                     "{C:inactive}(Currently on rank {C:attention}#1#{C:inactive})",
                 },
             },
+            j_aiz_chess_knight = {
+                name = "Knight",
+                text = {
+                    "Converts scored {C:attention}#2#{} suits",
+                    "To random {C:attention}#3#{} suits",
+                    "Give {C:mult}+#1#{} Mult for each",
+                    "converted card in played hand",
+                    "{s:0.8}Flips order after conversion{}",
+                },
+            },
         },
     },
     misc = {
@@ -102,6 +112,7 @@ return {
             k_aiz_knowledge_gained = "Knowledge Gained!",
             k_aiz_dinner_postponed = "Dinner Postponed!",
             k_aiz_destroy = "Destroyed!",
+            k_aiz_converted = "Converted!",
             k_aiz_light = "Light",
             k_aiz_dark = "Dark",
             k_aiz_new_hand = "New Hand!",

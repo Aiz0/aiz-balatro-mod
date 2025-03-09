@@ -1,15 +1,5 @@
 SMODS.Joker({
     key = "chess_knight",
-    loc_txt = {
-        name = "Knight",
-        text = {
-            "Converts scored {C:attention}#2#{} suits",
-            "To random {C:attention}#3#{} suits",
-            "Give {C:mult}+#1#{} Mult for each",
-            "converted card in played hand",
-            "{s:0.8}Flips order after conversion{}",
-        },
-    },
     config = {
         extra = {
             mult = 0,
@@ -47,7 +37,6 @@ SMODS.Joker({
 
     set_ability = function(self, card)
         -- Randomize starting suits.
-        -- Partially just to make it easier to have multiple knights be useful together.
         local change_to_light = (0.5 > pseudorandom("knight_suits"))
         card.ability.extra.change.from = (change_to_light and "Dark" or "Light")
         card.ability.extra.change.to = (change_to_light and "Light" or "Dark")
@@ -56,8 +45,8 @@ SMODS.Joker({
     calculate = function(self, card, context)
         --TODO try to fix debuff texture visible before new suit is. for bosses that debuff suits
         if
-            context.cardarea == G.jokers
-            and context.before
+            context.before
+            and context.cardarea == G.jokers
             and not context.blueprint
         then
             -- Reset mult every round
@@ -89,7 +78,7 @@ SMODS.Joker({
                 playing_card.ability.played_this_ante = false
                 -- Do a debuff check manually so debuffs are applied
                 -- This will show some cards as debuffed before their suit is changed.
-                G.GAME.blind:debuff_card(playing_card)
+                SMODS.recalc_debuff(playing_card)
                 G.E_MANAGER:add_event(Event({
                     delay = 0.15,
                     trigger = "after",
@@ -112,13 +101,7 @@ SMODS.Joker({
                 card.ability.extra.mult = card.ability.extra.mult
                     + card.ability.extra.mult_mod * #converted_cards
                 return {
-                    message = localize({
-                        type = "variable",
-                        key = "a_mult",
-                        vars = { card.ability.extra.mult },
-                    }),
-                    colour = G.C.MULT,
-                    card = card,
+                    message = localize("k_aiz_converted")
                 }
             end
         end
@@ -128,12 +111,7 @@ SMODS.Joker({
         if context.joker_main then
             if card.ability.extra.mult > 0 then
                 return {
-                    message = localize({
-                        type = "variable",
-                        key = "a_mult",
-                        vars = { card.ability.extra.mult },
-                    }),
-                    mult_mod = card.ability.extra.mult,
+                    mult = card.ability.extra.mult,
                 }
             end
         end
@@ -143,12 +121,14 @@ SMODS.Joker({
             card.ability.extra.change.from, card.ability.extra.change.to =
                 card.ability.extra.change.to, card.ability.extra.change.from
 
-            Aiz.utils.status_text(
-                card,
-                "k_aiz_" .. card.ability.extra.change.from:lower(),
-                card.ability.extra.change.from == "Light" and G.C.FILTER
-                    or G.C.BLACK
-            )
+            return {
+                message = localize(
+                    "k_aiz_" .. card.ability.extra.change.from:lower()
+                ),
+                colour = card.ability.extra.change.from == "Light"
+                        and G.C.FILTER
+                    or G.C.BLACK,
+            }
         end
     end,
 })
