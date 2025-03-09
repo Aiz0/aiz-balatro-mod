@@ -27,8 +27,13 @@ SMODS.Joker({
     rarity = 3,
     cost = 8,
     blueprint_compat = true,
-    -- makes sure this joker doesn't spawn in any pools
-    yes_pool_flag = "this flag will never be set",
+    pools = {
+        ["aiz_chess_promotion_joker"] = true,
+        ["Joker"] = false,
+    },
+    in_pool = function(self, args)
+        return true, { allow_duplicates = true }
+    end,
 
     loc_vars = function(self, info_queue, card)
         return {

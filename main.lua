@@ -52,6 +52,15 @@ SMODS.Atlas({
     py = 95,
 })
 
+SMODS.ObjectType({
+    key = "aiz_chess_promotion_joker",
+    rarities = {
+        { key = "Uncommon", rate = 0.7 },
+        { key = "Rare", rate = 0.2 },
+        { key = "Legendary", rate = 0.1 },
+    },
+})
+
 -- load utils
 assert(SMODS.load_file("utils.lua"))()
 assert(SMODS.load_file("configuration.lua"))()

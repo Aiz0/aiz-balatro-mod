@@ -81,6 +81,15 @@ return {
                     "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)",
                 },
             },
+            j_aiz_chess_pawn = {
+                name = "Pawn",
+                text = {
+                    "Advances at end of round",
+                    "or when skipping a {C:attention}Blind",
+                    "Adds current rank to mult",
+                    "{C:inactive}(Currently on rank {C:attention}#1#{C:inactive})",
+                },
+            },
         },
     },
     misc = {

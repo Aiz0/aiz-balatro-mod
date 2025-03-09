@@ -119,25 +119,6 @@ Aiz.utils = {
         card_eval_status_text(_card, eval_type, amount, nil, nil, nil)
     end,
 
-    --- Returns random key from table using weighted chance system
-    ---@param table {any: integer}
-    ---@param seed string
-    ---@return any key from **table**
-    get_weighted_random = function(table, seed)
-        local weight = 0
-        for _, chance in pairs(table) do
-            weight = weight + chance
-        end
-        local p = pseudorandom(seed and seed or "weighted_random", 1, weight)
-        local cumulativeProbability = 0
-        for key, probability in pairs(table) do
-            cumulativeProbability = cumulativeProbability + probability
-            if p <= cumulativeProbability then
-                return key
-            end
-        end
-    end,
-
     ---Flips all jokers
     flip_jokers = function()
         for _, joker in ipairs(G.jokers.cards) do
