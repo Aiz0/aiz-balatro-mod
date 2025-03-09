@@ -109,6 +109,17 @@ return {
                     "{C:attention}lose{} {C:money}$#2#{}",
                 },
             },
+            j_aiz_chess_rook = {
+                name = "Rook",
+                text = {
+                    "Enhances {C:attention}Discarded{} cards",
+                    "into {C:attention}Stone Cards{}",
+                    "{C:attention}-#1#{} discards",
+                    "Gives {X:mult,C:white}XMult{} based on ratio of",
+                    "{C:attention}Stone cards{} in your {C:attention}full deck.",
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
+                },
+            },
         },
     },
     misc = {

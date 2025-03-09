@@ -4,17 +4,7 @@
 -- -1 discard because of this.
 SMODS.Joker({
     key = "chess_rook",
-    loc_txt = {
-        name = "Rook",
-        text = {
-            "Enhances {C:attention}Discarded{} cards",
-            "into {C:attention}Stone Cards{}",
-            "{C:attention}-#1#{} discards",
-            "Gives {X:mult,C:white}XMult{} based on ratio of",
-            "{C:attention}Stone cards{} in your {C:attention}full deck.",
-            "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
-        },
-    },
+
     config = {
         extra = {
             discard_size = 1,
@@ -39,12 +29,12 @@ SMODS.Joker({
         return {
             vars = {
                 card.ability.extra.discard_size,
-                self.get_mult(card),
+                self.get_xmult(card),
             },
         }
     end,
 
-    get_mult = function(card)
+    get_xmult = function(card)
         if G.playing_cards == nil then
             return 1
         else
@@ -65,36 +55,32 @@ SMODS.Joker({
 
     calculate = function(self, card, context)
         if context.pre_discard and not context.blueprint then
-            for i = 1, #G.hand.highlighted do
-                Aiz.utils.flip_card_event(G.hand.highlighted[i])
+            local cards = {}
+            for _, playing_card in pairs(G.hand.highlighted) do
+                if not (playing_card.config.center == G.P_CENTERS.m_stone) then
+                    table.insert(cards, playing_card)
+                    Aiz.utils.flip_card_event(playing_card)
+                end
             end
-            for i = 1, #G.hand.highlighted do
+            for _, playing_card in pairs(cards) do
                 G.E_MANAGER:add_event(Event({
                     trigger = "after",
                     delay = 0.1,
                     func = function()
-                        G.hand.highlighted[i]:set_ability(
-                            G.P_CENTERS["m_stone"]
-                        )
+                        playing_card:set_ability(G.P_CENTERS["m_stone"])
                         return true
                     end,
                 }))
             end
-            for i = 1, #G.hand.highlighted do
-                Aiz.utils.flip_card_event(G.hand.highlighted[i])
+            for _, playing_card in pairs(cards) do
+                Aiz.utils.flip_card_event(playing_card)
             end
-            delay(0.3)
+            if #cards > 0 then
+                delay(0.3)
+            end
         end
         if context.joker_main then
-            local mult = self.get_mult(card)
-            return {
-                message = localize({
-                    type = "variable",
-                    key = "a_xmult",
-                    vars = { mult },
-                }),
-                Xmult_mod = mult,
-            }
+            return { xmult = self.get_xmult(card) }
         end
     end,
 
