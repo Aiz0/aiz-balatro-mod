@@ -1,15 +1,8 @@
 SMODS.Joker({
     key = "chess_king",
-    loc_txt = {
-        name = "King",
-        text = {
-            "Other {C:attention}Chess Jokers",
-            "Give {X:mult,C:white}X#1#{} Mult",
-        },
-    },
     config = {
         extra = {
-            Xmult = 5,
+            xmult = 5,
         },
     },
     atlas = "jokers_soul",
@@ -20,12 +13,11 @@ SMODS.Joker({
     blueprint_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.Xmult } }
+        return { vars = { card.ability.extra.xmult } }
     end,
 
     pools = {
         ["aiz_chess_promotion_joker"] = true,
-        ["Joker"] = fales,
     },
 
     calculate = function(self, card, context)
@@ -42,12 +34,7 @@ SMODS.Joker({
                     end,
                 }))
                 return {
-                    message = localize({
-                        type = "variable",
-                        key = "a_xmult",
-                        vars = { card.ability.extra.Xmult },
-                    }),
-                    Xmult_mod = card.ability.extra.Xmult,
+                    xmult = card.ability.extra.xmult,
                 }
             end
         end

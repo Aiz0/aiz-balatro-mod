@@ -132,6 +132,13 @@ return {
                     "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)",
                 },
             },
+            j_aiz_chess_king = {
+                name = "King",
+                text = {
+                    "Other {C:attention}Chess Jokers",
+                    "Give {X:mult,C:white}X#1#{} Mult",
+                },
+            },
         },
     },
     misc = {
