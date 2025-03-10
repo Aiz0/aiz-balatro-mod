@@ -139,6 +139,16 @@ return {
                     "Give {X:mult,C:white}X#1#{} Mult",
                 },
             },
+            j_aiz_jay_z = {
+                name = "Jay-Z",
+                text = {
+                    "{C:green}#1# in #2#{} chance this",
+                    "card is destroyed and",
+                    "{C:dark_edition}Polychrome{} is added",
+                    "to {C:attention}All{} cards",
+                    "at end of round",
+                },
+            },
         },
     },
     misc = {
