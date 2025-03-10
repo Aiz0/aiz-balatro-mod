@@ -120,6 +120,18 @@ return {
                     "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
                 },
             },
+            j_aiz_chess_queen = {
+                name = "Queen",
+                text = {
+                    "When blind is selected,",
+                    "destroy all cards",
+                    "of {C:attention}lowest{} rank",
+                    "in your full deck.",
+                    "This Joker gains {X:mult,C:white}X#2#{} Mult",
+                    "for each card destroyed",
+                    "{C:inactive}(Currently {X:mult,C:white}X#1#{C:inactive} Mult)",
+                },
+            },
         },
     },
     misc = {
