@@ -43,27 +43,6 @@ Aiz.utils = {
         end
     end,
 
-    -- Makes card polychrome and lowers card limit for any negatives
-    set_polychrome = function(card)
-        G.E_MANAGER:add_event(Event({
-            trigger = "after",
-            delay = 0.3,
-            func = function()
-                if card.edition and card.edition.negative then
-                    if card.ability.consumeable then
-                        G.consumeables.config.card_limit = G.consumeables.config.card_limit
-                            - 1
-                    else
-                        G.jokers.config.card_limit = G.jokers.config.card_limit
-                            - 1
-                    end
-                end
-                card:set_edition({ polychrome = true }, true)
-                return true
-            end,
-        }))
-    end,
-
     flip_card_event = function(card)
         G.E_MANAGER:add_event(Event({
             delay = 0.25,

@@ -68,22 +68,28 @@ SMODS.Joker({
                 message = localize("k_aiz_knowledge_gained"),
                 func = function()
                     -- Turn all cards polychrome
-                    -- start with cards held in hand
-                    for _, playing_card in ipairs(G.hand.cards) do
-                        Aiz.utils.set_polychrome(playing_card)
-                    end
-                    for _, joker_card in ipairs(G.jokers.cards) do
-                        Aiz.utils.set_polychrome(joker_card)
-                    end
-                    for _, consumable_card in ipairs(G.consumeables.cards) do
-                        Aiz.utils.set_polychrome(consumable_card)
+                    for _, table in ipairs({
+                        G.hand.cards,
+                        G.jokers.cards,
+                        G.consumeables.cards,
+                    }) do
+                        for _, other_card in ipairs(table) do
+                            G.E_MANAGER:add_event(Event({
+                                trigger = "after",
+                                delay = 0.3,
+                                func = function()
+                                    other_card:set_edition("e_polychrome", true)
+                                    return true
+                                end,
+                            }))
+                        end
                     end
                     -- Playing Cards in deck are done last and without a delay
                     G.E_MANAGER:add_event(Event({
                         func = function()
                             for _, playing_card in ipairs(G.playing_cards) do
                                 playing_card:set_edition(
-                                    { polychrome = true },
+                                    "e_polychrome",
                                     true,
                                     true
                                 )
