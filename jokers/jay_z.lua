@@ -68,21 +68,21 @@ SMODS.Joker({
                 message = localize("k_aiz_knowledge_gained"),
                 func = function()
                     -- Turn all cards polychrome
-                    for _, table in ipairs({
-                        G.hand.cards,
-                        G.jokers.cards,
-                        G.consumeables.cards,
-                    }) do
-                        for _, other_card in ipairs(table) do
-                            G.E_MANAGER:add_event(Event({
-                                trigger = "after",
-                                delay = 0.3,
-                                func = function()
-                                    other_card:set_edition("e_polychrome", true)
-                                    return true
-                                end,
-                            }))
-                        end
+                    for _, other_card in
+                        ipairs(SMODS.merge_lists({
+                            G.hand.cards,
+                            G.jokers.cards,
+                            G.consumeables.cards,
+                        }))
+                    do
+                        G.E_MANAGER:add_event(Event({
+                            trigger = "after",
+                            delay = 0.3,
+                            func = function()
+                                other_card:set_edition("e_polychrome", true)
+                                return true
+                            end,
+                        }))
                     end
                     -- Playing Cards in deck are done last and without a delay
                     G.E_MANAGER:add_event(Event({
