@@ -61,17 +61,21 @@ match_indent = true
 # Randomize scoring hand
 [[patches]]
 [patches.pattern]
-target = "functions/state_events.lua"
-pattern = "local percent_delta = 0.08"
-position = 'after'
-payload = '''
-for index, randomizer_joker in ipairs(SMODS.find_card('{{lovely:randomizer}}')) do
-	local shuffled = {}
-	while #scoring_hand >= 1 do
-		local _, key = pseudorandom_element(scoring_hand, pseudoseed('{{lovely:randomizer_seed}}'))
-		table.insert(shuffled, table.remove(scoring_hand, key))
-	end
-	scoring_hand = shuffled
-end
-'''
+target = '=[SMODS _ "src/utils.lua"]'
 match_indent = true
+pattern = "for _, card in ipairs(context.cardarea.cards) do"
+position = 'at'
+payload = '''
+local cards = {}
+for _, card in ipairs(context.cardarea.cards) do
+    table.insert(cards, card)
+end
+if scoring_hand and next(SMODS.find_card('{{lovely:randomizer}}')) then
+	sendInfoMessage("Randomizing")
+	for i = #cards, 2, -1 do
+		local j = pseudorandom('{{lovely:randomizer_seed}}', 1, i)
+		cards[i], cards[j] = cards[j], cards[i]
+	end
+end
+for _, card in ipairs(cards) do
+'''

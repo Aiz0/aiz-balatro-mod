@@ -149,6 +149,16 @@ return {
                     "at end of round",
                 },
             },
+            j_aiz_randomizer = {
+                name = "Randomizer",
+                text = {
+                    "Cards are scored",
+                    "in a {C:green,E:2}random{} order",
+                    "Played cards give",
+                    "{C:chips}+#1#{} chips",
+                    "when scored",
+                },
+            },
         },
     },
     misc = {
