@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "scripts": {
+    "stylua": "stylua",
+    "format-check": "stylua --check .",
+    "format-all": "stylua ."
+  },
+  "devDependencies": {
+    "@johnnymorganz/stylua-bin": "^2.1.0"
+  }
+}
