@@ -159,6 +159,14 @@ return {
                     "when scored",
                 },
             },
+            j_aiz_tinkerer = {
+                name = "Tinkerer",
+                text = {
+                    "{X:mult,C:white}X#1#{} Mult for each",
+                    "{C:attention}Mod{} you have {C:attention}Active{}",
+                    "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
+                },
+            },
         },
     },
     misc = {
