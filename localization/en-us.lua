@@ -219,6 +219,15 @@ return {
                     "{C:attention}Planet cards",
                 },
             },
+            j_aiz_chess_pawn_storm = {
+                name = "Pawn Storm",
+                text = {
+                    "When blind is selected,",
+                    "if you have no Pawns",
+                    "create {C:attention}#1# Pawns",
+                    "{C:inactive}(Must have room){}",
+                },
+            },
         },
     },
     misc = {
