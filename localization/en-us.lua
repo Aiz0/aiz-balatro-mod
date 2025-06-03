@@ -192,6 +192,15 @@ return {
                     "{C:mult}+#1#{} Mult",
                 },
             },
+            j_aiz_ultimate_unknown = {
+                name = "Ultimate ???",
+                text = {
+                    "Upgrade the level of",
+                    "{C:attention}#1#{} of your {C:attention}least",
+                    "{C:attention}played{} poker hands",
+                    "when skipping a {C:attention}Blind",
+                },
+            },
         },
     },
     misc = {

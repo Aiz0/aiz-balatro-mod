@@ -165,4 +165,14 @@ Aiz.utils = {
             { message = localize(text_key), colour = colour }
         )
     end,
+
+    ---shuffles a table using provided seed
+    ---@param t table
+    ---@param seed string
+    pseudorandom_shuffle = function(t, seed)
+        for i = #t, 2, -1 do
+            local j = pseudorandom(seed, 1, i)
+            t[i], t[j] = t[j], t[i]
+        end
+    end,
 }
