@@ -178,6 +178,13 @@ return {
                     "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)",
                 },
             },
+            j_aiz_banana_farm = {
+                name = "Banana Farm",
+                text = {
+                    "New {C:attention}Jokers{} appear as",
+                    "{C:attention}Gros Michel{}",
+                },
+            },
         },
     },
     misc = {
