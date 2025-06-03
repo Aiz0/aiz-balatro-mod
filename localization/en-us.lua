@@ -185,6 +185,13 @@ return {
                     "{C:attention}Gros Michel{}",
                 },
             },
+
+            j_aiz_slightly_cooler_joker = {
+                name = "Slightly Cooler Joker",
+                text = {
+                    "{C:mult}+#1#{} Mult",
+                },
+            },
         },
     },
     misc = {

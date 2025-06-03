@@ -1,16 +1,6 @@
 SMODS.Joker({
     key = "slightly_cooler_joker",
-    loc_txt = {
-        name = "Slightly Cooler Joker",
-        text = {
-            "{C:mult}+#1#{} Mult",
-        },
-    },
-    config = {
-        extra = {
-            mult = 5,
-        },
-    },
+    config = { extra = { mult = 5 } },
     atlas = "jokers",
     pos = { y = 3, x = 0 },
     rarity = 1,
@@ -21,14 +11,7 @@ SMODS.Joker({
     end,
     calculate = function(self, card, context)
         if context.joker_main then
-            return {
-                message = localize({
-                    type = "variable",
-                    key = "a_mult",
-                    vars = { card.ability.extra.mult },
-                }),
-                mult_mod = card.ability.extra.mult,
-            }
+            return { mult = card.ability.extra.mult }
         end
     end,
 })
