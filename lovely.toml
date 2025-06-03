@@ -28,6 +28,7 @@ match_indent = true
 
 
 # Patch to make battle pass work
+# currently checks if card used to level up is a consumable
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
