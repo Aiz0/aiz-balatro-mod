@@ -1,14 +1,5 @@
 SMODS.Joker({
     key = "ultimate_gamer",
-    loc_txt = {
-        name = "Ultimate Gamer",
-        text = {
-            "{C:chips}+#1#{} Chips for each",
-            "{C:attention}Challenge{} you have",
-            "{C:attention}Completed{}",
-            "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)",
-        },
-    },
     config = {
         extra = {
             chips_mod = 10,
@@ -16,7 +7,6 @@ SMODS.Joker({
             cost_mod = 1 / 3,
         },
     },
-    --TODO add sprite
     atlas = "jokers_soul",
     pos = { y = 1, x = 0 },
     soul_pos = { y = 1, x = 1 },
@@ -41,14 +31,7 @@ SMODS.Joker({
 
     calculate = function(self, card, context)
         if context.joker_main then
-            return {
-                message = localize({
-                    type = "variable",
-                    key = "a_chips",
-                    vars = { card.ability.extra.chips },
-                }),
-                chip_mod = card.ability.extra.chips,
-            }
+            return { chips = card.ability.extra.chips }
         end
     end,
 })

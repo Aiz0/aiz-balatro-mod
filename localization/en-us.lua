@@ -201,6 +201,15 @@ return {
                     "when skipping a {C:attention}Blind",
                 },
             },
+            j_aiz_ultimate_gamer = {
+                name = "Ultimate Gamer",
+                text = {
+                    "{C:chips}+#1#{} Chips for each",
+                    "{C:attention}Challenge{} you have",
+                    "{C:attention}Completed{}",
+                    "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)",
+                },
+            },
         },
     },
     misc = {
