@@ -167,6 +167,17 @@ return {
                     "{C:inactive}(Currently {X:mult,C:white}X#2#{C:inactive} Mult)",
                 },
             },
+            j_aiz_skipper = {
+                name = "Skipper",
+                text = {
+                    "Gain {X:mult,C:white}X#1#{} when",
+                    "{C:attention}Boss Blind{} is defeated",
+                    "Lose {X:mult,C:white}X#2#{} when",
+                    "{C:attention}Small Blind{} or {C:attention}Big Blind{}",
+                    "is defeated",
+                    "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)",
+                },
+            },
         },
     },
     misc = {

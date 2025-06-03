@@ -1,21 +1,10 @@
 SMODS.Joker({
     key = "skipper",
-    loc_txt = {
-        name = "Skipper",
-        text = {
-            "Gain {X:mult,C:white}X#1#{} when",
-            "{C:attention}Boss Blind{} is defeated",
-            "Lose {X:mult,C:white}X#2#{} when",
-            "{C:attention}Small Blind{} or {C:attention}Big Blind{}",
-            "is defeated",
-            "{C:inactive}(Currently {X:mult,C:white}X#3#{C:inactive} Mult)",
-        },
-    },
     config = {
         extra = {
-            Xmult_mod_positive = 1,
-            Xmult_mod_negative = 0.75,
-            Xmult = 1,
+            xmult_gain = 1,
+            xmult_loss = 0.75,
+            xmult = 1,
         },
     },
     atlas = "jokers",
@@ -27,9 +16,9 @@ SMODS.Joker({
     loc_vars = function(self, info_queue, card)
         return {
             vars = {
-                card.ability.extra.Xmult_mod_positive,
-                card.ability.extra.Xmult_mod_negative,
-                card.ability.extra.Xmult,
+                card.ability.extra.xmult_gain,
+                card.ability.extra.xmult_loss,
+                card.ability.extra.xmult,
             },
         }
     end,
@@ -42,32 +31,26 @@ SMODS.Joker({
             and not context.blueprint
         then
             if G.GAME.blind.boss then
-                card.ability.extra.Xmult = card.ability.extra.Xmult
-                    + card.ability.extra.Xmult_mod_positive
+                card.ability.extra.xmult = card.ability.extra.xmult
+                    + card.ability.extra.xmult_gain
             else
-                card.ability.extra.Xmult = card.ability.extra.Xmult
-                    - card.ability.extra.Xmult_mod_negative
-                if card.ability.extra.Xmult < 1 then
-                    card.ability.extra.Xmult = 1
+                card.ability.extra.xmult = card.ability.extra.xmult
+                    - card.ability.extra.xmult_loss
+                if card.ability.extra.xmult < 1 then
+                    card.ability.extra.xmult = 1
                 end
             end
-            card_eval_status_text(card, "extra", nil, nil, nil, {
-                message = localize({
-                    type = "variable",
-                    key = "a_xmult",
-                    vars = { card.ability.extra.Xmult },
-                }),
-            })
-        end
-        if context.joker_main and card.ability.extra.Xmult > 1 then
             return {
                 message = localize({
                     type = "variable",
                     key = "a_xmult",
-                    vars = { card.ability.extra.Xmult },
+                    vars = { card.ability.extra.xmult },
                 }),
-                Xmult_mod = card.ability.extra.Xmult,
+                colour = G.C.MULT,
             }
+        end
+        if context.joker_main then
+            return { xmult = card.ability.extra.xmult }
         end
     end,
 })
