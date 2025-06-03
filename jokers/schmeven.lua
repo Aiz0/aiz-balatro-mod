@@ -13,14 +13,6 @@ SMODS.Sound({
 
 SMODS.Joker({
     key = "schmeven",
-    loc_txt = {
-        name = "Schmeven",
-        text = {
-            "Played cards with",
-            "{C:attention}schmeven{} rank does",
-            "{C:attention}something{} when scored",
-        },
-    },
     config = {
         extra = {
             Xmult = 1.5,

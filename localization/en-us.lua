@@ -228,6 +228,14 @@ return {
                     "{C:inactive}(Must have room){}",
                 },
             },
+            j_aiz_schmeven = {
+                name = "Schmeven",
+                text = {
+                    "Played cards with",
+                    "{C:attention}schmeven{} rank does",
+                    "{C:attention,E:1,s:20}something{} when scored",
+                },
+            },
         },
     },
     misc = {

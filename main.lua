@@ -32,7 +32,7 @@ local modules = {
         "ultimate_gamer",
         "battle_pass",
         "chess_pawn_storm",
-        "schmeven",
+        --"schmeven",
         "factory_triangle_maker",
         "factory_triangle",
         "factory_circle",
