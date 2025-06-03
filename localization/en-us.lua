@@ -210,6 +210,15 @@ return {
                     "{C:inactive}(Currently {C:chips}+#2#{C:inactive} Chips)",
                 },
             },
+            j_aiz_battle_pass = {
+                name = "Battle Pass",
+                text = {
+                    "{C:attention}+#1#{} levels when a",
+                    "poker hand is upgraded",
+                    "Does not apply to",
+                    "{C:attention}Planet cards",
+                },
+            },
         },
     },
     misc = {

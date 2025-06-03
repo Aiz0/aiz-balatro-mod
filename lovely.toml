@@ -28,13 +28,11 @@ match_indent = true
 
 
 # Patch to make battle pass work
-# Don't know if i can target the level up function directly
-# instead of this vague amount that only it has.
-
 [[patches]]
 [patches.pattern]
 target = 'functions/common_events.lua'
-pattern = 'amount = amount or 1'
+pattern = '''function level_up_hand(card, hand, instant, amount)
+    amount = amount or 1'''
 position = 'after'
 payload = '''
 local aiz_battle_pass_array = SMODS.find_card('{{lovely:battle_pass}}')
