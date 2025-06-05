@@ -236,6 +236,35 @@ return {
                     "{C:attention,E:1,s:20}something{} when scored",
                 },
             },
+            j_aiz_factory_triangle = {
+                name = "Triangle",
+                text = {
+                    "{C:mult}+#1#{} Mult",
+                },
+            },
+            j_aiz_factory_circle = {
+                name = "Circle",
+                text = {
+                    "{C:chips}+#1#{} Chips",
+                },
+            },
+            j_aiz_factory_triangle_maker = {
+                name = "Triangle factory",
+                text = {
+                    "When Blind is selected,",
+                    "create a",
+                    "{C:dark_edition}negative{} {C:attention}Triangle",
+                },
+            },
+        },
+        Other = {
+            j_aiz_factory_circle = {
+                name = "Circles",
+                text = {
+                    "I guess we doin",
+                    "circles now",
+                }
+            }
         },
     },
     misc = {

@@ -29,8 +29,6 @@ Aiz.config = {
         chess_pawn_storm = true,
         --schmeven = true,
         factory_triangle_maker = true,
-        factory_triangle = true,
-        factory_circle = true,
     },
 
     suits = {
