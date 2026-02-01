@@ -151,20 +151,6 @@ Aiz.utils = {
         }))
     end,
 
-    ---Wrapper for card_eval_status_text
-    ---@param card any card the status text should show at
-    ---@param text_key any key for localize()
-    ---@param colour? {[1]:number, [2]:number, [3]:number}
-    status_text = function(card, text_key, colour)
-        card_eval_status_text(
-            card,
-            "extra",
-            nil,
-            nil,
-            nil,
-            { message = localize(text_key), colour = colour }
-        )
-    end,
 
     ---shuffles a table using provided seed
     ---@param t table

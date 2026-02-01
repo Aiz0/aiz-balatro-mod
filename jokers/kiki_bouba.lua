@@ -27,39 +27,15 @@ SMODS.Joker({
     calculate = function(self, card, context)
         if
             context.other_joker
-            and context.other_joker.ability.set == "Joker"
             and context.other_joker ~= card
         then
             local is_kiki =
                 Aiz.config.is_kiki[context.other_joker.config.center_key]
-            local eval, text, color = nil, nil, nil
-            if is_kiki == nil then
-                return
-            elseif is_kiki then
-                text = "k_aiz_kiki"
-                color = G.C.MULT
-                eval = {
-                    message = localize({
-                        type = "variable",
-                        key = "a_mult",
-                        vars = { card.ability.extra.mult },
-                    }),
-                    mult_mod = card.ability.extra.mult,
-                }
-            else
-                text = "k_aiz_bouba"
-                color = G.C.CHIPS
-                eval = {
-                    message = localize({
-                        type = "variable",
-                        key = "a_chips",
-                        vars = { card.ability.extra.chips },
-                    }),
-                    chip_mod = card.ability.extra.chips,
-                }
-            end
-            Aiz.utils.status_text(context.other_joker, text, color)
-            return eval
+            if is_kiki == nil then return
+            return {
+                mult = is_kiki and card.ability.extra.mult or 0,
+                chips = not is_kiki and card.ability.extra.chips or 0,
+            }
         end
     end,
 })
