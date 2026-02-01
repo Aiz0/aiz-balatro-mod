@@ -17,10 +17,7 @@ SMODS.Joker({
     blueprint_compat = false,
 
     loc_vars = function(self, info_queue, card)
-        local sign = ""
-        if card.ability.extra.hand_size.difference >= 0 then
-            sign = "+"
-        end
+        local sign = card.ability.extra.hand_size.difference >= 0 and "+" or ""
         return {
             vars = {
                 card.ability.extra.hand_size.min,
@@ -46,11 +43,7 @@ SMODS.Joker({
     end,
 
     calculate = function(self, card, context)
-        if
-            context.setting_blind
-            and not context.blueprint
-            and not card.getting_sliced
-        then
+        if context.setting_blind and not card.getting_sliced then
             G.hand:change_size(-card.ability.extra.hand_size.difference)
             G.E_MANAGER:add_event(Event({
                 func = function()
