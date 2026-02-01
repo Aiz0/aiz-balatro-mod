@@ -1,9 +1,7 @@
 SMODS.Joker({
     key = "blåhaj",
     config = {
-        extra = {
-            joker_slots = 1,
-        },
+        card_limit = 1,
     },
     atlas = "jokers_soul",
     pos = { y = 0, x = 0 },
@@ -12,19 +10,6 @@ SMODS.Joker({
     cost = 1,
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.joker_slots } }
-    end,
-
-    add_to_deck = function(self, card, from_debuff)
-        if not from_debuff then
-            G.jokers.config.card_limit = G.jokers.config.card_limit
-                + card.ability.extra.joker_slots
-        end
-    end,
-    remove_from_deck = function(self, card, from_debuff)
-        if not from_debuff then
-            G.jokers.config.card_limit = G.jokers.config.card_limit
-                - card.ability.extra.joker_slots
-        end
+        return { vars = { card.ability.card_limit } }
     end,
 })

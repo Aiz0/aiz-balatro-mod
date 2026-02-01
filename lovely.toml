@@ -7,7 +7,6 @@ priority = 0
 [vars]
 banana_farm = "j_aiz_banana_farm"
 battle_pass = "j_aiz_battle_pass"
-blahaj = "j_aiz_blåhaj"
 randomizer = "j_aiz_randomizer"
 randomizer_seed = "aiz_randomizer"
 
@@ -44,17 +43,6 @@ if next(aiz_battle_pass_array) and amount >= 1 and card.ability.consumeable == n
 end
 '''
 match_indent = true
-
-
-# Patch to allow blåhaj to be bought when all joker slots are full.
-[[patches]]
-[patches.pattern]
-target = "functions/button_callbacks.lua"
-pattern = "not (card.ability.set == 'Joker' and #G.jokers.cards < G.jokers.config.card_limit + ((card.edition and card.edition.negative) and 1 or 0)) and"
-position = 'after'
-payload = "not (card.ability.set == 'Joker' and #G.jokers.cards < G.jokers.config.card_limit + ((card.config.center_key == '{{lovely:blahaj}}') and (card.ability.extra.joker_slots + ((card.edition and card.edition.negative) and 1 or 0)) or 0)) and"
-match_indent = true
-
 
 ## randomizer
 # Randomize scoring hand
