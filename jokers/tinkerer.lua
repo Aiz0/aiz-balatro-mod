@@ -4,13 +4,12 @@ SMODS.Joker({
         extra = {
             xmult_mod = 0.1,
             xmult = 1,
-            cost_mod = 4,
         },
     },
     atlas = "jokers",
     pos = { y = 2, x = 2 },
     rarity = 2,
-    cost = 0,
+    cost = 9,
     blueprint_compat = true,
 
     loc_vars = function(self, info_queue, card)
@@ -27,9 +26,6 @@ SMODS.Joker({
             end
         end
         card.ability.extra.xmult = xmult
-        -- cost is based on how powerful it is
-        card.base_cost = card.base_cost + card.ability.extra.cost_mod * xmult
-        card:set_cost()
     end,
 
     calculate = function(self, card, context)
