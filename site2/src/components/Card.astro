@@ -1,0 +1,46 @@
+---
+import { Image } from "astro:assets";
+import CardInfo from "./CardInfo.astro";
+import { type jokerData } from "../data/jokers";
+
+interface Props {
+    joker: jokerData;
+}
+const { joker } = Astro.props;
+
+const base_path = "/src/assets/jokers";
+const images = import.meta.glob<{ default: ImageMetadata }>(
+    `/src/assets/jokers/*.png`,
+);
+const image_path = `${base_path}/${joker.image}.png`;
+if (!images[image_path])
+    throw new Error(
+        `"${image_path}" does not exist in glob: "${base_path}/*.png"`,
+    );
+---
+
+<div>
+    <div class="grid *:grid-area-[1/1]">
+        <Image
+            src={image_path}
+            alt={joker.name}
+            class="[image-rendering:pixelated] aspect-ratio-[142 / 190] object-cover object-left h-full"
+            width={142}
+            height={190}
+            fit="cover"
+        />
+        {
+            joker.soul && (
+                <Image
+                    src={image_path}
+                    alt={joker.name}
+                    class="[image-rendering:pixelated] aspect-ratio-[142 / 190] h-full object-cover object-right"
+                    width={142}
+                    height={190}
+                    fit="cover"
+                />
+            )
+        }
+    </div>
+    <CardInfo name={joker.name} text={joker.text} badge={joker.badge} />
+</div>

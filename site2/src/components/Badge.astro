@@ -1,0 +1,27 @@
+---
+import PixelBorderWrapper from "./PixelBorderWrapper.astro";
+import { type jokerData } from "../data/jokers";
+
+interface Props {
+    badge: jokerData["badge"];
+}
+
+const { badge } = Astro.props;
+
+const s = {
+    common: "bg-balatro-common",
+    uncommon: "bg-balatro-uncommon",
+    rare: "bg-balatro-rare",
+    legendary: "bg-balatro-legendary",
+};
+
+const style = s[badge];
+---
+
+<PixelBorderWrapper classNameOuter={style} classNameInner={style}>
+    <div
+        class={`w-36 py-1 text-2xl text-center capitalize text-shadow pixel-corners`}
+    >
+        {badge}
+    </div>
+</PixelBorderWrapper>

@@ -1,0 +1,18 @@
+---
+import PixelBorderWrapper from "./PixelBorderWrapper.astro";
+import Card from "./Card.astro";
+import jokers from "../data/jokers.ts";
+---
+
+<div class="max-w-screen-xl">
+    <PixelBorderWrapper
+        classNameOuter="bg-balatro-grey"
+        classNameInner="bg-balatro-black-light p-4"
+    >
+        <PixelBorderWrapper classNameOuter="bg-balatro-black" classNameInner="bg-balatro-black">
+            <div class="grid grid-cols-5 p-4">
+                {jokers.map((joker) => <Card joker={joker} />)}
+            </div>
+        </PixelBorderWrapper>
+    </PixelBorderWrapper>
+</div>

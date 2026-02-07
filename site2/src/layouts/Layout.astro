@@ -1,0 +1,75 @@
+---
+interface Props {
+    title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <body class="text-white">
+        <canvas class="fixed -z-50"></canvas>
+        <slot />
+    </body>
+</html>
+<script>
+    import * as THREE from "three";
+    import shader from "@assets/shader.frag?raw";
+
+    const canvas = document.querySelector("canvas")!;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    const renderer = new THREE.WebGLRenderer({ canvas });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const uniforms = {
+        iTime: { value: 0 },
+        iResolution: { value: new THREE.Vector2() },
+    };
+
+    const geometry = new THREE.PlaneGeometry(2, 2);
+    const material = new THREE.ShaderMaterial({
+        uniforms: uniforms,
+        fragmentShader: shader,
+        vertexShader: `
+        void main() {
+            gl_Position = vec4(position, 1.0);
+        }`,
+    });
+
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+
+    function updateResolution() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        renderer.setSize(width, height);
+        uniforms.iResolution.value.set(width, height);
+    }
+    window.addEventListener("resize", updateResolution);
+    updateResolution();
+
+    const clock = new THREE.Clock();
+    function animate() {
+        uniforms.iTime.value = clock.getElapsedTime();
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+</script>
+<style is:global>
+    @font-face {
+        font-family: "m6x11plus";
+        src: url(/fonts/m6x11plus.ttf) format("truetype");
+    }
+</style>

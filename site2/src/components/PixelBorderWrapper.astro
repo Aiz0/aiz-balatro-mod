@@ -1,0 +1,53 @@
+---
+interface Props {
+    classNameOuter: string;
+    classNameInner: string;
+}
+const { classNameOuter, classNameInner } = Astro.props;
+---
+
+<div class="drop-shadow-[0_0.25rem_0] drop-shadow-color-gray-800">
+    
+<div
+    class={`pixel-corners border-4 border-transparent ${classNameOuter}`}
+>
+    <div class={`pixel-corners ${classNameInner}`}>
+        <slot />
+    </div>
+</div>
+</div>
+
+<style>
+    .pixel-corners {
+        clip-path: polygon(
+            0px calc(100% - 8px),
+            2px calc(100% - 8px),
+            2px calc(100% - 4px),
+            4px calc(100% - 4px),
+            4px calc(100% - 2px),
+            8px calc(100% - 2px),
+            8px 100%,
+            calc(100% - 8px) 100%,
+            calc(100% - 8px) calc(100% - 2px),
+            calc(100% - 4px) calc(100% - 2px),
+            calc(100% - 4px) calc(100% - 4px),
+            calc(100% - 2px) calc(100% - 4px),
+            calc(100% - 2px) calc(100% - 8px),
+            100% calc(100% - 8px),
+            100% 8px,
+            calc(100% - 2px) 8px,
+            calc(100% - 2px) 4px,
+            calc(100% - 4px) 4px,
+            calc(100% - 4px) 2px,
+            calc(100% - 8px) 2px,
+            calc(100% - 8px) 0px,
+            8px 0px,
+            8px 2px,
+            4px 2px,
+            4px 4px,
+            2px 4px,
+            2px 8px,
+            0px 8px
+        );
+    }
+</style>

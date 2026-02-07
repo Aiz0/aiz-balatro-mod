@@ -1,0 +1,20 @@
+---
+import PixelBorderWrapper from "./PixelBorderWrapper.astro";
+import Badge from "./Badge.astro";
+import { type jokerData } from "../data/jokers";
+
+interface Props {
+    name: jokerData["name"];
+    text: jokerData["text"];
+    badge: jokerData["badge"];
+}
+const { name, text, badge } = Astro.props;
+---
+
+<PixelBorderWrapper
+    classNameOuter="bg-balatro-grey"
+    classNameInner="bg-balatro-black-light p-4"
+>
+    {name}
+    <Badge badge={badge} />
+</PixelBorderWrapper>

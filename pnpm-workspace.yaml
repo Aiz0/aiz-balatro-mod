@@ -1,2 +1,4 @@
 onlyBuiltDependencies:
-  - '@johnnymorganz/stylua-bin'
+  - "@johnnymorganz/stylua-bin"
+packages:
+  - "!site"
