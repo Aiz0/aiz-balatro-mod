@@ -31,11 +31,12 @@ SMODS.Joker({
         then
             local is_kiki =
                 Aiz.config.is_kiki[context.other_joker.config.center_key]
-            if is_kiki == nil then return
-            return {
-                mult = is_kiki and card.ability.extra.mult or 0,
-                chips = not is_kiki and card.ability.extra.chips or 0,
-            }
+            if is_kiki ~= nil then
+                return {
+                    mult = is_kiki and card.ability.extra.mult or 0,
+                    chips = not is_kiki and card.ability.extra.chips or 0,
+                }
+            end
         end
     end,
 })
