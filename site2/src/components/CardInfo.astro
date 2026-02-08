@@ -13,7 +13,8 @@ const { name, text, badge, anchorName } = Astro.props;
 ---
 
 <div
-    class="fixed [position-area:bottom]"
+    data-card-info={anchorName}
+    class="hidden info-box fixed [position-area:top] [position-try-fallbacks:flip-block] [position-visibility:anchors-visible]"
     style={`position-anchor: --${anchorName}`}
 >
     <PixelBorderWrapper
@@ -24,3 +25,14 @@ const { name, text, badge, anchorName } = Astro.props;
         <Badge badge={badge} />
     </PixelBorderWrapper>
 </div>
+
+
+<style>
+[data-selected],[data-hovered] {
+    display: block;
+}
+
+[data-selected="false"] {
+    display: none;
+}
+</style>

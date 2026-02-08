@@ -1,6 +1,5 @@
 ---
 import { Image } from "astro:assets";
-import CardInfo from "./CardInfo.astro";
 import { type jokerData } from "../data/jokers";
 
 interface Props {
@@ -20,27 +19,60 @@ if (!images[image_path])
     );
 ---
 
-<div style={`anchor-name: --${anchorName}`}>
-    <div class="grid *:grid-area-[1/1]">
-        <Image
-            src={image_path}
-            alt={joker.name}
-            class="[image-rendering:pixelated] aspect-ratio-[142 / 190] object-cover object-left h-full"
-            width={142}
-            height={190}
-            fit="cover"
-        />
-        {
-            joker.soul && (
-                <Image
-                    src={image_path}
-                    alt={joker.name}
-                    class="[image-rendering:pixelated] aspect-ratio-[142 / 190] h-full object-cover object-right"
-                    width={142}
-                    height={190}
-                    fit="cover"
-                />
-            )
-        }
-    </div>
-</div>
+<button
+    data-card
+    data-anchor-name={anchorName}
+    class="grid *:grid-area-[1/1] h-full"
+    style={`anchor-name: --${anchorName}`}
+>
+    <Image
+        src={image_path}
+        alt={joker.name}
+        class="[image-rendering:pixelated] aspect-ratio-[142 / 190] object-cover object-left h-full"
+        width={142}
+        height={190}
+        fit="cover"
+    />
+    {
+        joker.soul && (
+            <Image
+                src={image_path}
+                alt={joker.name}
+                class="[image-rendering:pixelated] aspect-ratio-[142 / 190] h-full object-cover object-right"
+                width={142}
+                height={190}
+                fit="cover"
+            />
+        )
+    }
+</button>
+
+<script>
+    const cardButtons = document.querySelectorAll("[data-card]");
+    const cardInfos = document.querySelectorAll("[data-card-info]");
+    cardButtons.forEach((button) => {
+        const anchorName = button.dataset.anchorName;
+        const cardInfo = document.querySelector(
+            `[data-card-info="${anchorName}"]`,
+        );
+
+        const showCardInfo = () => {
+            // Prevent multiple cards from being selected at once
+            cardInfos.forEach((info) => {
+                info.removeAttribute("data-selected");
+            });
+            cardInfo.setAttribute("data-selected", "");
+        };
+
+        button.addEventListener("click", showCardInfo);
+        button.addEventListener("focus", showCardInfo);
+        button.addEventListener("mouseover", showCardInfo);
+
+        button.addEventListener("blur", () => {
+            cardInfo.removeAttribute("data-selected");
+        });
+        button.addEventListener("mouseout", () => {
+            cardInfo.removeAttribute("data-selected");
+        });
+    });
+</script>

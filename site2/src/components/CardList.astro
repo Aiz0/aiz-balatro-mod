@@ -15,9 +15,24 @@ import jokers from "../data/jokers.ts";
             classNameInner="bg-balatro-black"
         >
             <div class="grid grid-cols-5 p-4">
-              {jokers.map((joker, index) => <Card joker={joker} anchorName={index}/>)}
+                {
+                    jokers.map((joker, index) => (
+                        <Card joker={joker} anchorName={index} />
+                    ))
+                }
             </div>
         </PixelBorderWrapper>
     </PixelBorderWrapper>
-    {jokers.map((joker, index) => <CardInfo name={joker.name} text={joker.text} badge={joker.badge} anchorName={index} />)}
+    <div class="overflow-hidden h-0 w-0 [position-visibility:anchors-visible]">
+        {
+            jokers.map((joker, index) => (
+                <CardInfo
+                    name={joker.name}
+                    text={joker.text}
+                    badge={joker.badge}
+                    anchorName={index}
+                />
+            ))
+        }
+    </div>
 </div>
