@@ -18,10 +18,9 @@ const s = {
 const style = s[badge];
 ---
 
-<PixelBorderWrapper classNameOuter={style} classNameInner={style}>
-    <div
-        class={`w-36 py-1 text-2xl text-center capitalize text-shadow pixel-corners`}
-    >
-        {badge}
-    </div>
+<PixelBorderWrapper
+    classNameOuter={`w-36 ${style}`}
+    classNameInner={`py-1 text-2xl text-center capitalize text-shadow ${style}`}
+>
+    {badge}
 </PixelBorderWrapper>
