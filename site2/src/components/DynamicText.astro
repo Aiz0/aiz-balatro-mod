@@ -3,8 +3,44 @@ interface Props {
     text: string;
 }
 const { text } = Astro.props;
+
+const modObject = {
+    C: {
+        white: "text-balatro-white",
+        red: "text-balatro-red",
+        mult: "text-balatro-mult",
+        chips: "text-balatro-chips",
+        money: "text-balatro-money",
+        green: "text-balatro-green",
+        attention: "text-balatro-attention",
+        dark_edition: "text-balatro-dark-edition",
+        inactive: "text-balatro-inactive"
+    },
+    X: {
+        mult: "bg-balatro-mult",
+    },
+};
+const regex = /{(.*?)}/g;
+const modifiedText = text
+    .replaceAll("{}", "</span>")
+    .replace(regex, (_match, p1) => {
+        const classes = p1.split(",").map((group: string) => {
+            const [modifier, key] = group.split(":");
+            const test = modObject[modifier as keyof typeof modObject];
+            if (!test) {
+                console.error(`Modifer ${modifier} doesn't exist`);
+                return;
+            }
+            const className = test[key as keyof typeof test];
+            if (!className) {
+                console.error(`Key ${key} doesn't exist on modifier ${modifier}`);
+                return;
+            }
+            return className;
+        });
+        return `<span class="rounded-md px-1 mx--1 ${classes.join(' ')}">`;
+    });
 ---
 
-<span class="text-balatro-black text-2xl">
-    {text}
+<span class="text-balatro-black text-2xl" set:html={modifiedText}>
 </span>
