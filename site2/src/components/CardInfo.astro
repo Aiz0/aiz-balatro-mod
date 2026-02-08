@@ -7,14 +7,20 @@ interface Props {
     name: jokerData["name"];
     text: jokerData["text"];
     badge: jokerData["badge"];
+    anchorName: number;
 }
-const { name, text, badge } = Astro.props;
+const { name, text, badge, anchorName } = Astro.props;
 ---
 
-<PixelBorderWrapper
-    classNameOuter="bg-balatro-grey"
-    classNameInner="bg-balatro-black-light p-4"
+<div
+    class="fixed [position-area:bottom]"
+    style={`position-anchor: --${anchorName}`}
 >
-    {name}
-    <Badge badge={badge} />
-</PixelBorderWrapper>
+    <PixelBorderWrapper
+        classNameOuter="bg-balatro-grey"
+        classNameInner="bg-balatro-black-light p-4"
+    >
+        {name}
+        <Badge badge={badge} />
+    </PixelBorderWrapper>
+</div>

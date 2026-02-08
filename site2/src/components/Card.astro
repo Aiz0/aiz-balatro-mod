@@ -5,8 +5,9 @@ import { type jokerData } from "../data/jokers";
 
 interface Props {
     joker: jokerData;
+    anchorName: number;
 }
-const { joker } = Astro.props;
+const { joker, anchorName } = Astro.props;
 
 const base_path = "/src/assets/jokers";
 const images = import.meta.glob<{ default: ImageMetadata }>(
@@ -19,7 +20,7 @@ if (!images[image_path])
     );
 ---
 
-<div>
+<div style={`anchor-name: --${anchorName}`}>
     <div class="grid *:grid-area-[1/1]">
         <Image
             src={image_path}
@@ -42,5 +43,4 @@ if (!images[image_path])
             )
         }
     </div>
-    <CardInfo name={joker.name} text={joker.text} badge={joker.badge} />
 </div>

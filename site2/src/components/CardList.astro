@@ -1,6 +1,7 @@
 ---
 import PixelBorderWrapper from "./PixelBorderWrapper.astro";
 import Card from "./Card.astro";
+import CardInfo from "./CardInfo.astro";
 import jokers from "../data/jokers.ts";
 ---
 
@@ -9,10 +10,14 @@ import jokers from "../data/jokers.ts";
         classNameOuter="bg-balatro-grey"
         classNameInner="bg-balatro-black-light p-4"
     >
-        <PixelBorderWrapper classNameOuter="bg-balatro-black" classNameInner="bg-balatro-black">
+        <PixelBorderWrapper
+            classNameOuter="bg-balatro-black"
+            classNameInner="bg-balatro-black"
+        >
             <div class="grid grid-cols-5 p-4">
-                {jokers.map((joker) => <Card joker={joker} />)}
+              {jokers.map((joker, index) => <Card joker={joker} anchorName={index}/>)}
             </div>
         </PixelBorderWrapper>
     </PixelBorderWrapper>
+    {jokers.map((joker, index) => <CardInfo name={joker.name} text={joker.text} badge={joker.badge} anchorName={index} />)}
 </div>
