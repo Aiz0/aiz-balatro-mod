@@ -51,10 +51,11 @@ if (!images[image_path])
     const cardButtons = document.querySelectorAll("[data-card]");
     const cardInfos = document.querySelectorAll("[data-card-info]");
     cardButtons.forEach((button) => {
-        const anchorName = button.dataset.anchorName;
+        const anchorName = button.getAttribute("data-anchor-name");
         const cardInfo = document.querySelector(
             `[data-card-info="${anchorName}"]`,
         );
+        if (!cardInfo) return;
 
         const showCardInfo = () => {
             // Prevent multiple cards from being selected at once
