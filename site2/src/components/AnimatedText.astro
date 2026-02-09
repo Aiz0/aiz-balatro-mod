@@ -3,8 +3,9 @@ interface Props {
     text: string;
     animation: "1" | "2";
     class?: string;
+    shadow?: boolean;
 }
-const { text, animation, class: className } = Astro.props;
+const { text, animation, class: className, shadow = true } = Astro.props;
 ---
 
 <span>
@@ -17,9 +18,7 @@ const { text, animation, class: className } = Astro.props;
                             `text-animation-${animation}`,
                             { "inline-block": char !== " " },
                         ]}
-                        style={{
-                            animationDelay: `calc((var(--animation-duration) - (250ms * ${index})) * -1)`,
-                        }}
+                        style={`--index: ${index}`}
                         data-text={char}
                     >
                         {char}
@@ -28,9 +27,17 @@ const { text, animation, class: className } = Astro.props;
             }
         </span>
         <!-- Used as Text shadow -->
-        <span aria-hidden class="text-black/20 relative bottom-[-0.1em] z--1"
-            >{text}</span
-        >
+        {
+            shadow && (
+                <span
+                    aria-hidden
+                    class="text-black/20 relative top-[0.075em] z--1"
+                    class:list={[{ "left-[0.075em]": animation === "2" }]}
+                >
+                    {text}
+                </span>
+            )
+        }
     </div>
 </span>
 
@@ -42,38 +49,39 @@ const { text, animation, class: className } = Astro.props;
     }
 
     .text-animation-1 {
-        --shadow-offset: 0.1em;
-        --shadow-color: oklch(0 0 0 / 0.2);
         --animation-duration: 2000ms;
+
         animation: floating var(--animation-duration) ease-in-out infinite
             alternate;
     }
     .text-animation-2 {
-        --animation-duration: 3000ms;
+        --animation-duration: 2400ms;
+        --animation-offset: 250ms;
         animation: bouncing var(--animation-duration) ease-in-out infinite;
+    }
+    .text-animation-1,
+    .text-animation-2 {
+        --offset-max: 6;
+        --animation-offset: calc(var(--animation-duration) / var(--offset-max));
+        --offset-index: mod(var(--index), var(--offset-max));
+        --offset-total: calc(var(--offset-index) * var(--animation-offset));
+        animation-delay: var(--offset-total);
     }
 
     @keyframes floating {
         from {
-            --offset: 0px;
-            transform: translateY(var(--offset));
+            transform: translateY(0);
         }
         to {
-            --offset: -0.1em;
-            transform: translateY(var(--offset));
+            transform: translateY(-0.075em);
         }
     }
     @keyframes bouncing {
-        20% {
-            --offset: 0px;
-            transform: translateY(var(--offset));
-            text-shadow: 0 var(--shadow-offset) var(--shadow-color);
+        30% {
+            transform: translateY(0);
         }
-        10% {
-            --offset: -0.1em;
-            transform: translateY(var(--offset));
-            text-shadow: 0 calc(var(--offset) * -1 + var(--shadow-offset))
-                var(--shadow-color);
+        15% {
+            transform: translateY(-0.075em);
         }
     }
 </style>
