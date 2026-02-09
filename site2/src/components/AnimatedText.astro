@@ -49,14 +49,12 @@ const { text, animation, class: className, shadow = true } = Astro.props;
     }
 
     .text-animation-1 {
-        --animation-duration: 2000ms;
+        --animation-duration: 2400ms;
 
-        animation: floating var(--animation-duration) ease-in-out infinite
-            alternate;
+        animation: floating var(--animation-duration) ease-in-out infinite;
     }
     .text-animation-2 {
         --animation-duration: 2400ms;
-        --animation-offset: 250ms;
         animation: bouncing var(--animation-duration) ease-in-out infinite;
     }
     .text-animation-1,
@@ -65,14 +63,14 @@ const { text, animation, class: className, shadow = true } = Astro.props;
         --animation-offset: calc(var(--animation-duration) / var(--offset-max));
         --offset-index: mod(var(--index), var(--offset-max));
         --offset-total: calc(var(--offset-index) * var(--animation-offset));
-        animation-delay: var(--offset-total);
+        animation-delay: calc(var(--offset-total) - var(--animation-duration));
     }
 
     @keyframes floating {
-        from {
+        0% 100% {
             transform: translateY(0);
         }
-        to {
+        50% {
             transform: translateY(-0.075em);
         }
     }
