@@ -8,24 +8,30 @@ const { text, animation, class: className } = Astro.props;
 ---
 
 <span>
-    <span data-animation={animation} class={`${className ?? ""}`}
-        >{
-            text.split("").map((char, index) => (
-                <span
-                    class:list={[
-                        `text-animation-${animation}`,
-                        { "inline-block": char !== " " },
-                    ]}
-                    style={{
-                        animationDelay: `calc((var(--animation-duration) - (250ms * ${index})) * -1)`,
-                    }}
-                    data-text={char}
-                >
-                    {char}
-                </span>
-            ))
-        }
-    </span>
+    <div class={`grid *:grid-area-[1/1] ${className ?? ""}`}>
+        <span>
+            {
+                text.split("").map((char, index) => (
+                    <span
+                        class:list={[
+                            `text-animation-${animation}`,
+                            { "inline-block": char !== " " },
+                        ]}
+                        style={{
+                            animationDelay: `calc((var(--animation-duration) - (250ms * ${index})) * -1)`,
+                        }}
+                        data-text={char}
+                    >
+                        {char}
+                    </span>
+                ))
+            }
+        </span>
+        <!-- Used as Text shadow -->
+        <span aria-hidden class="text-black/20 relative bottom-[-0.1em] z--1"
+            >{text}</span
+        >
+    </div>
 </span>
 
 <style>
@@ -41,27 +47,20 @@ const { text, animation, class: className } = Astro.props;
         --animation-duration: 2000ms;
         animation: floating var(--animation-duration) ease-in-out infinite
             alternate;
-        text-shadow: 0 var(--shadow-offset) var(--shadow-color);
     }
     .text-animation-2 {
-        --shadow-offset: 0.1em;
-        --shadow-color: oklch(0 0 0 / 0.2);
         --animation-duration: 3000ms;
         animation: bouncing var(--animation-duration) ease-in-out infinite;
-        text-shadow: 0 var(--shadow-offset) var(--shadow-color);
     }
 
     @keyframes floating {
         from {
             --offset: 0px;
             transform: translateY(var(--offset));
-            text-shadow: 0 var(--shadow-offset) var(--shadow-color);
         }
         to {
             --offset: -0.1em;
             transform: translateY(var(--offset));
-            text-shadow: 0 calc(var(--offset) * -1 + var(--shadow-offset))
-                var(--shadow-color);
         }
     }
     @keyframes bouncing {

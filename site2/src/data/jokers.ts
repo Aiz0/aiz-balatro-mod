@@ -1,7 +1,7 @@
 export interface jokerData {
   name: string;
   text: string[];
-  badge: "common" | "uncommon" | "rare" | "legendary";
+  badge: "Common" | "Uncommon" | "Rare" | "Legendary";
   image: string;
   soul?: boolean;
 }
@@ -10,13 +10,13 @@ const jokers: jokerData[] = [
   {
     name: "Chill Joker",
     text: ["{X:mult,C:white}X2{} Mult divided", "by game speed"],
-    badge: "rare",
+    badge: "Rare",
     image: "j_chill_joker",
   },
   {
     name: "Loudspeaker",
     text: ["Gives {C:chips}Chips{} based", "on {C:attention}Audio volume{}"],
-    badge: "common",
+    badge: "Common",
     image: "j_loudspeaker",
   },
   {
@@ -27,13 +27,13 @@ const jokers: jokerData[] = [
       "{C:attention}White stickers{}",
       "in your collection",
     ],
-    badge: "uncommon",
+    badge: "Uncommon",
     image: "j_easy_mode",
   },
   {
     name: "Blåhaj",
     text: ["{C:dark_edition}+1{} Joker slots"],
-    badge: "common",
+    badge: "Common",
     image: "j_s_blåhaj",
     soul: true,
   },
@@ -46,7 +46,7 @@ const jokers: jokerData[] = [
       "your score",
       "every {C:attention}freaking{} time",
     ],
-    badge: "rare",
+    badge: "Rare",
     image: "j_antibubzia",
   },
   {
@@ -56,7 +56,7 @@ const jokers: jokerData[] = [
       "set a random hand size",
       "between {C:attention}4{} and {C:attention}15",
     ],
-    badge: "rare",
+    badge: "Rare",
     image: "j_hands",
   },
   {
@@ -67,7 +67,7 @@ const jokers: jokerData[] = [
       "played without",
       "repeating a {C:attention}poker hand{}",
     ],
-    badge: "rare",
+    badge: "Rare",
     image: "j_tetris",
   },
   {
@@ -77,7 +77,7 @@ const jokers: jokerData[] = [
       "duplicate {C:attention}All{} cards",
       "in your deck",
     ],
-    badge: "rare",
+    badge: "Rare",
     image: "j_penny",
   },
   {
@@ -88,7 +88,7 @@ const jokers: jokerData[] = [
       "This joker may do",
       "a little bit of {C:attention,E:1,S:1.1}Trolling",
     ],
-    badge: "rare",
+    badge: "Rare",
     image: "j_trollker",
   },
   {
@@ -99,7 +99,7 @@ const jokers: jokerData[] = [
       "Adds current rank to mult",
       "{C:inactive}(Currently on rank {C:attention}2{C:inactive})",
     ],
-    badge: "common",
+    badge: "Common",
     image: "j_pawn",
   },
   {
@@ -111,7 +111,7 @@ const jokers: jokerData[] = [
       "converted card in played hand",
       "{s:0.8}Flips order after conversion{}",
     ],
-    badge: "uncommon",
+    badge: "Uncommon",
     image: "j_knight",
   },
   {
@@ -122,7 +122,7 @@ const jokers: jokerData[] = [
       "Scored Face cards",
       "{C:attention}lose{} {C:money}$1",
     ],
-    badge: "uncommon",
+    badge: "Uncommon",
     image: "j_bishop",
   },
   {
@@ -134,7 +134,7 @@ const jokers: jokerData[] = [
       "Gives {X:mult,C:white}XMult{} based on ratio of",
       "{C:attention}Stone cards{} in your {C:attention}full deck.",
     ],
-    badge: "rare",
+    badge: "Rare",
     image: "j_rook",
   },
   {
@@ -147,13 +147,13 @@ const jokers: jokerData[] = [
       "This Joker gains {X:mult,C:white}X0.1{} Mult",
       "for each card destroyed",
     ],
-    badge: "rare",
+    badge: "Rare",
     image: "j_queen",
   },
   {
     name: "King",
     text: ["Other {C:attention}Chess Jokers", "Give {X:mult,C:white}X5{} Mult"],
-    badge: "legendary",
+    badge: "Legendary",
     image: "j_s_king",
     soul: true,
   },
@@ -166,7 +166,7 @@ const jokers: jokerData[] = [
       "to {C:attention}All{} cards",
       "at end of round",
     ],
-    badge: "legendary",
+    badge: "Legendary",
     image: "j_s_jay_z",
     soul: true,
   },
@@ -179,7 +179,7 @@ const jokers: jokerData[] = [
       "{C:chips}+20{} chips",
       "when scored",
     ],
-    badge: "common",
+    badge: "Common",
     image: "j_randomizer",
   },
   {
@@ -188,7 +188,7 @@ const jokers: jokerData[] = [
       "{X:mult,C:white}X0.1{} Mult for each",
       "{C:attention}Mod{} you have {C:attention}Active{}",
     ],
-    badge: "uncommon",
+    badge: "Uncommon",
     image: "j_tinkerer",
   },
   {
@@ -200,13 +200,13 @@ const jokers: jokerData[] = [
       "{C:attention}Small Blind{} or {C:attention}Big Blind{}",
       "is defeated",
     ],
-    badge: "uncommon",
+    badge: "Uncommon",
     image: "j_skipper",
   },
   {
     name: "Banana Farm",
     text: ["New {C:attention}Jokers{} appear as", "{C:attention}Gros Michel{}"],
-    badge: "uncommon",
+    badge: "Uncommon",
     image: "j_banana_farm",
   },
   {
@@ -217,13 +217,13 @@ const jokers: jokerData[] = [
       "{C:attention}Bouba{} Jokers",
       "each give {C:chips}+30{} Chips",
     ],
-    badge: "common",
+    badge: "Common",
     image: "j_kiki_bouba",
   },
   {
     name: "Slightly Cooler Joker",
     text: ["{C:mult}+5{} Mult"],
-    badge: "common",
+    badge: "Common",
     image: "j_slightly_cooler_joker",
   },
   {
@@ -234,7 +234,7 @@ const jokers: jokerData[] = [
       "{C:attention}least played{} poker hands",
       "when skipping a {C:attention}Blind",
     ],
-    badge: "uncommon",
+    badge: "Uncommon",
     image: "j_s_ultimate_unknown",
     soul: true,
   },
@@ -245,7 +245,7 @@ const jokers: jokerData[] = [
       "{C:attention}Challenge{} you have",
       "{C:attention}Completed{}",
     ],
-    badge: "uncommon",
+    badge: "Uncommon",
     image: "j_s_ultimate_gamer",
     soul: true,
   },
@@ -257,7 +257,7 @@ const jokers: jokerData[] = [
       "Does not apply to",
       "{C:attention}Planet cards",
     ],
-    badge: "common",
+    badge: "Common",
     image: "j_battle_pass",
   },
   {
@@ -268,7 +268,7 @@ const jokers: jokerData[] = [
       "create {C:attention}2 Pawns",
       "{C:inactive}(Must have room){}",
     ],
-    badge: "uncommon",
+    badge: "Uncommon",
     image: "j_pawn_storm",
   },
   {
@@ -278,7 +278,7 @@ const jokers: jokerData[] = [
       "{C:attention}schmeven{} rank does",
       "{C:attention}something{} when scored",
     ],
-    badge: "uncommon",
+    badge: "Uncommon",
     image: "j_schmeven",
   },
   {
@@ -288,19 +288,19 @@ const jokers: jokerData[] = [
       "create a",
       "{C:dark_edition}negative{} {C:attention}Triangle",
     ],
-    badge: "uncommon",
+    badge: "Uncommon",
     image: "j_factory_triangle_maker",
   },
   {
     name: "Triangle",
     text: ["{C:mult}+1{} mult"],
-    badge: "common",
+    badge: "Common",
     image: "j_factory_triangle",
   },
   {
     name: "Circle",
     text: ["{C:chips}+10{} chips"],
-    badge: "common",
+    badge: "Common",
     image: "j_factory_circle",
   },
 ];

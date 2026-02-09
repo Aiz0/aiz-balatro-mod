@@ -10,10 +10,10 @@ interface Props {
 const { badge } = Astro.props;
 
 const s = {
-    common: "bg-balatro-common",
-    uncommon: "bg-balatro-uncommon",
-    rare: "bg-balatro-rare",
-    legendary: "bg-balatro-legendary",
+    Common: "bg-balatro-common",
+    Uncommon: "bg-balatro-uncommon",
+    Rare: "bg-balatro-rare",
+    Legendary: "bg-balatro-legendary",
 };
 
 const style = s[badge];
@@ -21,7 +21,7 @@ const style = s[badge];
 
 <PixelBorderWrapper
     classNameOuter={`w-36 ${style}`}
-    classNameInner={`py-1 text-2xl grid justify-items-center capitalize text-shadow ${style}`}
+    classNameInner={`py-1 text-2xl grid justify-items-center ${style}`}
 >
-    <AnimatedText text={badge} animation={"1"} />
+    <AnimatedText text={badge} animation="1"/>
 </PixelBorderWrapper>
