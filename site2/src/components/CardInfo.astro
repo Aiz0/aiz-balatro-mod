@@ -4,6 +4,7 @@ import Badge from "./Badge.astro";
 import InfoText from "./InfoText.astro";
 import AnimatedText from "./AnimatedText.astro";
 import { type jokerData } from "../data/jokers";
+import { colors } from "../theme";
 
 interface Props {
     name: jokerData["name"];
@@ -20,7 +21,7 @@ const { name, text, badge, anchorName } = Astro.props;
     style={`position-anchor: --${anchorName}`}
 >
     <PixelBorderWrapper
-        classNameOuter="bg-balatro-grey"
+        borderColor={colors.balatro.grey.DEFAULT}
         classNameInner="bg-balatro-black-light p-4 grid justify-items-center gap-4"
     >
         

@@ -3,15 +3,17 @@ import PixelBorderWrapper from "./PixelBorderWrapper.astro";
 import Card from "./Card.astro";
 import CardInfo from "./CardInfo.astro";
 import jokers from "../data/jokers.ts";
+import { colors } from "../theme";
 ---
 
 <div class="max-w-screen-xl">
     <PixelBorderWrapper
-        classNameOuter="bg-balatro-grey"
+        classNameOuter="balatro-grey"
+        borderColor={colors.balatro.grey.DEFAULT}
         classNameInner="bg-balatro-black-light p-4"
     >
         <PixelBorderWrapper
-            classNameOuter="bg-balatro-black"
+            borderColor={colors.balatro.black.DEFAULT}
             classNameInner="bg-balatro-black"
         >
             <div class="grid grid-cols-5 p-4">

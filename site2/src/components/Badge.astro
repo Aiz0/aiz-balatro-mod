@@ -2,6 +2,7 @@
 import PixelBorderWrapper from "./PixelBorderWrapper.astro";
 import AnimatedText from "./AnimatedText.astro";
 import { type jokerData } from "../data/jokers";
+import { colors } from "../theme";
 
 interface Props {
     badge: jokerData["badge"];
@@ -17,11 +18,21 @@ const s = {
 };
 
 const style = s[badge];
+
+const borderMap = {
+    Common: colors.balatro.common,
+    Uncommon: colors.balatro.uncommon,
+    Rare: colors.balatro.rare,
+    Legendary: colors.balatro.legendary,
+};
+
+const borderColor = borderMap[badge];
+
 ---
 
 <PixelBorderWrapper
-    classNameOuter={`w-36 ${style}`}
-    classNameInner={`py-1 text-2xl grid justify-items-center ${style}`}
+    borderColor={borderColor}
+    classNameInner={`w-36 py-1 text-2xl grid justify-items-center ${style}`}
 >
-    <AnimatedText text={badge} animation="1"/>
+    <AnimatedText text={badge} animation="1" />
 </PixelBorderWrapper>
