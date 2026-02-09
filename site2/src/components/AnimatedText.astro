@@ -8,37 +8,35 @@ interface Props {
 const { text, animation, class: className, shadow = true } = Astro.props;
 ---
 
-<span>
-    <div class={`grid *:grid-area-[1/1] ${className ?? ""}`}>
-        <span>
-            {
-                text.split("").map((char, index) => (
-                    <span
-                        class:list={[
-                            `text-animation-${animation}`,
-                            { "inline-block": char !== " " },
-                        ]}
-                        style={`--index: ${index}`}
-                        data-text={char}
-                    >
-                        {char}
-                    </span>
-                ))
-            }
-        </span>
-        <!-- Used as Text shadow -->
+<span class={`${className ?? ""}`}>
+    <span class:list={[{ absolute: shadow }]}>
         {
-            shadow && (
+            text.split("").map((char, index) => (
                 <span
-                    aria-hidden
-                    class="text-black/20 relative top-[0.075em] z--1"
-                    class:list={[{ "left-[0.075em]": animation === "2" }]}
+                    class:list={[
+                        `text-animation-${animation}`,
+                        { "inline-block": char !== " " },
+                    ]}
+                    style={`--index: ${index}`}
+                    data-text={char}
                 >
-                    {text}
+                    {char}
                 </span>
-            )
+            ))
         }
-    </div>
+    </span>
+    {
+        /* Used as Text shadow */
+        shadow && (
+            <span
+                aria-hidden
+                class="text-black/20 relative top-[0.075em] z--1"
+                class:list={[{ "left-[0.075em]": animation === "2" }]}
+            >
+                {text}
+            </span>
+        )
+    }
 </span>
 
 <style>
