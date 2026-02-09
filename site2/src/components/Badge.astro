@@ -1,5 +1,6 @@
 ---
 import PixelBorderWrapper from "./PixelBorderWrapper.astro";
+import AnimatedText from "./AnimatedText.astro";
 import { type jokerData } from "../data/jokers";
 
 interface Props {
@@ -20,7 +21,7 @@ const style = s[badge];
 
 <PixelBorderWrapper
     classNameOuter={`w-36 ${style}`}
-    classNameInner={`py-1 text-2xl text-center capitalize text-shadow ${style}`}
+    classNameInner={`py-1 text-2xl grid justify-items-center capitalize text-shadow ${style}`}
 >
-    {badge}
+    <AnimatedText text={badge} animation={"1"} />
 </PixelBorderWrapper>

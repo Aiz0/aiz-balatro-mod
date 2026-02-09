@@ -2,6 +2,7 @@
 import PixelBorderWrapper from "./PixelBorderWrapper.astro";
 import Badge from "./Badge.astro";
 import InfoText from "./InfoText.astro";
+import AnimatedText from "./AnimatedText.astro";
 import { type jokerData } from "../data/jokers";
 
 interface Props {
@@ -22,7 +23,8 @@ const { name, text, badge, anchorName } = Astro.props;
         classNameOuter="bg-balatro-grey"
         classNameInner="bg-balatro-black-light p-4 grid justify-items-center gap-4"
     >
-        {name}
+        
+        <AnimatedText text={name} animation="2" class="text-4xl"/>
         <InfoText text={text} />
         <Badge badge={badge} />
     </PixelBorderWrapper>
