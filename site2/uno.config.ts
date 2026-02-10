@@ -13,6 +13,9 @@ export default defineConfig({
     font: {
       sans: "m6x11plus",
     },
-    colors: colors
+    colors: colors,
+  },
+  shortcuts: {
+    "balatro-shadow": "drop-shadow-[0_0.5rem_0] drop-shadow-color-black/20",
   },
 });
