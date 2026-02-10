@@ -22,13 +22,13 @@ if (!images[image_path])
 <button
     data-card
     data-anchor-name={anchorName}
-    class="grid *:grid-area-[1/1] h-full"
+    class="grid *:grid-area-[1/1] w-48 aspect-ratio-[142/190]"
     style={`anchor-name: --${anchorName}`}
 >
     <Image
         src={image_path}
         alt={joker.name}
-        class="image-render-pixel aspect-ratio-[142 / 190] object-cover object-left h-full"
+        class="image-render-pixel object-cover object-left h-full w-full"
         width={142}
         height={190}
         fit="cover"
@@ -39,7 +39,7 @@ if (!images[image_path])
                 data-soul
                 src={image_path}
                 alt={joker.name}
-                class="image-render-pixel aspect-ratio-[142 / 190] h-full object-cover object-right balatro-shadow"
+                class="image-render-pixel h-full w-full object-cover object-right balatro-shadow"
                 width={142}
                 height={190}
                 fit="cover"
