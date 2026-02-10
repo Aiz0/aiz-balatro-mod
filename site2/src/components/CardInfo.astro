@@ -22,23 +22,21 @@ const { name, text, badge, anchorName } = Astro.props;
 >
     <PixelBorderWrapper
         borderColor={colors.balatro.grey.DEFAULT}
-        classNameInner="bg-balatro-black-light p-4 grid justify-items-center gap-4"
+        classNameInner="bg-balatro-black-light p-4 grid justify-items-center gap-4 min-w-64"
     >
-        
-        <AnimatedText text={name} animation="2" class="text-4xl"/>
-        <InfoText text={text} />
+        <AnimatedText text={name} animation="2" class="text-4xl" />
+        <div class="w-full"><InfoText text={text} /></div>
         <Badge badge={badge} />
     </PixelBorderWrapper>
 </div>
 
-
 <style>
-[data-card-info=8],
-[data-selected],[data-hovered] {
-    display: block;
-}
+    [data-selected],
+    [data-hovered] {
+        display: block;
+    }
 
-[data-selected="false"] {
-    display: none;
-}
+    [data-selected="false"] {
+        display: none;
+    }
 </style>
