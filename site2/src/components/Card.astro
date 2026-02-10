@@ -36,6 +36,7 @@ if (!images[image_path])
     {
         joker.soul && (
             <Image
+                data-soul
                 src={image_path}
                 alt={joker.name}
                 class="image-render-pixel aspect-ratio-[142 / 190] h-full object-cover object-right"
@@ -76,4 +77,20 @@ if (!images[image_path])
             cardInfo.removeAttribute("data-selected");
         });
     });
+
+    const soulImages: NodeListOf<HTMLImageElement> =
+        document.querySelectorAll("[data-soul]");
+
+    function soulAnimation(time: number) {
+        const timeInSeconds = time / 1000;
+        // Copied from balatro
+        const scale_mod = 1.07 + 0.02 * Math.sin(1.8 * timeInSeconds);
+        const rotate_mod = 0.05 * Math.sin(1.219 * timeInSeconds);
+
+        soulImages.forEach((image) => {
+            image.style.transform = `scale(${scale_mod}) rotate(${rotate_mod}rad)`;
+        });
+        requestAnimationFrame(soulAnimation);
+    }
+    requestAnimationFrame(soulAnimation);
 </script>
