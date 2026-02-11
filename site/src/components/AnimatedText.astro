@@ -40,12 +40,6 @@ const { text, animation = "1", class: className, shadow = true } = Astro.props;
 </span>
 
 <style>
-    @media (property: --offset) {
-        syntax: "<length>";
-        inherits: false;
-        initial-value: 0px;
-    }
-
     .text-animation-1 {
         --animation-duration: 2400ms;
 
@@ -65,7 +59,8 @@ const { text, animation = "1", class: className, shadow = true } = Astro.props;
     }
 
     @keyframes floating {
-        0% 100% {
+        0%,
+        100% {
             transform: translateY(0);
         }
         50% {
@@ -73,11 +68,11 @@ const { text, animation = "1", class: className, shadow = true } = Astro.props;
         }
     }
     @keyframes bouncing {
-        30% {
-            transform: translateY(0);
-        }
         15% {
             transform: translateY(-0.075em);
+        }
+        30% {
+            transform: translateY(0);
         }
     }
 </style>
