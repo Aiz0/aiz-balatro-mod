@@ -26,22 +26,18 @@ if (!images[image_path])
   style={`anchor-name: --${anchorName}`}
 >
   <Image
-    src={image_path}
+    src={images[image_path]()}
     alt={joker.name}
     class="image-render-pixel object-cover object-left h-full w-full"
-    width={142}
-    height={190}
     fit="cover"
   />
   {
     joker.soul && (
       <Image
         data-soul
-        src={image_path}
+        src={images[image_path]()}
         alt={joker.name}
         class="image-render-pixel h-full w-full object-cover object-right balatro-shadow"
-        width={142}
-        height={190}
         fit="cover"
       />
     )
