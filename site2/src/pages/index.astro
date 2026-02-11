@@ -1,10 +1,16 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import CardList from "../components/CardList.astro";
+import AnimatedText from "../components/AnimatedText.astro";
+import ModInfo from "../components/ModInfo.astro";
 ---
 
 <Layout title="Home">
-    <main class="grid justify-items-center">
+    <main class="grid justify-items-center gap-8 p-8">
+        <h1 class="text-4xl sm:text-6xl lg:text-8xl">
+            <AnimatedText text="Aiz's Balatro Mod" animation="1" />
+        </h1>
+        <ModInfo />
         <CardList />
     </main>
 </Layout>

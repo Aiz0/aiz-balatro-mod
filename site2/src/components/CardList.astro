@@ -4,12 +4,16 @@ import Card from "./Card.astro";
 import CardInfo from "./CardInfo.astro";
 import jokers from "../data/jokers.ts";
 import { colors } from "../theme";
+import AnimatedText from "./AnimatedText.astro";
 ---
 
 <PixelBorderWrapper
     borderColor={colors.balatro.grey.DEFAULT}
     classNameInner="bg-balatro-black-light p-4 grid justify-center"
 >
+    <h2 class="text-6xl text-center pb-4">
+        <AnimatedText text="Jokers" animation="2" />
+    </h2>
     <PixelBorderWrapper
         borderColor={colors.balatro.black.DEFAULT}
         classNameInner="bg-balatro-black"
