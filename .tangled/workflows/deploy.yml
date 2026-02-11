@@ -1,0 +1,51 @@
+# mostly copied from wisp.place
+when:
+  - event: ["push"]
+    branch: ["main"]
+  - event: ["manual"]
+
+engine: "nixery"
+
+clone:
+  skip: false
+  depth: 1
+  submodules: false
+
+dependencies:
+  nixpkgs:
+    - nodejs
+    - coreutils
+    - curl
+    - pnpm
+    - gnused
+
+environment:
+  SITE_PATH: "dist"
+  SITE_NAME: "balatro"
+  WISP_HANDLE: "aiz.moe"
+
+steps:
+  - name: build site
+    command: |
+      cd site
+      # necessary to ensure pnpm is in PATH
+      export PATH="$HOME/.nix-profile/bin:$PATH"
+      
+      pnpm install --frozen-lockfile
+
+      # build with astro, run directly to get around env issues
+      pnpm node_modules/.bin/astro build
+
+  - name: deploy to wisp
+    command: |
+      # Download Wisp CLI
+      curl https://sites.wisp.place/nekomimi.pet/wisp-cli-binaries/wisp-cli-x86_64-linux -o wisp-cli
+      chmod +x wisp-cli
+
+      # Deploy to Wisp
+      ./wisp-cli deploy \
+        "$WISP_HANDLE" \
+        --path "$SITE_PATH" \
+        --site "$SITE_NAME" \
+        --password "$WISP_APP_PASSWORD"
+
