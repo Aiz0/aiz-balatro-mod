@@ -6,6 +6,6 @@
     "format-all": "stylua ."
   },
   "devDependencies": {
-    "@johnnymorganz/stylua-bin": "^2.1.0"
+    "@johnnymorganz/stylua-bin": "^2.3.1"
   }
 }
