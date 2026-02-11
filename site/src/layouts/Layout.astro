@@ -1,112 +1,74 @@
 ---
 interface Props {
-  title: string;
+    title: string;
 }
 
 const { title } = Astro.props;
-
-import fragment from "../glsl/balatro.frag";
 ---
 
-<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="description" content="A Joker mod for Balatro" />
-    <meta name="viewport" content="width=device-width" />
-    <link rel="icon" href="/favicon.png" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{title}</title>
-
-    <script src="libraries/shader-web-background.min.js" is:inline></script>
-    <script
-      id="balatro"
-      type="x-shader/x-fragment"
-      is:inline
-      set:html={fragment}
-    />
-  </head>
-  <body>
-    <script is:inline>
-      let t = 0;
-      requestAnimationFrame(function update() {
-        t += 1 / 120;
-        requestAnimationFrame(update);
-      });
-      shaderWebBackground.shade({
-        shaders: {
-          balatro: {
-            uniforms: {
-              iResolution: (gl, loc, ctx) =>
-                gl.uniform2f(loc, ctx.width, ctx.height),
-              iTime: (gl, loc, ctx) => gl.uniform1f(loc, t),
-            },
-          },
-        },
-      });
-    </script>
-    <slot />
-  </body>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" href="/favicon.png" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <body class="text-white">
+        <canvas class="fixed -z-50"></canvas>
+        <slot />
+    </body>
 </html>
+<script>
+    import * as THREE from "three";
+    import shader from "@assets/shader.frag?raw";
 
+    const canvas = document.querySelector("canvas")!;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+    const renderer = new THREE.WebGLRenderer({ canvas });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+    const uniforms = {
+        iTime: { value: 0 },
+        iResolution: { value: new THREE.Vector2() },
+    };
+
+    const geometry = new THREE.PlaneGeometry(2, 2);
+    const material = new THREE.ShaderMaterial({
+        uniforms: uniforms,
+        fragmentShader: shader,
+        vertexShader: `
+        void main() {
+            gl_Position = vec4(position, 1.0);
+        }`,
+    });
+
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+
+    function updateResolution() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        renderer.setSize(width, height);
+        uniforms.iResolution.value.set(width, height);
+    }
+    window.addEventListener("resize", updateResolution);
+    updateResolution();
+
+    const clock = new THREE.Clock();
+    function animate() {
+        uniforms.iTime.value = clock.getElapsedTime();
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+</script>
 <style is:global>
-  @tailwind components;
-
-  @font-face {
-    font-family: "m6x11plus";
-    src: url(/fonts/m6x11plus.ttf) format("truetype");
-  }
-  :root {
-    @apply bg-slate-700;
-  }
-  @layer components {
-    .render-pixelated {
-      image-rendering: pixelated;
+    @font-face {
+        font-family: "m6x11plus";
+        src: url(/fonts/m6x11plus.ttf) format("truetype");
     }
-
-    .text-shadow {
-      text-shadow: 0 0.1rem 0 rgba(0, 0, 0, 0.25);
-    }
-    .text-shadow-lg {
-      text-shadow: 0 0.25rem 0 rgba(0, 0, 0, 0.25);
-    }
-    .text-shadow-xl {
-      text-shadow: 0 0.375rem 0 rgba(0, 0, 0, 0.25);
-    }
-    .text-shadow-2xl {
-      text-shadow: 0 0.5rem 0 rgba(0, 0, 0, 0.25);
-    }
-    .pixel-corners {
-      clip-path: polygon(
-        0px calc(100% - 8px),
-        2px calc(100% - 8px),
-        2px calc(100% - 4px),
-        4px calc(100% - 4px),
-        4px calc(100% - 2px),
-        8px calc(100% - 2px),
-        8px 100%,
-        calc(100% - 8px) 100%,
-        calc(100% - 8px) calc(100% - 2px),
-        calc(100% - 4px) calc(100% - 2px),
-        calc(100% - 4px) calc(100% - 4px),
-        calc(100% - 2px) calc(100% - 4px),
-        calc(100% - 2px) calc(100% - 8px),
-        100% calc(100% - 8px),
-        100% 8px,
-        calc(100% - 2px) 8px,
-        calc(100% - 2px) 4px,
-        calc(100% - 4px) 4px,
-        calc(100% - 4px) 2px,
-        calc(100% - 8px) 2px,
-        calc(100% - 8px) 0px,
-        8px 0px,
-        8px 2px,
-        4px 2px,
-        4px 4px,
-        2px 4px,
-        2px 8px,
-        0px 8px
-      );
-    }
-  }
 </style>

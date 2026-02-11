@@ -1,9 +1,6 @@
 import { defineConfig } from "astro/config";
+import UnoCSS from "unocss/astro";
 
-import tailwind from "@astrojs/tailwind";
-
-// https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind()],
-  site: "https://balatro.aiz.moe",
+  integrations: [UnoCSS()],
 });
