@@ -20,7 +20,7 @@ dependencies:
     - gnused
 
 environment:
-  SITE_PATH: "dist"
+  SITE_PATH: "site/dist"
   SITE_NAME: "balatro"
   WISP_HANDLE: "aiz.moe"
 
