@@ -1,59 +1,59 @@
 ---
 interface Props {
-    classNameOuter?: string;
-    classNameInner: string;
-    borderColor?: string;
+  classNameOuter?: string;
+  classNameInner: string;
+  borderColor?: string;
 }
 const {
-    classNameOuter,
-    classNameInner,
-    borderColor = "transparent",
+  classNameOuter,
+  classNameInner,
+  borderColor = "transparent",
 } = Astro.props;
 
 const pixelShadowColor = `oklch(from ${borderColor} calc(l - 0.2) c h)`;
 ---
 
 <div class="drop-shadow-[0_0.25rem_0] drop-shadow-color-[--pixelShadowColor]">
-    <div
-        class={`pixel-corners border-4 border-transparent bg-[--borderColor] ${classNameOuter}`}
-    >
-        <div class={`pixel-corners ${classNameInner}`}>
-            <slot />
-        </div>
+  <div
+    class={`pixel-corners border-4 border-transparent bg-[--borderColor] ${classNameOuter}`}
+  >
+    <div class={`pixel-corners ${classNameInner}`}>
+      <slot />
     </div>
+  </div>
 </div>
 
 <style define:vars={{ borderColor, pixelShadowColor }}>
-    .pixel-corners {
-        clip-path: polygon(
-            0px calc(100% - 8px),
-            2px calc(100% - 8px),
-            2px calc(100% - 4px),
-            4px calc(100% - 4px),
-            4px calc(100% - 2px),
-            8px calc(100% - 2px),
-            8px 100%,
-            calc(100% - 8px) 100%,
-            calc(100% - 8px) calc(100% - 2px),
-            calc(100% - 4px) calc(100% - 2px),
-            calc(100% - 4px) calc(100% - 4px),
-            calc(100% - 2px) calc(100% - 4px),
-            calc(100% - 2px) calc(100% - 8px),
-            100% calc(100% - 8px),
-            100% 8px,
-            calc(100% - 2px) 8px,
-            calc(100% - 2px) 4px,
-            calc(100% - 4px) 4px,
-            calc(100% - 4px) 2px,
-            calc(100% - 8px) 2px,
-            calc(100% - 8px) 0px,
-            8px 0px,
-            8px 2px,
-            4px 2px,
-            4px 4px,
-            2px 4px,
-            2px 8px,
-            0px 8px
-        );
-    }
+  .pixel-corners {
+    clip-path: polygon(
+      0px calc(100% - 8px),
+      2px calc(100% - 8px),
+      2px calc(100% - 4px),
+      4px calc(100% - 4px),
+      4px calc(100% - 2px),
+      8px calc(100% - 2px),
+      8px 100%,
+      calc(100% - 8px) 100%,
+      calc(100% - 8px) calc(100% - 2px),
+      calc(100% - 4px) calc(100% - 2px),
+      calc(100% - 4px) calc(100% - 4px),
+      calc(100% - 2px) calc(100% - 4px),
+      calc(100% - 2px) calc(100% - 8px),
+      100% calc(100% - 8px),
+      100% 8px,
+      calc(100% - 2px) 8px,
+      calc(100% - 2px) 4px,
+      calc(100% - 4px) 4px,
+      calc(100% - 4px) 2px,
+      calc(100% - 8px) 2px,
+      calc(100% - 8px) 0px,
+      8px 0px,
+      8px 2px,
+      4px 2px,
+      4px 4px,
+      2px 4px,
+      2px 8px,
+      0px 8px
+    );
+  }
 </style>

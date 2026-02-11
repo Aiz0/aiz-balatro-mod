@@ -8,34 +8,32 @@ import AnimatedText from "./AnimatedText.astro";
 ---
 
 <PixelBorderWrapper
-    borderColor={colors.balatro.grey.DEFAULT}
-    classNameInner="bg-balatro-black-light p-4 grid justify-center"
+  borderColor={colors.balatro.grey.DEFAULT}
+  classNameInner="bg-balatro-black-light p-4 grid justify-center"
 >
-    <h2 class="text-6xl text-center pb-4">
-        <AnimatedText text="Jokers" animation="2" />
-    </h2>
-    <PixelBorderWrapper
-        borderColor={colors.balatro.black.DEFAULT}
-        classNameInner="bg-balatro-black"
+  <h2 class="text-6xl text-center pb-4">
+    <AnimatedText text="Jokers" animation="2" />
+  </h2>
+  <PixelBorderWrapper
+    borderColor={colors.balatro.black.DEFAULT}
+    classNameInner="bg-balatro-black"
+  >
+    <div
+      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
     >
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {
-                jokers.map((joker, index) => (
-                    <Card joker={joker} anchorName={index} />
-                ))
-            }
-        </div>
-    </PixelBorderWrapper>
+      {jokers.map((joker, index) => <Card joker={joker} anchorName={index} />)}
+    </div>
+  </PixelBorderWrapper>
 </PixelBorderWrapper>
 <div class="overflow-hidden h-0 w-0 [position-visibility:anchors-visible]">
-    {
-        jokers.map((joker, index) => (
-            <CardInfo
-                name={joker.name}
-                text={joker.text}
-                badge={joker.badge}
-                anchorName={index}
-            />
-        ))
-    }
+  {
+    jokers.map((joker, index) => (
+      <CardInfo
+        name={joker.name}
+        text={joker.text}
+        badge={joker.badge}
+        anchorName={index}
+      />
+    ))
+  }
 </div>

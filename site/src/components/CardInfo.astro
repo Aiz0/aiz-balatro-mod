@@ -7,36 +7,36 @@ import { type jokerData } from "../data/jokers";
 import { colors } from "../theme";
 
 interface Props {
-    name: jokerData["name"];
-    text: jokerData["text"];
-    badge: jokerData["badge"];
-    anchorName: number;
+  name: jokerData["name"];
+  text: jokerData["text"];
+  badge: jokerData["badge"];
+  anchorName: number;
 }
 const { name, text, badge, anchorName } = Astro.props;
 ---
 
 <div
-    data-card-info={anchorName}
-    class="hidden fixed [position-area:top] [position-try-fallbacks:flip-block] [position-visibility:anchors-visible]"
-    style={`position-anchor: --${anchorName}`}
+  data-card-info={anchorName}
+  class="hidden fixed [position-area:top] [position-try-fallbacks:flip-block] [position-visibility:anchors-visible]"
+  style={`position-anchor: --${anchorName}`}
 >
-    <PixelBorderWrapper
-        borderColor={colors.balatro.grey.DEFAULT}
-        classNameInner="bg-balatro-black-light p-4 grid justify-items-center gap-4 min-w-64"
-    >
-        <AnimatedText text={name} animation="2" class="text-4xl" />
-        <div class="w-full"><InfoText text={text} /></div>
-        <Badge badge={badge} />
-    </PixelBorderWrapper>
+  <PixelBorderWrapper
+    borderColor={colors.balatro.grey.DEFAULT}
+    classNameInner="bg-balatro-black-light p-4 grid justify-items-center gap-4 min-w-64"
+  >
+    <AnimatedText text={name} animation="2" class="text-4xl" />
+    <div class="w-full"><InfoText text={text} /></div>
+    <Badge badge={badge} />
+  </PixelBorderWrapper>
 </div>
 
 <style>
-    [data-selected],
-    [data-hovered] {
-        display: block;
-    }
+  [data-selected],
+  [data-hovered] {
+    display: block;
+  }
 
-    [data-selected="false"] {
-        display: none;
-    }
+  [data-selected="false"] {
+    display: none;
+  }
 </style>

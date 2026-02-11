@@ -4,24 +4,24 @@ import PixelBorderWrapper from "./PixelBorderWrapper.astro";
 import DynamicText from "./DynamicText.astro";
 import { colors } from "../theme";
 interface Props {
-    text: jokerData["text"];
+  text: jokerData["text"];
 }
 
 const { text } = Astro.props;
 ---
 
 <PixelBorderWrapper
-    borderColor={colors.balatro.white}
-    classNameInner="bg-balatro-white p-4 min-h-20 grid content-center"
+  borderColor={colors.balatro.white}
+  classNameInner="bg-balatro-white p-4 min-h-20 grid content-center"
 >
-    <p class="text-center">
-        {
-            text.map((item) => (
-                <>
-                    <DynamicText text={item} />
-                    <br />
-                </>
-            ))
-        }
-    </p>
+  <p class="text-center">
+    {
+      text.map((item) => (
+        <>
+          <DynamicText text={item} />
+          <br />
+        </>
+      ))
+    }
+  </p>
 </PixelBorderWrapper>

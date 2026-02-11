@@ -2,89 +2,89 @@
 import AnimatedText from "./AnimatedText.astro";
 
 interface Props {
-    text: string;
+  text: string;
 }
 const { text } = Astro.props;
 
 const colorMap = new Map([
-    ["white", "text-balatro-white"],
-    ["red", "text-balatro-red"],
-    ["mult", "text-balatro-mult"],
-    ["chips", "text-balatro-chips"],
-    ["money", "text-balatro-money"],
-    ["green", "text-balatro-green"],
-    ["attention", "text-balatro-attention"],
-    ["dark_edition", "text-balatro-dark-edition"],
-    ["inactive", "text-balatro-inactive"],
+  ["white", "text-balatro-white"],
+  ["red", "text-balatro-red"],
+  ["mult", "text-balatro-mult"],
+  ["chips", "text-balatro-chips"],
+  ["money", "text-balatro-money"],
+  ["green", "text-balatro-green"],
+  ["attention", "text-balatro-attention"],
+  ["dark_edition", "text-balatro-dark-edition"],
+  ["inactive", "text-balatro-inactive"],
 ]);
 
 const backgroundMap = new Map([
-    ["mult", "bg-balatro-mult"],
-    ["chips", "bg-balatro-chips"],
-    ["money", "bg-balatro-money"],
-    ["green", "bg-balatro-green"],
-    ["attention", "bg-balatro-attention"],
-    ["dark_edition", "bg-balatro-dark-edition"],
-    ["inactive", "bg-balatro-inactive"],
+  ["mult", "bg-balatro-mult"],
+  ["chips", "bg-balatro-chips"],
+  ["money", "bg-balatro-money"],
+  ["green", "bg-balatro-green"],
+  ["attention", "bg-balatro-attention"],
+  ["dark_edition", "bg-balatro-dark-edition"],
+  ["inactive", "bg-balatro-inactive"],
 ]);
 const classesFromModifiers = (key: string, val: string) => {
-    if (key == "C") {
-        return colorMap.get(val) ?? "";
-    } else if (key == "X") {
-        return backgroundMap.get(val) ?? "";
-    }
+  if (key == "C") {
+    return colorMap.get(val) ?? "";
+  } else if (key == "X") {
+    return backgroundMap.get(val) ?? "";
+  }
 };
 const parseText = (input: string) => {
-    const regex = /(\{[^}]*\})|([^{}]+)/g;
-    const segments = [];
-    let currentModifiers: { [key: string]: string } = {};
+  const regex = /(\{[^}]*\})|([^{}]+)/g;
+  const segments = [];
+  let currentModifiers: { [key: string]: string } = {};
 
-    for (const match of input.matchAll(regex)) {
-        const fullTag = match[1];
-        const textSegment = match[2];
+  for (const match of input.matchAll(regex)) {
+    const fullTag = match[1];
+    const textSegment = match[2];
 
-        if (fullTag) {
-            const content = fullTag.slice(1, -1);
-            if (content == "") {
-                currentModifiers = {};
-                continue;
-            }
-            const pairs = content.split(",");
-            currentModifiers = Object.fromEntries(
-                pairs.map((pair) => pair.split(":")),
-            );
-        } else if (textSegment) {
-            const classes = Object.entries(currentModifiers)
-                .map(([key, val]) => classesFromModifiers(key, val))
-                .join(" ");
-            segments.push({
-                text: textSegment,
-                modifiers: { ...currentModifiers },
-                classes,
-            });
-        }
+    if (fullTag) {
+      const content = fullTag.slice(1, -1);
+      if (content == "") {
+        currentModifiers = {};
+        continue;
+      }
+      const pairs = content.split(",");
+      currentModifiers = Object.fromEntries(
+        pairs.map((pair) => pair.split(":")),
+      );
+    } else if (textSegment) {
+      const classes = Object.entries(currentModifiers)
+        .map(([key, val]) => classesFromModifiers(key, val))
+        .join(" ");
+      segments.push({
+        text: textSegment,
+        modifiers: { ...currentModifiers },
+        classes,
+      });
     }
-    return segments;
+  }
+  return segments;
 };
 const parsedText = parseText(text);
 ---
 
 <span class="text-balatro-black text-2xl whitespace-nowrap">
-    {
-        parsedText.map((segment) =>
-            segment.modifiers.E ? (
-                <AnimatedText
-                    class={segment.classes}
-                    text={segment.text}
-                    animation={segment.modifiers.E as "1" | "2"}
-                    shadow={false}
-                />
-            ) : (
-                <span
-                    class={`rounded-md px-1 mx--1 ${segment.classes}`}
-                    set:text={segment.text}
-                />
-            ),
-        )
-    }
+  {
+    parsedText.map((segment) =>
+      segment.modifiers.E ? (
+        <AnimatedText
+          class={segment.classes}
+          text={segment.text}
+          animation={segment.modifiers.E as "1" | "2"}
+          shadow={false}
+        />
+      ) : (
+        <span
+          class={`rounded-md px-1 mx--1 ${segment.classes}`}
+          set:text={segment.text}
+        />
+      ),
+    )
+  }
 </span>

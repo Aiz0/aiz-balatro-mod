@@ -3,94 +3,92 @@ import { Image } from "astro:assets";
 import { type jokerData } from "../data/jokers";
 
 interface Props {
-    joker: jokerData;
-    anchorName: number;
+  joker: jokerData;
+  anchorName: number;
 }
 const { joker, anchorName } = Astro.props;
 
 const base_path = "/src/assets/jokers";
 const images = import.meta.glob<{ default: ImageMetadata }>(
-    `/src/assets/jokers/*.png`,
+  `/src/assets/jokers/*.png`,
 );
 const image_path = `${base_path}/${joker.image}.png`;
 if (!images[image_path])
-    throw new Error(
-        `"${image_path}" does not exist in glob: "${base_path}/*.png"`,
-    );
+  throw new Error(
+    `"${image_path}" does not exist in glob: "${base_path}/*.png"`,
+  );
 ---
 
 <button
-    data-card
-    data-anchor-name={anchorName}
-    class="grid *:grid-area-[1/1] w-36 lg:w-48 aspect-ratio-[142/190] balatro-shadow"
-    style={`anchor-name: --${anchorName}`}
+  data-card
+  data-anchor-name={anchorName}
+  class="grid *:grid-area-[1/1] w-36 lg:w-48 aspect-ratio-[142/190] balatro-shadow"
+  style={`anchor-name: --${anchorName}`}
 >
-    <Image
+  <Image
+    src={image_path}
+    alt={joker.name}
+    class="image-render-pixel object-cover object-left h-full w-full"
+    width={142}
+    height={190}
+    fit="cover"
+  />
+  {
+    joker.soul && (
+      <Image
+        data-soul
         src={image_path}
         alt={joker.name}
-        class="image-render-pixel object-cover object-left h-full w-full"
+        class="image-render-pixel h-full w-full object-cover object-right balatro-shadow"
         width={142}
         height={190}
         fit="cover"
-    />
-    {
-        joker.soul && (
-            <Image
-                data-soul
-                src={image_path}
-                alt={joker.name}
-                class="image-render-pixel h-full w-full object-cover object-right balatro-shadow"
-                width={142}
-                height={190}
-                fit="cover"
-            />
-        )
-    }
+      />
+    )
+  }
 </button>
 
 <script>
-    const cardButtons = document.querySelectorAll("[data-card]");
-    const cardInfos = document.querySelectorAll("[data-card-info]");
-    cardButtons.forEach((button) => {
-        const anchorName = button.getAttribute("data-anchor-name");
-        const cardInfo = document.querySelector(
-            `[data-card-info="${anchorName}"]`,
-        );
-        if (!cardInfo) return;
+  const cardButtons = document.querySelectorAll("[data-card]");
+  const cardInfos = document.querySelectorAll("[data-card-info]");
+  cardButtons.forEach((button) => {
+    const anchorName = button.getAttribute("data-anchor-name");
+    const cardInfo = document.querySelector(`[data-card-info="${anchorName}"]`);
+    if (!cardInfo) return;
 
-        const showCardInfo = () => {
-            // Prevent multiple cards from being selected at once
-            cardInfos.forEach((info) => {
-                info.removeAttribute("data-selected");
-            });
-            cardInfo.setAttribute("data-selected", "");
-        };
+    const showCardInfo = () => {
+      // Prevent multiple cards from being selected at once
+      cardInfos.forEach((info) => {
+        info.removeAttribute("data-selected");
+      });
+      cardInfo.setAttribute("data-selected", "");
+    };
 
-        button.addEventListener("click", showCardInfo);
-        button.addEventListener("focus", showCardInfo);
-        button.addEventListener("mouseover", showCardInfo);
+    button.addEventListener("click", showCardInfo);
+    button.addEventListener("focus", showCardInfo);
+    button.addEventListener("mouseover", showCardInfo);
 
-        button.addEventListener("blur", () => {
-            cardInfo.removeAttribute("data-selected");
-        });
-        button.addEventListener("mouseout", () => {
-            cardInfo.removeAttribute("data-selected");
-        });
+    button.addEventListener("blur", () => {
+      cardInfo.removeAttribute("data-selected");
     });
+    button.addEventListener("mouseout", () => {
+      cardInfo.removeAttribute("data-selected");
+    });
+  });
 
-    const soulImages: NodeListOf<HTMLImageElement> =
-        document.querySelectorAll("[data-soul]");
+  const soulImages: NodeListOf<HTMLImageElement> =
+    document.querySelectorAll("[data-soul]");
 
-    function soulAnimation(time: number) {
-        const timeInSeconds = time / 1000;
-        // Copied from balatro
-        const scale_mod = 1.07 + 0.02 * Math.sin(1.8 * timeInSeconds);
-        const rotate_mod = 0.05 * Math.sin(1.219 * timeInSeconds);
+  function soulAnimation(time: number) {
+    const timeInSeconds = time / 1000;
+    // Copied from balatro
+    const scale_mod = 1.07 + 0.02 * Math.sin(1.8 * timeInSeconds);
+    const rotate_mod = 0.05 * Math.sin(1.219 * timeInSeconds);
 
-        soulImages.forEach((image) => {
-            image.style.transform = `scale(${scale_mod}) rotate(${rotate_mod}rad)`;
-        });
-        requestAnimationFrame(soulAnimation);
-    }
+    soulImages.forEach((image) => {
+      image.style.transform = `scale(${scale_mod}) rotate(${rotate_mod}rad)`;
+    });
     requestAnimationFrame(soulAnimation);
+  }
+  requestAnimationFrame(soulAnimation);
 </script>

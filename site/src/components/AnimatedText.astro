@@ -1,78 +1,78 @@
 ---
 interface Props {
-    text: string;
-    animation?: "1" | "2";
-    class?: string;
-    shadow?: boolean;
+  text: string;
+  animation?: "1" | "2";
+  class?: string;
+  shadow?: boolean;
 }
 const { text, animation = "1", class: className, shadow = true } = Astro.props;
 ---
 
 <span class={`${className ?? ""}`}>
-    <span class:list={[{ absolute: shadow }]}>
-        {
-            text
-                .split("")
-                .map((char, index) => (
-                    <span
-                        class:list={[
-                            `text-animation-${animation}`,
-                            { "inline-block": char !== " " },
-                        ]}
-                        style={`--index: ${index}`}
-                        data-text={char}
-                        set:text={char}
-                    />
-                ))
-        }
-    </span>
+  <span class:list={[{ absolute: shadow }]}>
     {
-        /* Used as Text shadow */
-        shadow && (
-            <span
-                aria-hidden
-                class="text-black/20 relative top-[0.075em] z--1 break-all"
-                class:list={[{ "left-[0.075em]": animation === "2" }]}
-                set:text={text}
-            />
-        )
+      text
+        .split("")
+        .map((char, index) => (
+          <span
+            class:list={[
+              `text-animation-${animation}`,
+              { "inline-block": char !== " " },
+            ]}
+            style={`--index: ${index}`}
+            data-text={char}
+            set:text={char}
+          />
+        ))
     }
+  </span>
+  {
+    /* Used as Text shadow */
+    shadow && (
+      <span
+        aria-hidden
+        class="text-black/20 relative top-[0.075em] z--1 break-all"
+        class:list={[{ "left-[0.075em]": animation === "2" }]}
+        set:text={text}
+      />
+    )
+  }
 </span>
 
 <style>
-    .text-animation-1 {
-        --animation-duration: 2400ms;
+  .text-animation-1 {
+    --animation-duration: 2400ms;
 
-        animation: floating var(--animation-duration) ease-in-out infinite;
-    }
-    .text-animation-2 {
-        --animation-duration: 2400ms;
-        animation: bouncing var(--animation-duration) ease-in-out infinite;
-    }
-    .text-animation-1,
-    .text-animation-2 {
-        --offset-max: 6;
-        --animation-offset: calc(var(--animation-duration) / var(--offset-max));
-        --offset-index: mod(var(--index), var(--offset-max));
-        --offset-total: calc(var(--offset-index) * var(--animation-offset));
-        animation-delay: calc(var(--offset-total) - var(--animation-duration));
-    }
+    animation: floating var(--animation-duration) ease-in-out infinite;
+  }
+  .text-animation-2 {
+    --animation-duration: 2400ms;
+    animation: bouncing var(--animation-duration) ease-in-out infinite;
+  }
+  .text-animation-1,
+  .text-animation-2 {
+    --offset-max: 6;
+    --animation-offset: calc(var(--animation-duration) / var(--offset-max));
+    --offset-index: mod(var(--index), var(--offset-max));
+    --offset-total: calc(var(--offset-index) * var(--animation-offset));
+    animation-delay: calc(var(--offset-total) - var(--animation-duration));
+  }
 
-    @keyframes floating {
-        0%,
-        100% {
-            transform: translateY(0);
-        }
-        50% {
-            transform: translateY(-0.075em);
-        }
+  @keyframes floating {
+    0%,
+    100% {
+      transform: translateY(0);
     }
-    @keyframes bouncing {
-        15% {
-            transform: translateY(-0.075em);
-        }
-        30% {
-            transform: translateY(0);
-        }
+    50% {
+      transform: translateY(-0.075em);
     }
+  }
+  @keyframes bouncing {
+    15% {
+      transform: translateY(-0.075em);
+    }
+    30% {
+      transform: translateY(0);
+    }
+  }
 </style>

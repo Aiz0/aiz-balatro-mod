@@ -48,4 +48,3 @@ steps:
         --path "$SITE_PATH" \
         --site "$SITE_NAME" \
         --password "$WISP_APP_PASSWORD"
-
