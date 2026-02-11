@@ -34,7 +34,7 @@ const jokers: jokerData[] = [
     name: "Blåhaj",
     text: ["{C:dark_edition}+1{} Joker slots"],
     badge: "Common",
-    image: "j_s_blåhaj",
+    image: "j_s_blahaj",
     soul: true,
   },
   {
