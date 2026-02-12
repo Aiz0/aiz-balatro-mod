@@ -1,4 +1,4 @@
-precision mediump float;
+precision highp float;
 #define SPIN_EASE 0.8
 #define spin_time 5.
 #define spin_amount 0.3
