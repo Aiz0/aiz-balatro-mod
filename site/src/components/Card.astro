@@ -29,7 +29,8 @@ if (!images[image_path])
     src={images[image_path]()}
     alt={joker.name}
     class="image-render-pixel object-cover object-left h-full w-full"
-    fit="cover"
+    quality={100}
+    format="avif"
   />
   {
     joker.soul && (
@@ -38,7 +39,8 @@ if (!images[image_path])
         src={images[image_path]()}
         alt={joker.name}
         class="image-render-pixel h-full w-full object-cover object-right balatro-shadow"
-        fit="cover"
+        quality={100}
+        format="avif"
       />
     )
   }
