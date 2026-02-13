@@ -4,8 +4,10 @@ SMODS.Joker({
     key = "chess_pawn",
     config = {
         extra = {
-            rank = 7,
+            rank = 2,
             promotion_rank = 8,
+            move = 1,
+            first_move = 2,
         },
     },
     atlas = "jokers",
@@ -35,12 +37,17 @@ SMODS.Joker({
                 and not context.blueprint
             ) or context.skip_blind
         then
-            -- This should simulate advancing 2 ranks on first move
-            card.ability.extra.rank = card.ability.extra.rank
-                + ((card.ability.extra.rank == 2) and 2 or 1)
-            if card.ability.extra.rank < card.ability.extra.promotion_rank then
-                return { message = localize("k_aiz_advance") }
-            else
+            local move = (card.ability.extra.rank == 2) and "first_move" or "move"
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "rank",
+                scalar_value = move,
+                scaling_message = {
+                    message = localize("k_aiz_advance")
+                }
+            })
+
+            if card.ability.extra.rank >= card.ability.extra.promotion_rank then
                 return {
                     message = localize("k_aiz_promoted"),
                     func = function()
