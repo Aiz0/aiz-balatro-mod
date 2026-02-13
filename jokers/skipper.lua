@@ -30,24 +30,32 @@ SMODS.Joker({
             and not context.repetition
             and not context.blueprint
         then
+            local scaling = {
+                scalar_value,
+                operation,
+            }
             if G.GAME.blind.boss then
-                card.ability.extra.xmult = card.ability.extra.xmult
-                    + card.ability.extra.xmult_gain
+                scaling.scalar_value = "xmult_gain"
+                scaling.operation = "+"
             else
-                card.ability.extra.xmult = card.ability.extra.xmult
-                    - card.ability.extra.xmult_loss
-                if card.ability.extra.xmult < 1 then
-                    card.ability.extra.xmult = 1
+                scaling.scalar_value = "xmult_loss"
+                scaling.operation = function(ref_table, ref_value, initial, change)
+                    local new_value = initial - change
+                    if new_value < 1 then
+                        new_value = 1
+                    end
+                    ref_table[ref_value] = new_value
                 end
             end
-            return {
-                message = localize({
-                    type = "variable",
-                    key = "a_xmult",
-                    vars = { card.ability.extra.xmult },
-                }),
-                colour = G.C.MULT,
-            }
+
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "xmult",
+                scalar_value = scaling.scalar_value,
+                operation = scaling.operation,
+                message_key = "a_xmult",
+                message_colour = G.C.MULT
+            })
         end
         if context.joker_main then
             return { xmult = card.ability.extra.xmult }
