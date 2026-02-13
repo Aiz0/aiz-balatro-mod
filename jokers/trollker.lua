@@ -37,10 +37,11 @@ SMODS.Joker({
             end
             -- needs to be reset manually
             card.ability.extra.blocking.positions = {}
-
-            card.ability.extra.xmult = card.ability.extra.xmult
-                + card.ability.extra.xmult_mod
-            return { message = localize("k_upgrade_ex") }
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "xmult",
+                scalar_value = "xmult_mod",
+            })
         end
 
         -- Give xmult when scored
