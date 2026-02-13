@@ -19,7 +19,6 @@ SMODS.Joker({
         -- Basically Riff-Raff for pawns
         if
             context.setting_blind
-            and not context.blueprint
             and not card.getting_sliced
             and #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit
             and not next(SMODS.find_card(card.ability.extra.pawn_key))
