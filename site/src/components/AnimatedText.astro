@@ -20,7 +20,6 @@ const { text, animation = "1", class: className, shadow = true } = Astro.props;
               { "inline-block": char !== " " },
             ]}
             style={`--index: ${index}`}
-            data-text={char}
             set:text={char}
           />
         ))
