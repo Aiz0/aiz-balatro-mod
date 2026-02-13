@@ -60,7 +60,8 @@ SMODS.Joker({
                 operation = function(ref_table, ref_value, initial, change)
                     ref_table[ref_value] = initial + cards_destroyed * change
                 end,
-                message_key = "a_xmult"
+                message_key = "a_xmult",
+                message_colour = G.C.MULT,
             })
 
         end
