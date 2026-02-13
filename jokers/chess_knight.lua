@@ -101,7 +101,7 @@ SMODS.Joker({
                 card.ability.extra.mult = card.ability.extra.mult
                     + card.ability.extra.mult_mod * #converted_cards
                 return {
-                    message = localize("k_aiz_converted")
+                    message = localize("k_aiz_converted"),
                 }
             end
         end

@@ -25,10 +25,7 @@ SMODS.Joker({
     end,
 
     calculate = function(self, card, context)
-        if
-            context.other_joker
-            and context.other_joker ~= card
-        then
+        if context.other_joker and context.other_joker ~= card then
             local is_kiki =
                 Aiz.config.is_kiki[context.other_joker.config.center_key]
             if is_kiki ~= nil then
