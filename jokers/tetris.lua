@@ -33,8 +33,12 @@ SMODS.Joker({
                 }
             else
                 card.ability.extra.played_hands[context.scoring_name] = true
-                card.ability.extra.xmult = card.ability.extra.xmult
-                    + card.ability.extra.xmult_mod
+                SMODS.scale_card(card, {
+                    ref_table = card.ability.extra,
+                    ref_value = "xmult",
+                    scalar_value = "xmult_mod",
+                    no_message = true,
+                })
             end
         end
         if context.joker_main then
