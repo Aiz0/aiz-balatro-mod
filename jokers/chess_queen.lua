@@ -43,24 +43,26 @@ SMODS.Joker({
                 end
             end
 
-            -- keep track of xmult
-            local mult_mod = 0
+            -- keep track of cards destroyed
+            local cards_destroyed = 0
             for i, playing_card in ipairs(G.playing_cards) do
                 if playing_card:get_id() == min then
-                    mult_mod = mult_mod + card.ability.extra.xmult_mod
+                    cards_destroyed = cards_destroyed + 1
                     -- Destroy card
                     playing_card:start_dissolve(nil, i ~= 1)
                 end
             end
-            -- Add xmult to card and display it
-            card.ability.extra.xmult = card.ability.extra.xmult + mult_mod
-            return {
-                message = localize({
-                    type = "variable",
-                    key = "a_xmult",
-                    vars = { card.ability.extra.xmult },
-                }),
-            }
+            -- Add xmult to card via scale function
+            SMODS.scale_card(card, {
+                ref_table = card.ability.extra,
+                ref_value = "xmult",
+                scalar_value = "xmult_mod",
+                operation = function(ref_table, ref_value, initial, change)
+                    ref_table[ref_value] = initial + cards_destroyed * change
+                end,
+                message_key = "a_xmult"
+            })
+
         end
         if context.joker_main and card.ability.extra.xmult > 1 then
             return { xmult = card.ability.extra.xmult }
