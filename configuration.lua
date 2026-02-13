@@ -27,7 +27,7 @@ Aiz.config = {
         ultimate_gamer = true,
         battle_pass = true,
         chess_pawn_storm = true,
-        --schmeven = true,
+        schmeven = false,
         factory_triangle_maker = true,
     },
 
