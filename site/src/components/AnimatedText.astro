@@ -31,7 +31,7 @@ const { text, animation = "1", class: className, shadow = true } = Astro.props;
     shadow && (
       <span
         aria-hidden="true"
-        class="text-black/20 relative top-[0.075em] z--1 break-all"
+        class="text-black/20 relative top-[0.075em] z--1 break-all select-none"
         class:list={[{ "left-[0.075em]": animation === "2" }]}
         set:text={text}
       />
