@@ -31,17 +31,11 @@ SMODS.Joker({
                 return G.GAME.hands[a].played < G.GAME.hands[b].played
             end)
 
-            for i, hand in ipairs(hands) do
-                if i > card.ability.extra.amount then
-                    break
-                end
-                SMODS.smart_level_up_hand(
-                    card,
-                    hand,
-                    false,
-                    card.ability.extra.levels
-                )
-            end
+            SMODS.upgrade_poker_hands({
+                hands = { unpack(hands, 1, card.ability.extra.amount) },
+                level_up = card.ability.extra.levels,
+                from = card,
+            })
         end
     end,
 })
