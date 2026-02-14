@@ -176,7 +176,7 @@ const jokers: jokerData[] = [
       "Cards are scored",
       "in a {C:green,E:2}random{} order",
       "Retrigger {C:attention}fifth{} played card",
-      "scored {C:attention}#1#{} additional times",
+      "scored {C:attention}4{} additional times",
     ],
     badge: "Common",
     image: "j_randomizer",
