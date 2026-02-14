@@ -44,7 +44,7 @@ return {
                 },
             },
             j_aiz_hand_size = {
-                name = "Too Much To Handle",
+                name = "Mario, Go Fish!",
                 text = {
                     "When blind is selected",
                     "set a random hand size",

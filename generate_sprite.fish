@@ -2,7 +2,7 @@
 set script_dir (status dirname)
 set atlas_dir $script_dir/assets/2x
 set tmp_dir /tmp/balatro-textures
-set texture_dir $script_dir/site/src/assets
+set texture_dir $script_dir/site/src/assets/jokers
 
 mkdir $tmp_dir
 # make 2x pngs from aseprite files
