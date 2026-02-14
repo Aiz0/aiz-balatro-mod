@@ -63,7 +63,6 @@ SMODS.Joker({
                 message_key = "a_xmult",
                 message_colour = G.C.MULT,
             })
-
         end
         if context.joker_main and card.ability.extra.xmult > 1 then
             return { xmult = card.ability.extra.xmult }

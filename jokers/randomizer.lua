@@ -1,7 +1,7 @@
 SMODS.Joker({
     key = "randomizer",
     config = {
-        extra = { chips = 20 },
+        extra = { repetitions = 4, scored_cards = 0 },
     },
     atlas = "jokers",
     pos = { y = 2, x = 1 },
@@ -10,12 +10,22 @@ SMODS.Joker({
     blueprint_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.chips } }
+        return { vars = { card.ability.extra.repetitions } }
     end,
 
     calculate = function(self, card, context)
-        if context.individual and context.cardarea == G.play then
-            return { chips = card.ability.extra.chips }
+        if context.before then
+            card.ability.extra.scored_cards = 0
+        end
+        if context.repetition and context.cardarea == G.play then
+            card.ability.extra.scored_cards = card.ability.extra.scored_cards
+                + 1
+            if card.ability.extra.scored_cards == 5 then
+                card.ability.extra.scored_cards = 0
+                return {
+                    repetitions = card.ability.extra.repetitions,
+                }
+            end
         end
     end,
 })

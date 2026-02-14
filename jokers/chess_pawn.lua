@@ -37,14 +37,15 @@ SMODS.Joker({
                 and not context.blueprint
             ) or context.skip_blind
         then
-            local move = (card.ability.extra.rank == 2) and "first_move" or "move"
+            local move = (card.ability.extra.rank == 2) and "first_move"
+                or "move"
             SMODS.scale_card(card, {
                 ref_table = card.ability.extra,
                 ref_value = "rank",
                 scalar_value = move,
                 scaling_message = {
-                    message = localize("k_aiz_advance")
-                }
+                    message = localize("k_aiz_advance"),
+                },
             })
 
             if card.ability.extra.rank >= card.ability.extra.promotion_rank then

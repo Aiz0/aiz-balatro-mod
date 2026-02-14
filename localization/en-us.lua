@@ -154,9 +154,8 @@ return {
                 text = {
                     "Cards are scored",
                     "in a {C:green,E:2}random{} order",
-                    "Played cards give",
-                    "{C:chips}+#1#{} chips",
-                    "when scored",
+                    "Retrigger {C:attention}fifth{} played card",
+                    "scored {C:attention}#1#{} additional times",
                 },
             },
             j_aiz_tinkerer = {

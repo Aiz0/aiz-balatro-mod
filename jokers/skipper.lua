@@ -39,7 +39,12 @@ SMODS.Joker({
                 scaling.operation = "+"
             else
                 scaling.scalar_value = "xmult_loss"
-                scaling.operation = function(ref_table, ref_value, initial, change)
+                scaling.operation = function(
+                    ref_table,
+                    ref_value,
+                    initial,
+                    change
+                )
                     local new_value = initial - change
                     if new_value < 1 then
                         new_value = 1
@@ -54,7 +59,7 @@ SMODS.Joker({
                 scalar_value = scaling.scalar_value,
                 operation = scaling.operation,
                 message_key = "a_xmult",
-                message_colour = G.C.MULT
+                message_colour = G.C.MULT,
             })
         end
         if context.joker_main then
