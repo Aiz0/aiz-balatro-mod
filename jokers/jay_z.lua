@@ -33,8 +33,13 @@ SMODS.Joker({
             and not context.blueprint
         then
             if
-                pseudorandom(self.key)
-                >= G.GAME.probabilities.normal / card.ability.extra.odds
+                not SMODS.pseudorandom_probability(
+                    card,
+                    self.key,
+                    1,
+                    card.ability.extra.odds,
+                    self.key
+                )
             then
                 -- should halve the sell value if without edition
                 card.base_cost = card.base_cost / 2
